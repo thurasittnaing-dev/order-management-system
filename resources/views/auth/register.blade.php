@@ -40,6 +40,25 @@
                         </div>
 
                         <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required>
+                                    <option value="admin">Admin</option>
+                                    <option value="waiter">Waiter</option>
+                                    <option value="kitchen">Kitchen</option>
+                                    <option value="office">Office</option>
+                                </select>
+
+                                @error('role')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -58,6 +77,49 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
+
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="status" class="col-md-4 col-form-label text-md-end">{{ __('Status') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+
+                                @error('status')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 

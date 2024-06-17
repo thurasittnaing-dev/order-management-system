@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +29,5 @@ Route::get('dashboard', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('user', UserController::class);
