@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderTablesController;
+use App\Models\OrderTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
+
+use App\Http\Controllers\CategoryController;
 
 
 /*
@@ -18,6 +22,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::resource('category', CategoryController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,6 +31,9 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return view('backend.dashboard.main-dashboard');
 });
+
+
+Route::resource('order_tables',OrderTablesController::class);
 
 Auth::routes();
 
