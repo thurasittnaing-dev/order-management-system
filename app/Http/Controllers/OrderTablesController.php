@@ -20,9 +20,10 @@ class OrderTablesController extends Controller
             //search
             $order_tables = $order_tables->where('table_no', 'LIKE', '%' . $request->keyword . '%');
         }
+        $count = $order_tables->count();
         $order_tables = $order_tables->paginate(4);
         $i = (request('page',1)-1)*4;
-        return view ('backend/order_tables.index',compact('order_tables','i'));
+        return view ('backend/order_tables.index',compact('order_tables','i','count'));
     }
     public function create()
     {
