@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\OrderTablesController;
+use App\Models\OrderTables;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +24,9 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return view('backend.dashboard.main-dashboard');
 });
+
+
+Route::resource('order_tables',OrderTablesController::class);
 
 Auth::routes();
 
