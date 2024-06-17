@@ -5,7 +5,7 @@
             <span class="hide-menu text-primary">Main Menus</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="" aria-expanded="false">
+            <a class="sidebar-link" href="#" aria-expanded="false">
                 <span>
                     <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -14,7 +14,7 @@
         </li>
 
         <li class="sidebar-item">
-            <a class="sidebar-link" href="" aria-expanded="false">
+            <a class="sidebar-link" href="{{ route('category.index') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-user"></i>
                 </span>
@@ -23,7 +23,7 @@
         </li>
 
         <li class="sidebar-item">
-            <a class="sidebar-link" href="" aria-expanded="false">
+            <a class="sidebar-link" href="#" aria-expanded="false">
                 <span>
                     <i class="ti ti-user"></i>
                 </span>
