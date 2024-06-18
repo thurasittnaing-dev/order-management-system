@@ -16,38 +16,37 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at', 'asc')->get();
         $users = User::query();
-        if($request->keyword){
-            $users=$users->where('name', 'LIKE', '%' . $request->keyword . '%')
-                        ->orWhere('email', 'LIKE', '%' . $request->keyword . '%');
+        if ($request->keyword) {
+            $users = $users->where('name', 'LIKE', '%' . $request->name . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->name . '%');
         }
         $users = $users->paginate(8);
-        $i=(request('page',1)-1)*8;
+        $i = (request('page', 1) - 1) * 8;
         $totalUsers = User::count();
-        return view('backend.user.index', compact('users','i','totalUsers'));
+        return view('backend.user.index', compact('users', 'i', 'totalUsers'));
     }
 
     // Show the form for creating a new user.
     public function create()
     {
-        $users=User::all();
-        return view('backend.user.create',compact('users'));
+        $users = User::all();
+        return view('backend.user.create', compact('users'));
     }
 
     // Store a newly created user in storage.
     public function store(StoreUserRequest $request)
     {
-        $validated=$request->validated();
-        $user=User::create([
+        $validated = $request->validated();
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'password' => Hash::make($request->password) ,
+            'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'address' => $request->address,
             'status' => $request->status,
         ]);
         return redirect()->route('user.index');
-
     }
 
     // Display the specified user.
@@ -59,8 +58,8 @@ class UserController extends Controller
     // Show the form for editing the specified user.
     public function edit($id)
     {
-        $user=User::find($id);
-        return view('backend.user.edit',compact('user'));
+        $user = User::find($id);
+        return view('backend.user.edit', compact('user'));
     }
 
     // Update the specified user in storage.
@@ -72,7 +71,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'password' => Hash::make($request->password) ,
+            'password' => Hash::make($request->password),
             'phone' => $request->phone,
             'address' => $request->address,
             'status' => $request->status,

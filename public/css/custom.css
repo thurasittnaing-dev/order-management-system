@@ -1,9 +1,57 @@
-.brand-title {
-  font-weight: bold;
-  font-size: 1.5rem;
-  text-align: center;
+:root {
+  --main-theme-color:#F7941D;
 }
+
+.banner-logo {
+  width: 100%;
+  /* height: 4rem; */
+  object-fit: cover;
+  user-select: none;
+
+}
+
+.body-wrapper>.container-fluid, .body-wrapper>.container-lg, .body-wrapper>.container-md, .body-wrapper>.container-sm, .body-wrapper>.container-xl, .body-wrapper>.container-xxl {
+  max-width:90vw;
+  padding: 0 2rem;
+}
+
+.brand-logo {
+  border-bottom: 1.5px solid var(--main-theme-color);
+}
+
+.bg-primary {
+  background-color: var(--main-theme-color)!important;
+}
+
+.nav-small-cap {
+  margin-top: 0.5rem;
+}
+
 #adminimg{
     width: 48px;
     height: auto;
+}
+
+.text-primary {
+  color: var(--main-theme-color)!important;
+}
+
+
+.sidebar-nav ul .sidebar-item.selected>.sidebar-link, .sidebar-nav ul .sidebar-item.selected>.sidebar-link.active, .sidebar-nav ul .sidebar-item>.sidebar-link.active {
+  background-color: var(--main-theme-color)!important;
+}
+
+.active>.page-link, .page-link.active {
+  background-color: var(--main-theme-color)!important;
+  border-color: var(--main-theme-color)!important;
+}
+
+.sidebar-nav ul .sidebar-item .sidebar-link:hover {
+  background-color: #FDEBD0!important;
+  color: #000!important;
+}
+
+.btn-primary {
+  background-color: var(--main-theme-color)!important;
+  border-color: var(--main-theme-color)!important;
 }

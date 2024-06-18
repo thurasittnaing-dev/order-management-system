@@ -8,11 +8,14 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('modernize/assets/css/styles.min.css') }}">
     <style>
-        .login-title {
-            margin: 0.5rem 0 1.5rem 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #5D86FC;
+        .logo {
+            width: 15rem;
+        }
+
+        .btn-primary,
+        .form-check-input:checked {
+            background-color: #F7941D !important;
+            border-color: #F7941D !important;
         }
     </style>
 </head>
@@ -28,7 +31,9 @@
                     <div class="col-md-8 col-lg-6 col-xxl-3">
                         <div class="card mb-0">
                             <div class="card-body">
-                                <div class="login-title text-center">{{ env('APP_NAME') }}</div>
+                                <div class="logo-container d-flex justify-content-center">
+                                    <img src="{{ asset('images/logo.png') }}" alt="logo" class="logo">
+                                </div>
                                 <form action="{{ route('login') }}" method="POST" autocomplete="off">
                                     @csrf
                                     <div class="mb-3">

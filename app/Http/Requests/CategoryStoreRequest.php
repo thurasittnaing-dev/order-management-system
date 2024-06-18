@@ -25,7 +25,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50',
-            'file'=> 'required|mimes:png,jpg,jpeg|max:6000',
+            'file' => 'required|mimes:png,jpg,jpeg|max:6000',
             'type' => 'required',
         ];
     }

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ env('APP_NAME') }} | @yield('title')</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('modernize/assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('library/tabler/tabler.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
@@ -25,7 +25,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-center brand-bg">
                     <div class="brand-container">
-                        <div class="brand-title">{{ env('APP_NAME') }}</div>
+                        <img src="{{ asset('images/banner-logo.png') }}" alt="logo" class="banner-logo">
                     </div>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
@@ -57,7 +57,8 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('storage/images/admin.jpg') }}" alt="" class="rounded-circle" id="adminimg">
+                                    <img src="{{ asset('storage/images/admin.jpg') }}" alt=""
+                                        class="rounded-circle" id="adminimg">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
                                     aria-labelledby="drop2">
@@ -67,7 +68,8 @@
                                             <i class="ti ti-user fs-6"></i>
                                             <p class="mb-0 fs-3">My Profile</p>
                                         </a>
-                                        <a class="dropdown-item btn btn-outline-primary mt-2 d-block" href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                        <a class="dropdown-item btn btn-outline-primary mt-2 d-block"
+                                            href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
                                             @csrf
@@ -77,53 +79,11 @@
                             </li>
                         </ul>
                     </div>
-                    {{-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav me-auto">
-
-                        </ul>
-
-                        <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto">
-                            <!-- Authentication Links -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="nav-text" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                @endif
-
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="nav-text" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
-                                    </a>
-
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
-                            @endguest
-                        </ul>
-                    </div> --}}
                 </nav>
             </header>
             <!--  Header End -->
 
-            <div class="container-fluid my-ration">
+            <div class="container-fluid my-ratio">
                 @yield('content')
             </div>
         </div>
