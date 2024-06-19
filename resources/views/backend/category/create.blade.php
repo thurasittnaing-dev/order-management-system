@@ -16,7 +16,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-12 mb-3">
-                            <label for="name" class="form-label fw-bold">Name</label>
+                            <label for="name" class="form-label fw-bold">Name<span style="color: red;">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ old('name') }}">
                             @error('name')
@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <label for="file" class="form-label fw-bold">Image</label>
+                            <label for="file" class="form-label fw-bold">Image<span style="color: red;">*</span></label>
                             <div class="">
                                 <input type="file" name="file" id="file"
                                     class="form-control-file @error('file') is-invalid @enderror" accept=".jpg,.jpeg,.png">
@@ -35,17 +35,21 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="mb-3">
-                        <label for="type" class="form-label fw-bold">Type</label>
-                        <select class="form-select @error('type') is-invalid @enderror" id="type" name="type">
-                            <option value="" disabled selected>Select type</option>
-                            <option value="drink" {{ old('type') == 'drink' ? 'selected' : '' }}>Drink</option>
-                            <option value="food" {{ old('type') == 'food' ? 'selected' : '' }}>Food</option>
-                        </select>
-                        @error('type')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
+                        <label for="type" class="form-label fw-bold">Type<span style="color: red;">*</span></label>
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="drink" name="type" value="drink" {{ old('type', 'drink') == 'drink' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="drink">Drink</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="food" name="type" value="food" {{ old('type') == 'food' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="food">Food</label>
+                            </div>
+                            @error('type')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label fw-bold">Description</label>
