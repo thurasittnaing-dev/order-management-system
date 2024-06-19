@@ -25,11 +25,14 @@ class OrderTablesController extends Controller
         $order_tables = $order_tables->paginate(4);
         $i = (request('page', 1) - 1) * 4;
         $count = OrderTables::count();
-        return view('backend/order_tables.index',[
-            'order_tables ' => $order_tables,
-            'count'=> $count
-        ],
-         compact('order_tables', 'i'));
+        return view(
+            'backend/order_tables.index',
+            [
+                'order_tables ' => $order_tables,
+                'count' => $count
+            ],
+            compact('order_tables', 'i')
+        );
     }
     public function create()
     {
@@ -39,9 +42,8 @@ class OrderTablesController extends Controller
     public function store(OrderTableStoreRequest $request)
     {
         $validate = $request->validated();
-        $tableNumber = 'TB-' . (OrderTables::count() + 1);
         OrderTables::create([
-            'table_no' => $tableNumber,
+            'table_no' => generateTableNo(),
             'max_person' => $request->max_person,
             'active' => $request->status
         ]);
@@ -69,7 +71,6 @@ class OrderTablesController extends Controller
         $validate = $request->validated();
         $order_tables = OrderTables::find($id);
         $order_tables->update([
-            'table_no' => $request->table_no,
             'max_person' => $request->max_person,
             'active' => $request->status
         ]);

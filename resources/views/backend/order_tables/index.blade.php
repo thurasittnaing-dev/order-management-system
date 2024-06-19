@@ -22,9 +22,9 @@
                         </div>
 
                         <div class="col-md-3">
-                            <select id="status" class="form-control" name="status" >
-                                <option value="1" @if($status == '1') selected @endif>Active</option>
-                                <option value="0" @if($status == '0') selected @endif >Inactive</option>
+                            <select id="status" class="form-control" name="status">
+                                <option value="1" @if ($status == '1') selected @endif>Active</option>
+                                <option value="0" @if ($status == '0') selected @endif>Inactive</option>
                             </select>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                             <span class="text-danger">Inactive</span>
                                         @endif
                                     </td>
-                                    <td>{{ $order_table->created_at->format('d/m/Y')  }}</td>
+                                    <td>{{ $order_table->created_at->format('d/m/Y') }}</td>
                                     <td align="center">
                                         <div class="d-flex justify-content-center">
 
@@ -105,7 +105,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td align="center" colspan="6">There is no major yet!</td>
+                                    <td align="center" colspan="6">There is no tables yet!</td>
                                 </tr>
                             @endforelse
                         </tbody>

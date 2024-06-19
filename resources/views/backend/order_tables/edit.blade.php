@@ -6,11 +6,11 @@
 
 
 @section('content')
-<style>
-    .required-star {
-        color: red;
-    }
-</style>
+    <style>
+        .required-star {
+            color: red;
+        }
+    </style>
     <div class="container mt-5">
 
         <div class="card">
@@ -22,28 +22,24 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="" class="mb-2">Table no<span class="required-star">*</span></label>
                         <input type="text" name="table no" class="form-control" value="{{ $order_tables->table_no }}"
-                            placeholder="">
+                            placeholder="" disabled>
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="" class="mb-2">Max person<span class="required-star">*</span></label>
-                        <input type="text" name="max person" class="form-control" value="{{ $order_tables->max_person }}"
-                            placeholder="">
-                    </div> --}}
-                    <div class="col-md-6">
-                        <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
+
+                    <div class="mb-3">
+                        <label for="" class="mb-2">Max Person <span class="required-star">*</span></label>
                         <input type="text" name="max_person"
                             class="form-control num-only @error('max_person') is-invalid  @enderror"
-                            value="{{ old('max_person',$order_tables->max_person) }}">
+                            value="{{ old('max_person', $order_tables->max_person) }}">
                         @error('max_person')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
 
                     </div>
 
-                    <div class="form-group mb-3">
+                    <div class="mb-3">
                         <label for="" class="mb-2">Status<span class="required-star">*</span></label>
                         <select name="status" id="" class="form-control">
                             <option {{ $order_tables->active == true ? 'selected' : '' }} value="1">Active</option>
