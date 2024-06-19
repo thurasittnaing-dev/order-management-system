@@ -96,6 +96,7 @@
     <script src="{{ asset('modernize/assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('library/select2/select2.min.js') }}"></script>
     <script src="{{ asset('library/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
     @yield('js')
 </body>
 

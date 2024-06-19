@@ -2,10 +2,15 @@
 
 @section('title', 'Main Dashboard')
 
-@section('page', 'Main Dashboard')
+@section('page', 'TableCreate')
 
 
 @section('content')
+<style>
+    .required-star {
+        color: red;
+    }
+</style>
     <div class="container mt-5">
 
         <div class="card">
@@ -18,17 +23,17 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="" class="mb-2">Max_person</label>
+                            <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
                             <input type="text" name="max_person"
-                                class="form-control @error('max_person') is-invalid  @enderror"
+                                class="form-control num-only @error('max_person') is-invalid  @enderror"
                                 value="{{ old('max_person') }}">
-
                             @error('max_person')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+
                         </div>
                         <div class="col-md-6">
-                            <label for="" class="mb-2">Status</label>
+                            <label for="" class="mb-2">Status<span class="required-star">*</span></label>
                             <select name="status" id="status"
                                 class="form-control @error('status') is-invalid  @enderror">
                                 <option value="">--Select--</option>
@@ -39,6 +44,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
                     </div>
 
                     <div class="row">
