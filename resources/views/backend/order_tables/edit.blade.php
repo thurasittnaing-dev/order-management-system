@@ -27,11 +27,7 @@
                         <input type="text" name="table no" class="form-control" value="{{ $order_tables->table_no }}"
                             placeholder="">
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="" class="mb-2">Max person<span class="required-star">*</span></label>
-                        <input type="text" name="max person" class="form-control" value="{{ $order_tables->max_person }}"
-                            placeholder="">
-                    </div> --}}
+
                     <div class="col-md-6">
                         <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
                         <input type="text" name="max_person"
