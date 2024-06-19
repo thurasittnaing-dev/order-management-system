@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::resource('category', CategoryController::class);
     Route::resource('user', UserController::class);
+    Route::get('changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
+    Route::post('changepassword', [UserController::class, 'storePassword'])->name('user.storepassword');
     Route::resource('order_tables',OrderTablesController::class);
 
 });

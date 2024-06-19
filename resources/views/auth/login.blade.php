@@ -37,7 +37,7 @@
                                 <form action="{{ route('login') }}" method="POST" autocomplete="off">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">User-email</label>
+                                        <label for="email" class="form-label">Email</label>
                                         <input type="text" name="email" class="form-control" id="email"
                                             aria-describedby="email">
                                         @error('email')

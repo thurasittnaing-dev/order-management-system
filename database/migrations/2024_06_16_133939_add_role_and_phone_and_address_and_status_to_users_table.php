@@ -15,8 +15,8 @@ class AddRoleAndPhoneAndAddressAndStatusToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('role',['admin','waiter','kitchen','office'])->after('email');
-            $table->string('phone')->nullabel()->after('password');
-            $table->string('address')->nullable()->after('phone');
+            $table->string('phone')->nullable()->after('password')->default(null);
+            $table->text('address')->nullable()->after('phone');
             $table->enum('status',['active','inactive'])->after('address');
         });
     }
