@@ -2,7 +2,7 @@
 
 @section('title', 'Main Dashboard')
 
-@section('page', 'Main Dashboard')
+@section('page', 'Table')
 
 @section('content')
     <div class="container-fluid">
@@ -17,6 +17,7 @@
                         <input type="text" name="table_no" class="form-control" placeholder="Table No"
                             value="{{ $table_no }}">
                     </div>
+                
                 </div>
                 <div class="card-footer d-flex justify-content-end">
                     <div>

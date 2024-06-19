@@ -20,7 +20,7 @@
                         <div class="col-md-6">
                             <label for="" class="mb-2">Max_person</label>
                             <input type="text" name="max_person"
-                                class="form-control @error('max_person') is-invalid  @enderror"
+                                class="form-control num-only @error('max_person') is-invalid  @enderror"
                                 value="{{ old('max_person') }}">
 
                             @error('max_person')
