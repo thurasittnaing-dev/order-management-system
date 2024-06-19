@@ -93,6 +93,9 @@
                                     </td>
                                 </tr>
                             @empty
+                            <tr>
+                                <td align="center" colspan="12">There is no user yet!</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>

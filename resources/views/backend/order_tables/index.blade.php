@@ -94,7 +94,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td align="center" colspan="6">There is no major yet!</td>
+                                    <td align="center" colspan="6">There is no tables yet!</td>
                                 </tr>
                             @endforelse
                         </tbody>

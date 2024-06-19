@@ -37,10 +37,10 @@
                                 <form action="{{ route('login') }}" method="POST" autocomplete="off">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Username</label>
-                                        <input type="text" name="username" class="form-control" id="username"
-                                            aria-describedby="username">
-                                        @error('username')
+                                        <label for="email" class="form-label">User-email</label>
+                                        <input type="text" name="email" class="form-control" id="email"
+                                            aria-describedby="email">
+                                        @error('email')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
