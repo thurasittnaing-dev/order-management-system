@@ -86,7 +86,7 @@
                                             <span class="text-danger">Inactive</span>
                                         @endif
                                     </td>
-                                    <td>{{ $order_table->created_at->format('d/m/Y')  }}</td>
+                                    <td>{{ $order_table->created_at->format('d/m/Y') }}</td>
                                     <td align="center">
                                         <div class="d-flex justify-content-center">
 
