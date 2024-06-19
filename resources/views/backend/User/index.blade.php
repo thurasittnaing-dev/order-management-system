@@ -14,14 +14,42 @@
         @endif
         @php
             $name = $_GET['name'] ?? '';
+            $email= $_GET['email'] ?? '';
+            $role = $_GET['role'] ?? '';
+            $phone = $_GET['phone'] ?? '';
+            $status = $_GET['status'] ?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
             <form action="" method="GET" autocomplete="off">
-                <div class="card-body">
-                    <div class="mb-3 col-md-3">
+                <div class="card-body row">
+                    <div class="mb-3 col-md-2">
                         <input type="text" name="name" class="form-control" placeholder="Name"
                             value="{{ $name }}">
+                    </div>
+                    <div class="mb-3 col-md-2">
+                        <input type="text" name="email" class="form-control" placeholder="Email"
+                            value="{{ $email }}">
+                    </div>
+                    <div class="mb-3 col-md-2">
+                        <select id="role" class="form-control" name="role">
+                            <option value="">--Select Role--</option>
+                            <option value="admin">Admin</option>
+                            <option value="waiter">Waiter</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="office">Office</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-2">
+                        <input type="text" name="phone" class="form-control num-only" placeholder="Phone"
+                            value="{{ $phone }}">
+                    </div>
+                    <div class="mb-3 col-md-2">
+                        <select id="status" class="form-control" name="status">
+                            <option value="">---Status---</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
@@ -76,7 +104,13 @@
                                     <td>{{ $user->role }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->address }}</td>
-                                    <td>{{ $user->status }}</td>
+                                    <td>
+                                        @if ( $user->status == 'active')
+                                            <span class=" text-success">Active</span>
+                                        @else
+                                            <span class="text-danger">Inactive</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <a href="{{ route('user.show', $user) }}"
@@ -93,6 +127,9 @@
                                     </td>
                                 </tr>
                             @empty
+                            <tr>
+                                <td align="center" colspan="12">There is no user yet!</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>

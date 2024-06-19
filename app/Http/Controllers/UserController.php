@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
@@ -16,9 +18,25 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at', 'asc')->get();
         $users = User::query();
-        if ($request->keyword) {
-            $users = $users->where('name', 'LIKE', '%' . $request->name . '%')
-                ->orWhere('email', 'LIKE', '%' . $request->name . '%');
+        if ($request->name) {
+            $users = $users->where('name', 'LIKE', '%' . $request->name . '%');
+
+        }
+        if ($request->email) {
+            $users = $users->where('email', 'LIKE', '%' . $request->email . '%');
+
+        }
+        if ($request->role) {
+            $users = $users->where('role', 'LIKE', '%' . $request->role . '%');
+
+        }
+        if ($request->phone) {
+            $users = $users->where('phone', 'LIKE', '%' . $request->phone . '%');
+
+        }
+        if ($request->status) {
+            $users = $users->where('status', 'LIKE', '%' . $request->status . '%');
+
         }
         $users = $users->paginate(8);
         $i = (request('page', 1) - 1) * 8;
@@ -78,6 +96,29 @@ class UserController extends Controller
         ]);
         return redirect()->route('user.index');
     }
+
+    public function changePassword( User $user)
+    {
+
+        return view('backend.user.changepassword',compact('user'));
+    }
+
+    public function storePassword(ChangePasswordRequest $request, User $user)
+    {
+        $validated = $request->validated();
+        $password=[
+            'password' =>Hash::make($request->password),
+        ];
+
+        $user->update($password);
+        dd($validated);
+
+        return redirect()->route('user.index');
+
+
+    }
+
+
 
     // Remove the specified user from storage.
     public function destroy(User $user)

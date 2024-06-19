@@ -53,8 +53,8 @@
                             <label for="phone" class="form-label">{{ __('Phone') }}</label>
 
                             <div class=" ">
-                                <input id="phone" type="number"
-                                    class="form-control @error('phone') is-invalid @enderror" name="phone"
+                                <input id="phone" type="text"
+                                    class="form-control num-only @error('phone') is-invalid @enderror" name="phone"
                                     value="{{ old('phone') }}">
 
                                 @error('phone')
@@ -90,7 +90,8 @@
 
                             <div class=" ">
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password">
+                                    class="form-control @error('password') is-invalid @enderror" name="password"
+                                    value="{{ old('password') }}">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -104,8 +105,15 @@
                             <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
 
                             <div class=" ">
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation">
+                                <input id="password-confirm" type="password"
+                                class="form-control @error('password') is-invalid @enderror" name="password_confirmation"
+                                value="{{ old('password') }}">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -115,10 +123,10 @@
                             <label for="address" class="form-label">{{ __('Address') }}</label>
 
                             <div class=" ">
-                                <input id="address" type="text"
+                                <textarea id="address" type="text"
                                     class="form-control @error('address') is-invalid @enderror" name="address"
-                                    value="{{ old('address') }}">
-
+                                    >{{ old('address') }}
+                            </textarea>
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

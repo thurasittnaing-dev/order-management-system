@@ -22,21 +22,25 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::resource('category', CategoryController::class);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
-
-Route::get('dashboard', function () {
-    return view('backend.dashboard.main-dashboard');
-});
-
-
-Route::resource('order_tables',OrderTablesController::class);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function(){
+    Route::get('dashboard', function () {
+        return view('backend.dashboard.main-dashboard');
+    });
 
-Route::resource('user', UserController::class);
+
+    Route::resource('category', CategoryController::class);
+    Route::resource('user', UserController::class);
+    Route::get('changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
+    Route::post('changepassword', [UserController::class, 'storePassword'])->name('user.storepassword');
+    Route::resource('order_tables',OrderTablesController::class);
+
+});
+
+
