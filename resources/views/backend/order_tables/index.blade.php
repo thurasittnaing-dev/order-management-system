@@ -22,9 +22,9 @@
                         </div>
 
                         <div class="col-md-3">
-                            <select id="status" class="form-control" name="status" >
-                                <option value="1" @if($status == '1') selected @endif>Active</option>
-                                <option value="0" @if($status == '0') selected @endif >Inactive</option>
+                            <select id="status" class="form-control" name="status">
+                                <option value="1" @if ($status == '1') selected @endif>Active</option>
+                                <option value="0" @if ($status == '0') selected @endif>Inactive</option>
                             </select>
                         </div>
                     </div>

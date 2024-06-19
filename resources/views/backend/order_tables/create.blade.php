@@ -6,11 +6,11 @@
 
 
 @section('content')
-<style>
-    .required-star {
-        color: red;
-    }
-</style>
+    <style>
+        .required-star {
+            color: red;
+        }
+    </style>
     <div class="container mt-5">
 
         <div class="card">
