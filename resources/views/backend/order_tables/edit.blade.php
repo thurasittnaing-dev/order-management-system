@@ -28,8 +28,8 @@
                             placeholder="" disabled>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="" class="mb-2">Max Person <span class="required-star">*</span></label>
+                    <div class="col-md-6">
+                        <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
                         <input type="text" name="max_person"
                             class="form-control num-only @error('max_person') is-invalid  @enderror"
                             value="{{ old('max_person', $order_tables->max_person) }}">

@@ -5,17 +5,11 @@
 @section('page', 'Categories')
 
 @section('content')
-    <style>
-        .category-img {
-            width: 3rem;
-            height: 3rem;
-            object-fit: cover;
-        }
-    </style>
+
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Create Category</h3>
+                <h3 class="card-title">Edit Category</h3>
             </div>
             <div class="card-body">
                 <form action="{{ route('category.update', $category->id) }}" method="POST" autocomplete="off"
@@ -24,7 +18,7 @@
                     @method('PUT')
                     <div class="row mb-3">
                         <div class="col-md-12 mb-3">
-                            <label for="name" class="form-label fw-bold">Name</label>
+                            <label for="name" class="form-label fw-bold">Name<span style="color: red;">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ old('name', $category->name) }}">
                             @error('name')
@@ -33,32 +27,35 @@
                         </div>
 
                         <div class="col-md-12">
-                            <label for="file" class="form-label fw-bold">Image</label>
+                            <label for="file" class="form-label fw-bold">Image<span style="color: red;">*</span></label>
                             <div class="">
                                 <input type="file" name="file" id="file"
                                     class="form-control-file @error('file') is-invalid @enderror" accept=".jpg,.jpeg,.png">
+                                    <span class="">
+                                        <img src="{{ asset('storage/categories/' . $category->image) }}" class="image-img"
+                                            alt="">
+                                    </span>
                                 @error('file')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                                <div class="">
-                                    <img src="{{ asset('storage/categories/' . $category->image) }}" class="category-img"
-                                        alt="">
-                                </div>
                             </div>
                         </div>
-
                         <div class="mb-3">
-                            <label for="type" class="form-label fw-bold">Type</label>
-                            <select class="form-select" id="type" name="type">
-                                <option value="" disabled selected>Select type</option>
-                                <option {{ $category->type == 'drink' ? 'selected' : '' }} value="drink">Drink</option>
-                                <option {{ $category->type == 'food' ? 'selected' : '' }} value="food">Food</option>
-                            </select>
-                            @error('type')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <label for="type" class="form-label fw-bold">Type<span style="color: red;">*</span></label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="drink" name="type" value="drink" {{ $category->type == 'drink' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="drink">Drink</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="food" name="type" value="food" {{ $category->type == 'food' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="food">Food</label>
+                                </div>
+                                @error('type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-
                         <div class="mb-3">
                             <label for="description" class="form-label fw-bold">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $category->description) }}</textarea>

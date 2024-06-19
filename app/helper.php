@@ -19,6 +19,15 @@ if (!function_exists('menu_active')) {
   }
 }
 
+
+
+if (!function_exists('getTableIndexer')) {
+  function getTableIndexer($pagination_number)
+  {
+    return (request('page', 1) - 1) * $pagination_number;
+  }
+}
+
 if (!function_exists('generateTableNo')) {
   function generateTableNo()
   {

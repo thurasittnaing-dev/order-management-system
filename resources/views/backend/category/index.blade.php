@@ -5,13 +5,7 @@
 @section('page', 'Categories')
 
 @section('content')
-    <style>
-        .category-img {
-            width: 3rem;
-            height: 3rem;
-            object-fit: cover;
-        }
-    </style>
+
     <div class="container">
         @if (Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -21,17 +15,28 @@
         @endif
 
         @php
-            $keyword = $_GET['keyword'] ?? '';
+            $name = $_GET['name'] ?? '';
+            $type = $_GET['type'] ?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
             <form action="" method="GET" autocomplete="off">
                 <div class="card-body">
-                    <div class="mb-3 col-md-3">
-                        <input type="text" name="keyword" class="form-control" placeholder="Name"
-                            value="{{ $keyword }}">
+                    <div class="row">
+                        <div class="mb-3 col-md-3">
+                            <input type="text" name="name" class="form-control" placeholder="Name"
+                                value="{{ $name }}">
+                        </div>
+                        <div class="col-md-3">
+                            <select id="type" class="form-control" name="type" >
+                                <option value="" disabled selected>Type</option>
+                                <option value="drink" @if ($type == 'drink') selected @endif>Drink</option>
+                                <option value="food" @if ($type == 'food') selected @endif>Food</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+
                 <div class="card-footer d-flex justify-content-end">
                     <div>
                         <a href="{{ route('category.index') }}" class="btn btn-danger">Clear</a>
@@ -80,7 +85,7 @@
                                     <td>{{ $category->name }}</td>
                                     <td>
                                         <img src="{{ asset('storage/categories/' . $category->image) }}" alt=""
-                                            class="category-img">
+                                            class="image-img">
                                     </td>
                                     <td>{{ $category->type }}</td>
                                     <td>{{ $category->description }}</td>
@@ -111,9 +116,6 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.3/js/bootstrap.min.js"></script>
 @endsection
 
 @section('css')
