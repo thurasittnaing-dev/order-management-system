@@ -9,20 +9,16 @@ use Illuminate\Http\Request;
 
 class OrderTablesController extends Controller
 {
-    // public function index(){
-    //     $order_tables=OrderTables::orderby('created_at','asc')->get();
-    //     $order_tables=OrderTables::orderby('created_at','asc')->paginate(3);
-    //     $i=(request('page',1)-1)*3;
-    //     return view('backend.order_tables.index',compact('order_tables','i'));
-    // }
+
     public function index(Request $request)
     {
         $order_tables = OrderTables::query();
-        if ($request->table_no) {
+        if ($request->table_no != '') {
             //search
             $order_tables = $order_tables->where('table_no', 'LIKE', '%' . $request->table_no . '%');
         }
-        if ($request->status) {
+        if ($request->status != '') {
+            // dd($request->status);
             $order_tables->where('active', $request->status);
         }
 

@@ -15,22 +15,19 @@
             <form action="" method="GET" autocomplete="off">
                 <div class="card-body">
 
-                    <div class="mb-3 col-md-3">
-                        <input type="text" name="table_no" class="form-control" placeholder="Table No"
-                            value="{{ $table_no }}">
-                            <div class="col-md-6">
-                                <label for="status" class="form-label"></label>
-                                    <select id="status" class="form-control" name="status">
-                                        <option value="active" @if($status == 'active') selected @endif>Active</option>
-                                        <option value="inactive" @if($status == 'inactive') selected @endif >Inactive</option>
-                                    </select>
+                    <div class="row">
+                        <div class="mb-3 col-md-3">
+                            <input type="text" name="table_no" class="form-control" placeholder="Table No"
+                                value="{{ $table_no }}">
+                        </div>
 
-                                    @error('status')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                            </div>
+                        <div class="col-md-3">
+                            <select id="status" class="form-control" name="status" >
+                                <option value="1" @if($status == '1') selected @endif>Active</option>
+                                <option value="0" @if($status == '0') selected @endif >Inactive</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
                     <div>
@@ -89,7 +86,7 @@
                                             <span class="text-danger">Inactive</span>
                                         @endif
                                     </td>
-                                    <td>{{ $order_table->created_at }}</td>
+                                    <td>{{ $order_table->created_at->format('d/m/Y')  }}</td>
                                     <td align="center">
                                         <div class="d-flex justify-content-center">
 
