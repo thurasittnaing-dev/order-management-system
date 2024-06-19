@@ -8,16 +8,29 @@
     <div class="container-fluid">
         @php
             $table_no = $_GET['table_no'] ?? '';
+            $status = $_GET['status'] ?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
             <form action="" method="GET" autocomplete="off">
                 <div class="card-body">
+
                     <div class="mb-3 col-md-3">
                         <input type="text" name="table_no" class="form-control" placeholder="Table No"
                             value="{{ $table_no }}">
-                    </div>
-                
+                            <div class="col-md-6">
+                                <label for="status" class="form-label"></label>
+                                    <select id="status" class="form-control" name="status">
+                                        <option value="active" @if($status == 'active') selected @endif>Active</option>
+                                        <option value="inactive" @if($status == 'inactive') selected @endif >Inactive</option>
+                                    </select>
+
+                                    @error('status')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
                 </div>
                 <div class="card-footer d-flex justify-content-end">
                     <div>
@@ -53,7 +66,7 @@
                         <thead class="">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Table_No</th>
+                                <th scope="col">Table No</th>
                                 <th scope="col">Max person</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Created at</th>

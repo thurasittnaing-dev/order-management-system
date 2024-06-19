@@ -2,7 +2,7 @@
 
 @section('title', 'Main Dashboard')
 
-@section('page', 'Main Dashboard')
+@section('page', 'Table')
 
 @section('content')
 <div class="container mt-5">
