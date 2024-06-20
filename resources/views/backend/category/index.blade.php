@@ -28,7 +28,7 @@
                                 value="{{ $name }}">
                         </div>
                         <div class="col-md-3">
-                            <select id="type" class="form-control" name="type">
+                            <select id="type" class="form-control lib-s2" name="type">
                                 <option value="" selected>Type</option>
                                 <option value="drink" @if ($type == 'drink') selected @endif>Drink</option>
                                 <option value="food" @if ($type == 'food') selected @endif>Food</option>
