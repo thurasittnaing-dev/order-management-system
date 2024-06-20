@@ -14,7 +14,7 @@
         @endif
         @php
             $name = $_GET['name'] ?? '';
-            $email= $_GET['email'] ?? '';
+            $email = $_GET['email'] ?? '';
             $role = $_GET['role'] ?? '';
             $phone = $_GET['phone'] ?? '';
             $status = $_GET['status'] ?? '';
@@ -105,7 +105,7 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->address }}</td>
                                     <td>
-                                        @if ( $user->status == 'active')
+                                        @if ($user->status == 'active')
                                             <span class=" text-success">Active</span>
                                         @else
                                             <span class="text-danger">Inactive</span>
@@ -113,8 +113,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <a href="{{ route('user.show', $user) }}"
-                                                class="btn btn-sm btn-primary me-1">Details</a>
                                             <a href="{{ route('user.edit', $user) }}"
                                                 class="btn btn-sm btn-warning me-1">Edit</a>
                                             <form action="{{ route('user.destroy', $user) }}" method="POST">
@@ -127,9 +125,9 @@
                                     </td>
                                 </tr>
                             @empty
-                            <tr>
-                                <td align="center" colspan="12">There is no user yet!</td>
-                            </tr>
+                                <tr>
+                                    <td align="center" colspan="12">There is no user yet!</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
