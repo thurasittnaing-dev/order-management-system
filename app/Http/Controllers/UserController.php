@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
 
-    private $userService;
+    protected $userService;
 
 
     public function __construct(UserService $userService)
@@ -52,41 +52,27 @@ class UserController extends Controller
     // Update the specified user in storage.
     public function update(UserUpdateRequest $request, User $user)
     {
-        $validated = $request->validated();
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-            'password' => Hash::make($request->password),
-            'phone' => $request->phone,
-            'address' => $request->address,
-            'status' => $request->status,
-        ]);
-        return redirect()->route('user.index');
+       $data = $this->userService->update($request,$user);
+        return redirect()->route('user.index')->with($data['status'], $data['message']);;
     }
 
+    //Show form of change password
     public function changePassword()
     {
-
         return view('backend.user.changepassword');
     }
 
-    public function storePassword(ChangePasswordRequest $request, User $user)
+    //Store updated value of current login user password
+    public function storePassword(ChangePasswordRequest $request)
     {
-        $data = $request->validated();
-
-        auth()->user()->update([
-            'password' => Hash::make($data['password'])
-        ]);
-        return redirect()->route('user.index');
+        $data = $this->userService->storePassword($request);
+        return redirect()->route('user.index')->with($data['status'],$data['message']);
     }
-
-
 
     // Remove the specified user from storage.
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('user.index');
+        $data = $this->userService->destroy($user) ;
+        return redirect()->route('user.index')->with($data['status'],$data['message']);
     }
 }

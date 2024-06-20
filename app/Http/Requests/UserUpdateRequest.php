@@ -25,8 +25,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $user_id = request()->route('user');
-        $user = User::find($user_id);
+        $user = request()->route('user');
 
         return [
             'name' => ['required', 'string', 'max:255'],
@@ -38,7 +37,6 @@ class UserUpdateRequest extends FormRequest
                 Rule::unique('users')->ignore($user)
             ],
             'role' => ['required', 'in:admin,waiter,kitchen,office'],
-            'password' => ['nullabel', 'string', 'min:8', 'confirmed'],
             'phone' => ['nullable', 'string', 'max:20'],
             'address' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'in:active,inactive'],

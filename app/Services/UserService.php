@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 
 class UserService
 {
@@ -43,4 +45,61 @@ class UserService
       ];
     }
   }
+
+  public function update($request, $user)
+  {
+    try {
+        $validatedData=$request->validated();
+        $user->update($validatedData);
+
+        return[
+            'status' =>'success',
+            'message' => 'User Updated Success'
+        ];
+
+    } catch (\Exception $e) {
+        return[
+            'status' => 'error',
+            'message' => 'Something went wrong',
+        ];
+
+    }
+  }
+
+  public function storePassword($request) {
+    try {
+        $data=$request->validated();
+        $user = auth()->user();
+        $user->update([
+            'password' => Hash::make($data['password'])
+        ]);
+        return[
+            'status' => 'success',
+            'message' => 'Password Changing Success',
+        ];
+    } catch (\Exception $e) {
+
+        return[
+            'status' => 'error',
+            'message' => 'Something went wrong',
+        ];
+    }
+  }
+
+  public function destroy($user){
+    try {
+        $user->delete();
+        return[
+            'status' => 'success',
+            'message' => 'User Delete Success',
+        ];
+    } catch (\Exception $e) {
+
+        return[
+            'status' => 'error',
+            'message' => 'Something went wrong',
+        ];
+    }
+  }
+
 }
