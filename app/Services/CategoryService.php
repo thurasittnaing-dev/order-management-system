@@ -51,11 +51,7 @@ class CategoryService {
     public function update($request, $category) {
         try {
             //code...
-            $data = [
-                'name' => $request->name,
-                'type' => $request->type,
-                'description' => $request->description,
-            ];
+            $data = $request->validated();
 
             if ($request->hasFile('file')) {
                 $file_location = storage_path('app/public/categories/') . $category->image;
