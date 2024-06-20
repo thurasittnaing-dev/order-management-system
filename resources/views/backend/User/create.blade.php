@@ -106,8 +106,8 @@
 
                             <div class=" ">
                                 <input id="password-confirm" type="password"
-                                class="form-control @error('password') is-invalid @enderror" name="password_confirmation"
-                                value="{{ old('password') }}">
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    name="password_confirmation" value="{{ old('password') }}">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -123,9 +123,7 @@
                             <label for="address" class="form-label">{{ __('Address') }}</label>
 
                             <div class=" ">
-                                <textarea id="address" type="text"
-                                    class="form-control @error('address') is-invalid @enderror" name="address"
-                                    >{{ old('address') }}
+                                <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address">{{ old('address') }}
                             </textarea>
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">

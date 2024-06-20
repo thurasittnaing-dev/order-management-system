@@ -6,41 +6,41 @@ use App\Models\OrderTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
-
 use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Storage;
 
+// Redirect Route
+Route::get('/', fn () => redirect()->route('main-dashboard'));
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+// Auth Routes
+Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
+Route::get('/test', function () {
+    $data = public_path('images/default_categories/chinese_drink.png');
+    if (file_exists($data)) {
 
-Route::get('/', function () {
-    return view('auth.login');
+        $fileContents = file_get_contents($data);
+        $destinationPath = 'public/categories/' . time() . '.png';
+        Storage::put($destinationPath, $fileContents);
+    }
 });
 
-Auth::routes();
 
-Route::middleware(['auth'])->group(function(){
+
+Route::middleware(['auth'])->group(function () {
+    // Dashboard Routes
     Route::get('dashboard', function () {
         return view('backend.dashboard.main-dashboard');
-    });
+    })->name('main-dashboard');
 
+    // Category Routes
+    Route::resource('category', CategoryController::class)->except('show');
 
-    Route::resource('category', CategoryController::class);
-    Route::resource('user', UserController::class);
+    // User Routes
+    Route::resource('user', UserController::class)->except('show');;
     Route::get('changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
     Route::post('changepassword', [UserController::class, 'storePassword'])->name('user.storepassword');
-    Route::resource('order_tables',OrderTablesController::class);
 
+    // Order Table Routes
+    Route::resource('order_tables', OrderTablesController::class);
 });
-
-

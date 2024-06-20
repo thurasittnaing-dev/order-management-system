@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container-fluid">
         @if (Session::has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ Session::get('success') }}
@@ -28,8 +28,8 @@
                                 value="{{ $name }}">
                         </div>
                         <div class="col-md-3">
-                            <select id="type" class="form-control" name="type" >
-                                <option value="" disabled selected>Type</option>
+                            <select id="type" class="form-control" name="type">
+                                <option value="" selected>Type</option>
                                 <option value="drink" @if ($type == 'drink') selected @endif>Drink</option>
                                 <option value="food" @if ($type == 'food') selected @endif>Food</option>
                             </select>
@@ -71,8 +71,7 @@
                         <thead class="">
                             <tr>
                                 <th>#</th>
-                                <th>Name</th>
-                                <th>Image</th>
+                                <th style="width: 20rem">Category Name</th>
                                 <th>Type</th>
                                 <th>Description</th>
                                 <th>Action</th>
@@ -82,10 +81,14 @@
                             @forelse ($categories as $key => $category)
                                 <tr>
                                     <td>{{ ++$i }}</td>
-                                    <td>{{ $category->name }}</td>
                                     <td>
-                                        <img src="{{ asset('storage/categories/' . $category->image) }}" alt=""
-                                            class="image-img">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ asset('storage/categories/' . $category->image) }}" alt=""
+                                                class="image-img img-thumbnail img me-4">
+                                            <div class="fw-bold">
+                                                {{ $category->name }}
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>{{ $category->type }}</td>
                                     <td>{{ $category->description }}</td>
