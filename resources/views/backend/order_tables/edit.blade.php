@@ -18,13 +18,13 @@
                 <h3 class="card-title">Edit Order Table</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('order_tables.update', $order_tables->id) }}" method="POST" autocomplete="off">
+                <form action="{{ route('order_tables.update', $order_table) }}" method="POST" autocomplete="off">
                     @csrf
                     @method('PUT')
 
                     <div class="mb-3">
                         <label for="" class="mb-2">Table no<span class="required-star">*</span></label>
-                        <input type="text" name="table no" class="form-control" value="{{ $order_tables->table_no }}"
+                        <input type="text" name="table no" class="form-control" value="{{ $order_table->table_no }}"
                             placeholder="" disabled>
                     </div>
 
@@ -32,7 +32,7 @@
                         <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
                         <input type="text" name="max_person"
                             class="form-control num-only @error('max_person') is-invalid  @enderror"
-                            value="{{ old('max_person', $order_tables->max_person) }}">
+                            value="{{ old('max_person', $order_table->max_person) }}">
                         @error('max_person')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
@@ -42,8 +42,8 @@
                     <div class="mb-3">
                         <label for="" class="mb-2">Status<span class="required-star">*</span></label>
                         <select name="status" id="" class="form-control">
-                            <option {{ $order_tables->active == true ? 'selected' : '' }} value="1">Active</option>
-                            <option {{ $order_tables->active == false ? 'selected' : '' }} value="0">Inactive</option>
+                            <option {{ $order_table->active == true ? 'selected' : '' }} value="1">Active</option>
+                            <option {{ $order_table->active == false ? 'selected' : '' }} value="0">Inactive</option>
                         </select>
                     </div>
 

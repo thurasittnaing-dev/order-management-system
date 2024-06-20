@@ -90,9 +90,9 @@
                                     <td align="center">
                                         <div class="d-flex justify-content-center">
 
-                                            <a href="{{ route('order_tables.edit', [$order_table->id]) }}"
+                                            <a href="{{ route('order_tables.edit', ['order_table'=> $order_table]) }}"
                                                 class="btn btn-sm btn-warning me-1">Edit</a>
-                                            <form action="{{ route('order_tables.destroy', $order_table->id) }}"
+                                            <form action="{{ route('order_tables.destroy', ['order_table' => $order_table ]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('delete')

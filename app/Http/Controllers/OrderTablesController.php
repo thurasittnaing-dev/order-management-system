@@ -33,30 +33,23 @@ class OrderTablesController extends Controller
         return redirect()->route('order_tables.index')->with($data['status'], $data['message']);
     }
 
-    public function destroy($id)
+    public function destroy(OrderTables $order_table)
     {
-
-        // $order_tables->delete();
-        OrderTables::destroy($id);
-        return redirect()->route('order_tables.index');
+       $data =$this->orderTableService->destroy($order_table);
+        return redirect()->route('order_tables.index')->with($data['status'],$data['message']);
     }
 
-    public function edit($id)
+    public function edit(OrderTables $order_table)
     {
+        // dd($order_table);
 
-        $order_tables = OrderTables::find($id);
-        return view('backend.order_tables.edit', compact('order_tables'));
+        return view('backend.order_tables.edit', compact('order_table'));
     }
 
-    public function update(OrderTableUpdateRequest $request, $id)
+    public function update(OrderTableUpdateRequest $request,OrderTables $order_table)
     {
-        $validate = $request->validated();
-        $order_tables = OrderTables::find($id);
-        $order_tables->update([
-            'max_person' => $request->max_person,
-            'active' => $request->status
-        ]);
 
-        return redirect()->route('order_tables.index');
+        $data =$this->orderTableService->update($request,$order_table);
+        return redirect()->route('order_tables.index')->with($data['status'],$data['message']);
     }
 }
