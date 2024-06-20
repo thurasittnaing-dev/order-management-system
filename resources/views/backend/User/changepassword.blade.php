@@ -16,7 +16,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="password" class="form-label">{{ __('Password') }}</label>
+                            <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <input id="password" type="password"
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="form-label">Confirm Password<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <input id="password-confirm" type="password" class="form-control"
