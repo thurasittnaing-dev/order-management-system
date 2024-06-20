@@ -11,6 +11,7 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('modernize/assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('library/tabler/tabler.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     @yield('css')
 </head>
@@ -57,8 +58,8 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('images/admin.jpg') }}" alt=""
-                                        class="rounded-circle" id="adminimg">
+                                    <img src="{{ asset('images/admin.jpg') }}" alt="" class="rounded-circle"
+                                        id="adminimg">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
                                     aria-labelledby="drop2">
@@ -95,7 +96,29 @@
     <script src="{{ asset('modernize/assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('library/select2/select2.min.js') }}"></script>
     <script src="{{ asset('library/flatpickr/flatpickr.js') }}"></script>
+    <script src="{{ asset('library/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+        @if (Session::has('success'))
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "{{ Session::get('success') }}",
+                showConfirmButton: true,
+                timer: 2500
+            });
+        @endif
+
+        @if (Session::has('error'))
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "{{ Session::get('error') }}",
+                showConfirmButton: true,
+                timer: 5000
+            });
+        @endif
+    </script>
     @yield('js')
 </body>
 
