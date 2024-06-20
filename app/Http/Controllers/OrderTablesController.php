@@ -5,34 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrderTableStoreRequest;
 use App\Http\Requests\OrderTableUpdateRequest;
 use App\Models\OrderTables;
+use App\Services\OrderTableService;
 use Illuminate\Http\Request;
 
 class OrderTablesController extends Controller
 {
+    private $orderTableService;
 
-    public function index(Request $request)
+    public function __construct(OrderTableService $orderTableService)
     {
-        $order_tables = OrderTables::query();
-        if ($request->table_no != '') {
-            //search
-            $order_tables = $order_tables->where('table_no', 'LIKE', '%' . $request->table_no . '%');
-        }
-        if ($request->status != '') {
-            // dd($request->status);
-            $order_tables->where('active', $request->status);
-        }
+        $this->orderTableService = $orderTableService;
+    }
 
-        $order_tables = $order_tables->paginate(4);
-        $i = (request('page', 1) - 1) * 4;
-        $count = OrderTables::count();
-        return view(
-            'backend/order_tables.index',
-            [
-                'order_tables ' => $order_tables,
-                'count' => $count
-            ],
-            compact('order_tables', 'i')
-        );
+    public function index()
+    {
+        $data = $this->orderTableService->index();
+        return view('backend/order_tables.index', $data);
     }
     public function create()
     {
@@ -41,14 +29,8 @@ class OrderTablesController extends Controller
 
     public function store(OrderTableStoreRequest $request)
     {
-        $validate = $request->validated();
-        OrderTables::create([
-            'table_no' => generateTableNo(),
-            'max_person' => $request->max_person,
-            'active' => $request->status
-        ]);
-
-        return redirect()->route('order_tables.index');
+        $data = $this->orderTableService->store($request);
+        return redirect()->route('order_tables.index')->with($data['status'], $data['message']);
     }
 
     public function destroy($id)
