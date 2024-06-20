@@ -26,7 +26,7 @@
                             value="{{ $email }}">
                     </div>
                     <div class="mb-3 col-md-2">
-                        <select id="role" class="form-control" name="role">
+                        <select id="role" class="form-control lib-s2" name="role">
                             <option value="">--Select Role--</option>
                             <option value="admin">Admin</option>
                             <option value="waiter">Waiter</option>
@@ -39,7 +39,7 @@
                             value="{{ $phone }}">
                     </div>
                     <div class="mb-3 col-md-2">
-                        <select id="status" class="form-control" name="status">
+                        <select id="status" class="form-control lib-s2" name="status">
                             <option value="">---Status---</option>
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
