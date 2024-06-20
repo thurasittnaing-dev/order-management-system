@@ -7,12 +7,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use Illuminate\Support\Facades\Storage;
 
 // Redirect Route
 Route::get('/', fn () => redirect()->route('main-dashboard'));
 
 // Auth Routes
 Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
+
+Route::get('/test', function () {
+    $data = public_path('images/default_categories/chinese_drink.png');
+    if (file_exists($data)) {
+
+        $fileContents = file_get_contents($data);
+        $destinationPath = 'public/categories/' . time() . '.png';
+        Storage::put($destinationPath, $fileContents);
+    }
+});
 
 
 
