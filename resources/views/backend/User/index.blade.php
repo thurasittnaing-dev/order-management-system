@@ -109,21 +109,31 @@
                                     </td>
                                     <td align="centers">
                                         <div class="d-flex justify-content-center">
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-sm btn-primary me-1"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#changePasswordModal{{ $user->id }}">
-                                                Change Password
-                                            </button>
-
-                                            <a href="{{ route('user.edit', $user) }}"
-                                                class="btn btn-sm btn-warning me-1">Edit</a>
-                                            <form action="{{ route('user.destroy', $user) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" onClick="return confirm('Are you sure?')"
-                                                    class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton{{ $user->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  Actions
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton{{ $user->id }}">
+                                                    <!-- Button trigger modal -->
+                                                    <li class="mt-2"><button type="button" class="dropdown-item text-warning"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#changePasswordModal{{ $user->id }}">
+                                                        Change Password
+                                                        </button>
+                                                    </li>
+                                                    <li class="mt-2"><a href="{{ route('user.edit', $user) }}"
+                                                        class="dropdown-item text-warning">Edit</a>
+                                                    </li>
+                                                  <li class="mt-2">
+                                                    <form action="{{ route('user.destroy', $user) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onClick="return confirm('Are you sure?')"
+                                                            class="dropdown-item text-warning">Delete</button>
+                                                    </form>
+                                                  </li>
+                                                </ul>
+                                              </div>
                                         </div>
                                     </td>
                                 </tr>
