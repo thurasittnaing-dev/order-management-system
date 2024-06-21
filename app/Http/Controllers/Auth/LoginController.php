@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticated(Request $request, $user)
+    {
+        switch ($user->role) {
+            case 'admin':
+                return redirect()->route('main-dashboard');
+                break;
+
+            case 'waiter':
+                return redirect()->route('rooms');
+                break;
+
+            case 'office':
+                return redirect()->route('main-dashboard');
+                break;
+
+            case 'kitchen':
+                return redirect()->route('main-dashboard');
+                break;
+
+            default:
+                return redirect()->route('main-dashboard');
+                break;
+        }
     }
 }
