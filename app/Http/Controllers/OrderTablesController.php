@@ -41,7 +41,7 @@ class OrderTablesController extends Controller
 
     public function edit(OrderTables $order_table)
     {
-        // dd($order_table);
+     // dd($order_table);
 
         return view('backend.order_tables.edit', compact('order_table'));
     }

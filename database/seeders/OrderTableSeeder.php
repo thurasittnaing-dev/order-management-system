@@ -14,13 +14,7 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-        // $order_tables =[
-        //     [
-        //         'table_no' =>generateTableNo(),
-        //         'max_person' =>'21',
-        //         'active'=>'1'
-        //     ]
-        // ];
+
 
         for ($i = 0; $i < 30; $i++) {
             $order_tables =[
