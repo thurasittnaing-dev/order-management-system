@@ -69,7 +69,8 @@
                                             <p class="mb-0 fs-3"> Change Password</p>
                                         </a>
                                         <a class="dropdown-item btn btn-outline-primary mt-2 d-block"
-                                            href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                            href="{{ route('logout') }}"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">
                                             @csrf

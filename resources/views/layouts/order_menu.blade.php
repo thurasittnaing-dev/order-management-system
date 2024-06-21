@@ -5,12 +5,12 @@
             <span class="hide-menu text-primary">Main Menus</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link {{ singleMenuActive('singleMenuActive') }}" href="{{ route('makeOrder') }}"
+            <a class="sidebar-link {{ singleMenuActive('singleMenuActive') }}" href="{{ route('rooms') }}"
                 aria-expanded="false">
                 <span>
-                    <i class="ti ti-tools-kitchen"></i>
+                    <i class="ti ti-home-search text-dark"></i>
                 </span>
-                <span class="hide-menu">Make Order</span>
+                <span class="hide-menu">Rooms</span>
             </a>
         </li>
     </ul>

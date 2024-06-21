@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class)->except('show');;
     Route::get('changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
     Route::post('changepassword', [UserController::class, 'storePassword'])->name('user.storepassword');
-    Route::post('changeuserpassword/{user}',[UserController::class, 'storeUserpassword'])->name('user.storeuserpassword');
+    Route::post('changeuserpassword/{user}', [UserController::class, 'storeUserpassword'])->name('user.storeuserpassword');
 
     // Order Table Routes
     Route::resource('order_tables', OrderTablesController::class);
@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 
 // Order Group
 Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
-    // Make Order
-    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+    // Rooms View
+    Route::get('/rooms', [OrderModuleController::class, 'rooms'])->name('rooms');
+
+    // Tables View
+    Route::get('rooms/{room}/tables', [OrderModuleController::class, 'tables'])->name('tables');
 });
