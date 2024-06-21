@@ -48,5 +48,15 @@
                 <span class="hide-menu">Category</span>
             </a>
         </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link {{ menu_active('room') }}" href="{{ route('room.index') }}"
+                aria-expanded="false">
+                <span>
+                    <i class="ti ti-list-numbers"></i>
+                </span>
+                <span class="hide-menu">Room</span>
+            </a>
+        </li>
     </ul>
 </nav>

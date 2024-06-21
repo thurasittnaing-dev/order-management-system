@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Storage;
 
 // Redirect Route
@@ -35,6 +36,9 @@ Route::middleware(['auth'])->group(function () {
 
     // Category Routes
     Route::resource('category', CategoryController::class)->except('show');
+
+    // Room Routes
+    Route::resource('room', RoomController::class);
 
     // User Routes
     Route::resource('user', UserController::class)->except('show');;
