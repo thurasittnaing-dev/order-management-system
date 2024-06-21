@@ -11,11 +11,16 @@ class OrderTableService
   public function index()
   {
     $query = OrderTables::query();
+
+
     // ->when(request('table_no'), fn ($q) => $q->where('table_no', 'LIKE', '%' . request('table_no') . '%'));
 
     if (request('table_no') != '') {
       $query = $query->where('table_no', 'LIKE', '%' . request('table_no') . '%');
     }
+    if (request('max_person') != '') {
+        $query = $query->where('max_person', request('max_person') );
+      }
 
     if (request('status') != '') {
       $query->where('active', request('status'));
@@ -24,8 +29,8 @@ class OrderTableService
     return [
       'i' => getTableIndexer(5),
       'count' => $query->count(),
+      'maxPersons' => OrderTables::groupBy('max_person')->pluck('max_person')->toArray(),
       'order_tables' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
-
     ];
   }
 

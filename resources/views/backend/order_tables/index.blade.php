@@ -9,6 +9,7 @@
         @php
             $table_no = $_GET['table_no'] ?? '';
             $status = $_GET['status'] ?? '';
+            $max_person = $_GET['max_person'] ?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
@@ -20,9 +21,20 @@
                             <input type="text" name="table_no" class="form-control" placeholder="Table No"
                                 value="{{ $table_no }}">
                         </div>
-
+                        <div class="mb-3 col-md-3">
+                            <select id="max person" class="form-control lib-s2" name="max person" >
+                                <option value=" " >Max Person</option>
+                                {{-- @foreach ($order_tables as $order_table)
+                                    <option value=" {{ $order_table->max_person }} ">{{ $order_table->max_person }}</option>
+                                @endforeach --}}
+                                @foreach ($maxPersons as $max_person)
+                                <option value="{{ $max_person }}">{{ $max_person }}</option>
+                            @endforeach
+                            </select>
+                        </div>
                         <div class="col-md-3">
-                            <select id="status" class="form-control" name="status">
+                            <select id="status" class="form-control lib-s2" name="status">
+                                <option value="" selected>Status</option>
                                 <option value="1" @if ($status == '1') selected @endif>Active</option>
                                 <option value="0" @if ($status == '0') selected @endif>Inactive</option>
                             </select>
