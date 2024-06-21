@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UserpasswordUpdateRequest;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +57,7 @@ class UserController extends Controller
         return redirect()->route('user.index')->with($data['status'], $data['message']);;
     }
 
-    //Show form of change password
+    //Show change password form of current login user
     public function changePassword()
     {
         return view('backend.user.changepassword');
@@ -66,6 +67,11 @@ class UserController extends Controller
     public function storePassword(ChangePasswordRequest $request)
     {
         $data = $this->userService->storePassword($request);
+        return redirect()->route('user.index')->with($data['status'],$data['message']);
+    }
+
+    public function storeUserpassword( UserpasswordUpdateRequest $request, $id ){
+        $data = $this->userService->storeUserpassword($request,$id);
         return redirect()->route('user.index')->with($data['status'],$data['message']);
     }
 

@@ -107,6 +107,52 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-sm btn-primary me-1" data-bs-toggle="modal" data-bs-target="#changePasswordModal{{ $user->id }}">
+                                                Change Password
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="changePasswordModal{{ $user->id }}" tabindex="-1" value="{{ $user->id }}" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Change Password for {{ $user->name }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <form action=" {{ route('user.storeuserpassword',$user->id)}}" method="POST" autocomplete="off">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="row mb-3">
+                                                                    <label for="password" class="col-sm-3 form-label">Password</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="">
+                                                                        @error('password')
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                                            </span>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <label for="password-confirm" class="col-sm-3 form-label">Confirm Password</label>
+                                                                    <div class="col-sm-9">
+                                                                        <input type="password" class="form-control" name="password_confirmation" id="confirm">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="d-flex">
+                                                                    <a href="{{ route('user.index') }}" class="btn btn-outline-dark me-2">Back</a>
+                                                                    <button type="submit" class="btn btn-success">
+                                                                        Submit
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <a href="{{ route('user.edit', $user) }}"
                                                 class="btn btn-sm btn-warning me-1">Edit</a>
                                             <form action="{{ route('user.destroy', $user) }}" method="POST">
@@ -132,6 +178,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('css')
