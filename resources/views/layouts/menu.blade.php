@@ -48,5 +48,14 @@
                 <span class="hide-menu">Category</span>
             </a>
         </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link {{ menu_active('ingredient') }}" href="{{ route('ingredient.index') }}"
+                aria-expanded="false">
+                <span>
+
+                </span>
+                <span class="hide-menu">Ingredient</span>
+            </a>
+        </li>
     </ul>
 </nav>

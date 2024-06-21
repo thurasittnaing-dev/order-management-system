@@ -80,7 +80,7 @@
                                     <td>{{ $order_table->table_no }}</td>
                                     <td>{{ $order_table->max_person }}</td>
                                     <td>
-                                        @if ($order_table->active)
+                                        @if ($order_table->active )
                                             <span class="text-success">Active</span>
                                         @else
                                             <span class="text-danger">Inactive</span>

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\CategorySeeder;
-
+use Database\Seeders\OrderTableSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**

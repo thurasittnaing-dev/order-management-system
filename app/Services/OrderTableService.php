@@ -23,9 +23,11 @@ class OrderTableService
 
     return [
       'i' => getTableIndexer(4),
-      'order_tables' => $query->paginate(4),
-      'count' => $query->count()
+      'count' => $query->count(),
+      'order_tables' => $query->orderBy('created_at', 'desc')->paginate(4)->withQueryString(),
+
     ];
+
   }
 
   public function store($request)

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IngredientController;
 use Illuminate\Support\Facades\Storage;
 
 // Redirect Route
@@ -43,4 +44,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Order Table Routes
     Route::resource('order_tables', OrderTablesController::class);
+
+    //Ingredient Table Routes
+    Route::resource('ingredient',IngredientController::class);
+
 });

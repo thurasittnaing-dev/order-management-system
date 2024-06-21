@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\OrderTables;
 use Illuminate\Database\Seeder;
+use App\Models\OrderTables;
 
 class OrderTableSeeder extends Seeder
 {
@@ -14,16 +14,21 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i =0;$i<30;$i++){
+
+
+        for ($i = 0; $i < 30; $i++) {
             $order_tables =[
-                ['table_no' => generateTableNo(),
+            [
+                'table_no' =>generateTableNo(),
                 'max_person' =>'21',
-                'active' =>'1'
-                ]
-            ];
-            foreach($order_tables as $order_table){
+                'active'=>'1'
+            ]
+        ];
+            foreach ($order_tables as $order_table) {
                 OrderTables::create($order_table);
             }
         }
+
+
     }
 }
