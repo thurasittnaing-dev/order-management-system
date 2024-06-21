@@ -37,7 +37,7 @@
 
                     <div class="mb-3">
                         <label for="" class="mb-2">Status<span class="text-danger">*</span></label>
-                        <select name="status" id="" class="form-control">
+                        <select name="status" id="" class="form-control lib-s2">
                             <option {{ $order_table->active == true ? 'selected' : '' }} value="1">Active</option>
                             <option {{ $order_table->active == false ? 'selected' : '' }} value="0">Inactive</option>
                         </select>

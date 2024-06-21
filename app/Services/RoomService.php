@@ -2,19 +2,18 @@
 
 namespace App\Services;
 
-use App\Models\Category;
+use App\Models\Room;
 
-
-class CategoryService {
-    public function index()  {
-        $query = Category::query()
-                    ->when(request('name'),fn($query) =>  $query->where('name', 'LIKE', '%' . request('name') . '%'))
-                    ->when(request('type'),fn($query)=>$query->where('type', request('type')));
+class RoomService {
+    public function index() {
+        $query = Room::query()
+                    ->when(request('name'),fn($query) => $query->where('name', 'LIKE', '%' . request('name') . '%'))
+                    ->when(request('type'),fn($query)=>$query->where('type', request('type')));;
 
         return [
             'i' => getTableIndexer(5),
             'count' => $query->count(),
-            'categories' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
+            'rooms' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
         ];
     }
 
@@ -27,20 +26,19 @@ class CategoryService {
                 $ext = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $ext;
                 $image = $filename;
-                $file->storeAs('public/categories', $filename);
+                $file->storeAs('public/rooms', $filename);
             }
 
             $data = $request->validated();
             $data['image'] = $image;
 
-            Category::create($data);
+            Room::create($data);
 
             return [
                 'status' => 'success',
-                'message' => 'Sucessfully Created.',
+                'message' => 'Successfully Created.',
             ];
         } catch (\Exception $e) {
-            // dd($e->getMessage());
             return [
                 'status' => 'error',
                 'message' => 'Something went wrong!',
@@ -48,13 +46,13 @@ class CategoryService {
         }
     }
 
-    public function update($request, $category) {
+    public function update($request, $room) {
         try {
             //code...
             $data = $request->validated();
 
             if ($request->hasFile('file')) {
-                $file_location = storage_path('app/public/categories/') . $category->image;
+                $file_location = storage_path('app/public/rooms/') . $room->image;
                 $checkFileExist = file_exists($file_location);
                 if ($checkFileExist) {
                     unlink($file_location);
@@ -63,9 +61,9 @@ class CategoryService {
                 $ext = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $ext;
                 $data['image'] = $filename;
-                $file->storeAs('public/categories', $filename);
+                $file->storeAs('public/rooms', $filename);
             }
-            $category->update($data);
+            $room->update($data);
             return [
                 'status' => 'success',
                 'message' => 'Sucessfully Updated.',
@@ -78,16 +76,16 @@ class CategoryService {
         }
     }
 
-    public function destroy(Category $category) {
+    public function destroy(Room $room) {
         try {
             //code...
-            $filename = $category->image ?? 'test.png';
-            $file_location = storage_path('app/public/categories/') . $filename;
+            $filename = $room->image ?? 'test.png';
+            $file_location = storage_path('app/public/rooms/') . $filename;
             $checkFileExist = file_exists($file_location);
             if ($checkFileExist) {
                 unlink($file_location);
             }
-            $category->delete();
+            $room->delete();
             return [
                 'status' => 'success',
                 'message' => 'Sucessfully Deleted.',

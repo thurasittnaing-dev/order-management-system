@@ -18,7 +18,7 @@
                     @method('PUT')
                     <div class="row mb-3">
                         <div class="col-md-12 mb-3">
-                            <label for="name" class="form-label fw-bold">Name<span style="color: red;">*</span></label>
+                            <label for="name" class="form-label fw-bold">Name<span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                 name="name" value="{{ old('name', $category->name) }}">
                             @error('name')
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <label for="file" class="form-label fw-bold">Image<span style="color: red;">*</span></label>
+                            <label for="file" class="form-label fw-bold">Image<span class="text-danger">*</span></label>
                             <div class="">
                                 <input type="file" name="file" id="file"
                                     class="form-control-file @error('file') is-invalid @enderror" accept=".jpg,.jpeg,.png">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="type" class="form-label fw-bold">Type<span style="color: red;">*</span></label>
+                            <label for="type" class="form-label fw-bold">Type<span class="text-danger">*</span></label>
                             <div>
                                 <div class="form-check">
                                     <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="drink" name="type" value="drink" {{ $category->type == 'drink' ? 'checked' : '' }}>
