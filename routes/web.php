@@ -8,24 +8,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IngredientController;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\OrderModuleController;
 
 // Redirect Route
 Route::get('/', fn () => redirect()->route('main-dashboard'));
 
 // Auth Routes
 Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
-
-Route::get('/test', function () {
-    $data = public_path('images/default_categories/chinese_drink.png');
-    if (file_exists($data)) {
-
-        $fileContents = file_get_contents($data);
-        $destinationPath = 'public/categories/' . time() . '.png';
-        Storage::put($destinationPath, $fileContents);
-    }
-});
-
 
 
 Route::middleware(['auth'])->group(function () {
@@ -48,4 +37,18 @@ Route::middleware(['auth'])->group(function () {
     //Ingredient Table Routes
     Route::resource('ingredient',IngredientController::class);
 
+});
+
+
+// Order Group
+Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
+    // Make Order
+    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+});
+
+
+// Order Group
+Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
+    // Make Order
+    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
 });

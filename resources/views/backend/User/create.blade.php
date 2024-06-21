@@ -16,8 +16,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="name" class="form-label">{{ __('Name') }}</label>
-
+                            <label for="name" class="form-label">Name <span class="text-danger">*</span> </label>
                             <div class=" ">
                                 <input id="name" type="text"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
@@ -32,7 +31,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span> </label>
 
                             <div class=" ">
                                 <input id="email" type="email"
@@ -50,7 +49,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="phone" class="form-label">{{ __('Phone') }}</label>
+                            <label for="phone" class="form-label">Phone</label>
 
                             <div class=" ">
                                 <input id="phone" type="text"
@@ -65,7 +64,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="role" class="form-label">{{ __('Role') }}</label>
+                            <label for="role" class="form-label">Role <span class="text-danger">*</span> </label>
                             <div class=" ">
                                 <select id="role" class="form-control @error('role') is-invalid @enderror"
                                     name="role" required>
@@ -86,7 +85,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="password" class="form-label">{{ __('Password') }}</label>
+                            <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <input id="password" type="password"
@@ -102,7 +101,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="form-label">Confirm Password<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <input id="password-confirm" type="password"
@@ -133,7 +132,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="status" class="form-label">{{ __('Status') }}</label>
+                            <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <select id="status" class="form-control @error('status') is-invalid @enderror"

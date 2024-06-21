@@ -17,7 +17,7 @@
                     @method('PUT')
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="name" class="form-label">{{ __('Name') }}</label>
+                            <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <input id="name" type="text"
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                            <label for="email" class="form-label">Email Address<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <input id="email" type="email"
@@ -51,7 +51,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="phone" class="form-label">{{ __('Phone') }}</label>
+                            <label for="phone" class="form-label">Phone</label>
 
                             <div class=" ">
                                 <input id="phone" type="text"
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="role" class="form-label">{{ __('Role') }}</label>
+                            <label for="role" class="form-label">Role<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <select id="role" class="form-control @error('role') is-invalid @enderror"
@@ -91,37 +91,9 @@
                         </div>
 
                     </div>
-
-                    {{-- <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="password" class="form-label">{{ __('Password') }}</label>
-
-                            <div class=" ">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    value="{{ old('password', $user->password) }}">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
-
-                            <div class=" ">
-                                <input id="password-confirm" type="password" class="form-control"
-                                    value="{{ old('password', $user->password) }}" name="password_confirmation">
-                            </div>
-                        </div>
-                    </div> --}}
-
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="address" class="form-label">{{ __('Address') }}</label>
+                            <label for="address" class="form-label">Address</label>
 
                             <div class=" ">
                                 <textarea id="address" type="text"
@@ -136,7 +108,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="status" class="form-label">{{ __('Status') }}</label>
+                            <label for="status" class="form-label">Status<span class="text-danger">*</span></label>
 
                             <div class=" ">
                                 <select id="status" class="form-control @error('status') is-invalid @enderror"
