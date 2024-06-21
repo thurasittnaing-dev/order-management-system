@@ -86,6 +86,26 @@ class UserService
     }
   }
 
+  public function storeUserpassword($request, $id){
+    try {
+            $user = User::find($id);
+            $data=$request->validated();
+            $user->update([
+                'password' => Hash::make($data['password'])
+            ]);
+
+        return[
+            'status' => 'success',
+            'message' => 'User Password Updated'
+        ];
+    } catch (\Exception $e) {
+        return[
+            'status' => 'error',
+            'message' =>'Something went wrong',
+        ];
+    }
+  }
+
   public function destroy($user){
     try {
         $user->delete();

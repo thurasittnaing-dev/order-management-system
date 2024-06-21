@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class)->except('show');;
     Route::get('changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
     Route::post('changepassword', [UserController::class, 'storePassword'])->name('user.storepassword');
+    Route::post('changeuserpassword/{user}',[UserController::class, 'storeUserpassword'])->name('user.storeuserpassword');
 
     // Order Table Routes
     Route::resource('order_tables', OrderTablesController::class);
