@@ -7,24 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\OrderModuleController;
 
 // Redirect Route
 Route::get('/', fn () => redirect()->route('main-dashboard'));
 
 // Auth Routes
 Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
-
-Route::get('/test', function () {
-    $data = public_path('images/default_categories/chinese_drink.png');
-    if (file_exists($data)) {
-
-        $fileContents = file_get_contents($data);
-        $destinationPath = 'public/categories/' . time() . '.png';
-        Storage::put($destinationPath, $fileContents);
-    }
-});
-
 
 
 Route::middleware(['auth'])->group(function () {
@@ -36,6 +27,9 @@ Route::middleware(['auth'])->group(function () {
     // Category Routes
     Route::resource('category', CategoryController::class)->except('show');
 
+    // Room Routes
+    Route::resource('room', RoomController::class);
+
     // User Routes
     Route::resource('user', UserController::class)->except('show');;
     Route::get('changepassword', [UserController::class, 'changePassword'])->name('user.changepassword');
@@ -44,4 +38,21 @@ Route::middleware(['auth'])->group(function () {
 
     // Order Table Routes
     Route::resource('order_tables', OrderTablesController::class);
+
+    //Ingredient Table Routes
+    Route::resource('ingredient', IngredientController::class);
+});
+
+
+// Order Group
+Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
+    // Make Order
+    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+});
+
+
+// Order Group
+Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
+    // Make Order
+    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
 });

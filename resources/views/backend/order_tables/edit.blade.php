@@ -6,11 +6,7 @@
 
 
 @section('content')
-    <style>
-        .required-star {
-            color: red;
-        }
-    </style>
+
     <div class="container mt-5">
 
         <div class="card">
@@ -23,13 +19,13 @@
                     @method('PUT')
 
                     <div class="mb-3">
-                        <label for="" class="mb-2">Table no<span class="required-star">*</span></label>
+                        <label for="" class="mb-2">Table no<span class="text-danger">*</span></label>
                         <input type="text" name="table no" class="form-control" value="{{ $order_table->table_no }}"
                             placeholder="" disabled>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
+                        <label for="" class="mb-2">Max_person <span class="text-danger">*</span></label>
                         <input type="text" name="max_person"
                             class="form-control num-only @error('max_person') is-invalid  @enderror"
                             value="{{ old('max_person', $order_table->max_person) }}">
@@ -40,8 +36,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="" class="mb-2">Status<span class="required-star">*</span></label>
-                        <select name="status" id="" class="form-control">
+                        <label for="" class="mb-2">Status<span class="text-danger">*</span></label>
+                        <select name="status" id="" class="form-control lib-s2">
                             <option {{ $order_table->active == true ? 'selected' : '' }} value="1">Active</option>
                             <option {{ $order_table->active == false ? 'selected' : '' }} value="0">Inactive</option>
                         </select>

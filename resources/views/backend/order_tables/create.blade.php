@@ -6,11 +6,7 @@
 
 
 @section('content')
-    <style>
-        .required-star {
-            color: red;
-        }
-    </style>
+
     <div class="container mt-5">
 
         <div class="card">
@@ -23,7 +19,7 @@
 
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="" class="mb-2">Max_person <span class="required-star">*</span></label>
+                            <label for="" class="mb-2">Max_person <span class="text-danger">*</span></label>
                             <input type="text" name="max_person"
                                 class="form-control num-only @error('max_person') is-invalid  @enderror"
                                 value="{{ old('max_person') }}">
@@ -33,9 +29,9 @@
 
                         </div>
                         <div class="col-md-6">
-                            <label for="" class="mb-2">Status<span class="required-star">*</span></label>
+                            <label for="" class="mb-2">Status<span class="text-danger">*</span></label>
                             <select name="status" id="status"
-                                class="form-control @error('status') is-invalid  @enderror">
+                                class="form-control lib-s2 @error('status') is-invalid  @enderror">
                                 <option value="">--Select--</option>
                                 <option value="1" selected>Active</option>
                                 <option value="0">Inactive</option>

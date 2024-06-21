@@ -22,9 +22,10 @@ class OrderTableService
     }
 
     return [
-      'i' => getTableIndexer(4),
-      'order_tables' => $query->paginate(4),
-      'count' => $query->count()
+      'i' => getTableIndexer(5),
+      'count' => $query->count(),
+      'order_tables' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
+
     ];
   }
 
@@ -52,45 +53,40 @@ class OrderTableService
   {
     try {
 
-        $orderTables->delete();
-        return [
+      $orderTables->delete();
+      return [
         'status' => 'success',
         'message' => 'Order Table Deleted.',
-        ];
-
-     } catch(\Exception $e){
-        return [
+      ];
+    } catch (\Exception $e) {
+      return [
         'status' => 'error',
         'message' => 'Something went wrong',
 
-        ];
-
+      ];
     }
   }
-  public function update( $request, $order_table){
-    try{
-        $data = [
-         'table_no' => generateTableNo(),
-         'max_person' => $request->max_person,
-         'active' => $request->status
-        ];
+  public function update($request, $order_table)
+  {
+    try {
+      $data = [
+        'table_no' => generateTableNo(),
+        'max_person' => $request->max_person,
+        'active' => $request->status
+      ];
 
-        $order_table->update($data);
-        return [
+      $order_table->update($data);
+      return [
         'status' => 'success',
         'message' => 'Sucessfully Updated.',
 
-        ];
-
-   } catch(\Exception $e){
-    return [
+      ];
+    } catch (\Exception $e) {
+      return [
         'status' => 'error',
         'message' => 'Something went wrong!',
 
-    ];
-
-
-   }
-
+      ];
+    }
   }
 }

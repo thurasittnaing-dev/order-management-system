@@ -27,7 +27,7 @@ class CategoryStoreRequest extends FormRequest
             'name' => 'required|max:50',
             'file' => 'required|mimes:png,jpg,jpeg|max:6000',
             'type' => 'required',
-            'description' => 'nullable',
+            'service_fee' => '',
         ];
     }
 }

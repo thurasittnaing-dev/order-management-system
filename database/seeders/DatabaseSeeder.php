@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\CategorySeeder;
-
+use Database\Seeders\OrderTableSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            CategorySeeder::class
+            CategorySeeder::class,
+            OrderTableSeeder::class
         ]);
     }
 }

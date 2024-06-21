@@ -20,6 +20,15 @@ if (!function_exists('menu_active')) {
 }
 
 
+if (!function_exists('singleMenuActive')) {
+  function singleMenuActive($routeName)
+  {
+    return Route::currentRouteName() == $routeName ? 'active' : '';
+  }
+}
+
+
+
 
 if (!function_exists('getTableIndexer')) {
   function getTableIndexer($pagination_number)

@@ -8,7 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class OrderTables extends Model
 {
     use HasFactory;
-    protected $fillable  = ['table_no','max_person' ,'active'];
-
-
+    protected $fillable  = ['table_no', 'max_person', 'active'];
 }
