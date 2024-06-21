@@ -14,21 +14,15 @@ class OrderTableSeeder extends Seeder
      */
     public function run()
     {
-
+        $maxPersons = [2, 5, 10, 25];
 
         for ($i = 0; $i < 30; $i++) {
-            $order_tables =[
-            [
-                'table_no' =>generateTableNo(),
-                'max_person' =>'21',
-                'active'=>'1'
-            ]
-        ];
-            foreach ($order_tables as $order_table) {
-                OrderTables::create($order_table);
-            }
+            $data =  [
+                'table_no' => generateTableNo(),
+                'max_person' => $maxPersons[rand(0, 3)],
+                'active' => true
+            ];
+            OrderTables::create($data);
         }
-
-
     }
 }

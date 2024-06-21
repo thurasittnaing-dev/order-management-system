@@ -35,8 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('order_tables', OrderTablesController::class);
 
     //Ingredient Table Routes
-    Route::resource('ingredient',IngredientController::class);
-
+    Route::resource('ingredient', IngredientController::class);
 });
 
 
