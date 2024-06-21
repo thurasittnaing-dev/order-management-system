@@ -9,3 +9,11 @@ $(".num-only").on("keyup", function () {
     var cleanedValue = value.replace(/\D/g, "");
     $(this).val(cleanedValue);
 });
+
+$(".table-responsive").on("show.bs.dropdown", function () {
+    $(".table-responsive").css("overflow", "inherit");
+});
+
+$(".table-responsive").on("hide.bs.dropdown", function () {
+    $(".table-responsive").css("overflow", "auto");
+});

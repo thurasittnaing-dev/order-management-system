@@ -14,8 +14,13 @@ class OrderModuleController extends Controller
         $this->orderModuleService = $orderModuleService;
     }
 
-    public function makeOrder()
+    public function rooms()
     {
-        return view('order.make_order');
+        return view('order.rooms');
+    }
+
+    public function tables($room)
+    {
+        return view('order.tables');
     }
 }

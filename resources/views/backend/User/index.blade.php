@@ -76,7 +76,7 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-bordered text-center mb-0">
+                    <table class="table table-bordered mb-0">
                         <thead class="">
                             <tr>
                                 <th>#</th>
@@ -86,7 +86,9 @@
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Status</th>
-                                <th>Action</th>
+                                <th>
+                                    <center>Action</center>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,19 +107,38 @@
                                             <span class="text-danger">Inactive</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td align="centers">
                                         <div class="d-flex justify-content-center">
-                                            <a href="{{ route('user.edit', $user) }}"
-                                                class="btn btn-sm btn-warning me-1">Edit</a>
-                                            <form action="{{ route('user.destroy', $user) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" onClick="return confirm('Are you sure?')"
-                                                    class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton{{ $user->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  Actions
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton{{ $user->id }}">
+                                                    <!-- Button trigger modal -->
+                                                    <li class="mt-2"><button type="button" class="dropdown-item text-warning"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#changePasswordModal{{ $user->id }}">
+                                                        Change Password
+                                                        </button>
+                                                    </li>
+                                                    <li class="mt-2"><a href="{{ route('user.edit', $user) }}"
+                                                        class="dropdown-item text-warning">Edit</a>
+                                                    </li>
+                                                  <li class="mt-2">
+                                                    <form action="{{ route('user.destroy', $user) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" onClick="return confirm('Are you sure?')"
+                                                            class="dropdown-item text-warning">Delete</button>
+                                                    </form>
+                                                  </li>
+                                                </ul>
+                                              </div>
                                         </div>
                                     </td>
                                 </tr>
+
+                                @include('backend.user.modal')
                             @empty
                                 <tr>
                                     <td align="center" colspan="12">There is no user yet!</td>
@@ -132,6 +153,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('css')
@@ -139,5 +161,28 @@
 @endsection
 
 @section('js')
+    <script>
+        $(document).ready(function() {
+            $('.change-pw-btn').on('click', function() {
+                let id = $(this).data('id');
+                let pwdValue = $(`#pwd-${id}`).val();
+                let cpwdValue = $(`#cpwd-${id}`).val();
 
+                if (pwdValue == "" || cpwdValue == "") {
+                    Swal.fire({
+                        position: "center",
+                        icon: "warning",
+                        title: "Please fill all required informations.",
+                        showConfirmButton: true,
+                        timer: 2000
+                    });
+                    return;
+                }
+
+                $(this).prop('disabled', true);
+                $(this).text('Processing...');
+                $(`#change-pw-form-${id}`).submit();
+            });
+        });
+    </script>
 @endsection
