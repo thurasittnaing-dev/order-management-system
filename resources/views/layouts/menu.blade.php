@@ -62,7 +62,7 @@
             <a class="sidebar-link {{ menu_active('room') }}" href="{{ route('room.index') }}"
                 aria-expanded="false">
                 <span>
-                    <i class="ti ti-list-numbers"></i>
+                    <i class="ti ti-door"></i>
                 </span>
                 <span class="hide-menu">Room</span>
             </a>
