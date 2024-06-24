@@ -23,8 +23,8 @@ class OrderTableSeeder extends Seeder
             $data =  [
                 'table_no' => generateTableNo(),
                 'max_person' => $maxPersons[rand(0, 3)],
-                'active' => (bool)rand(0, 1),
-                'in_used' => (bool)rand(0, 1),
+                'active' => true,
+                'in_used' => false,
                 'room_id' => $room->id,
             ];
             OrderTables::create($data);
