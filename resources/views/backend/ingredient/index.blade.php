@@ -9,6 +9,7 @@
     <div class="container-fluid">
         @php
             $name = $_GET['name'] ?? '';
+            $type = $_GET['type'] ?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
@@ -17,6 +18,13 @@
                     <div class="row">
                         <div class="mb-3 col-md-3">
                             <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $name }}">
+                        </div>
+                        <div class="col-md-3">
+                            <select id="type" class="form-control lib-s2" name="type">
+                                <option value="" selected>Type</option>
+                                <option value="drink" @if ($type == 'drink') selected @endif>Drink</option>
+                                <option value="food" @if ($type == 'food') selected @endif>Food</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -53,6 +61,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
+                                <th scope="col">Type</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Created at</th>
                                 <th scope="col">
@@ -65,6 +74,7 @@
                             <tr>
                                 <td>{{ ++$i }}.</td>
                                 <td>{{ $ingredient->name }}</td>
+                                <td>{{ $ingredient->type }}</td>
                                 <td>{{ $ingredient->description }}</td>
                                 <td>{{ $ingredient->created_at->format('d/m/Y') }}</td>
                                 <td align="center">
