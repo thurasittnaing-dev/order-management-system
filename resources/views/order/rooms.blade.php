@@ -28,7 +28,7 @@
                 <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
                     <div class="rooms-container py-3">
                         @foreach ($rooms as $room)
-                            <a href="{{ route('tables', 1) }}">
+                            <a href="{{ route('tables', $room->id) }}">
                                 <div class="room-card">
                                     <div class="box">
                                         <div class="ribbon-success"><span>Available</span></div>
