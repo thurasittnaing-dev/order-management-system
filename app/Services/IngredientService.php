@@ -15,12 +15,16 @@ class IngredientService
     if (request('name') != '') {
         $query = $query->where('name', request('name') );
       }
+      if (request('type') != '') {
+        $query = $query->where('type', request('type') );
+      }
 
 
     return [
       'i' => getTableIndexer(5),
       'count' => $query->count(),
       'name' => $query->orderBy('created_at', 'desc')->get(),
+      'type' => $query->orderBy('created_at', 'desc')->get(),
       'ingredients' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
     ];
   }
@@ -30,13 +34,14 @@ class IngredientService
     try {
       Ingredient::create([
         'name' => $request->name,
+        'type' =>$request->type
       ]);
 
       return [
         'status' => 'success',
         'message' => 'Ingredient Created.',
       ];
-    } catch (\Throwable $th) {
+    } catch (\Exception $e) {
       return [
         'status' => 'error',
         'message' => 'Something went wrong',

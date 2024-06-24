@@ -29,11 +29,26 @@
 
                         </div>
                         <div class="mb-3">
+                            <label for="type" class="form-label fw-bold">Type<span class="text-danger">*</span></label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="drink" name="type" value="drink" {{ old('type', 'drink') == 'drink' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="drink">Drink</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="food" name="type" value="food" {{ old('type') == 'food' ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="food">Food</label>
+                                </div>
+                                @error('type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <label for="description" class="form-label fw-bold">Description</label>
                             <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                                 rows="3">{{ old('description') }}</textarea>
                         </div>
-
                     </div>
 
                     <div class="row">

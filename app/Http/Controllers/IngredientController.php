@@ -28,11 +28,8 @@ class IngredientController extends Controller
 
     public function store( IngredientStoreRequest $request)
     {
-        Ingredient::create([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('ingredient.index');
+        $data = $this->ingredientService->store($request);
+        return redirect()->route('ingredient.index')->with($data['status'],$data['message']);
     }
     public function destroy(Ingredient $ingredient)
     {
