@@ -19,11 +19,11 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-2">
                             <input type="text" name="table_no" class="form-control" placeholder="Table No"
                                 value="{{ $table_no }}">
                         </div>
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-2">
                             <select id="max person" class="form-control lib-s2" name="max person" >
                                 <option value=" " >Max Person</option>
                                 @foreach ($maxPersons as $max_person)
@@ -31,14 +31,14 @@
                             @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select id="status" class="form-control lib-s2" name="status">
                                 <option value="" selected>Status</option>
                                 <option value="1" @if ($status == '1') selected @endif>Active</option>
                                 <option value="0" @if ($status == '0') selected @endif>Inactive</option>
                             </select>
                         </div>
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-2">
                             <select id="room" class="form-control lib-s2" name="room" >
                                 <option value=" " >Room</option>
                                 @foreach ($rooms as $room)
@@ -46,7 +46,7 @@
                             @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select id="in_used" class="form-control lib-s2" name="in_used">
                                 <option value="" selected>In Used</option>
                                 <option value="0" @if ($in_used == '0') selected @endif>No</option>
