@@ -1,8 +1,8 @@
 @extends('layouts.modernize')
 
-@section('title', 'Categories')
+@section('title', 'Create Category')
 
-@section('page', 'Categories')
+@section('page', 'Create Category')
 
 @section('content')
     <div class="container-fluid">

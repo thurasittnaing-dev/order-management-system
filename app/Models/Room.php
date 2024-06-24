@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\OrderTables;
 
 class Room extends Model
 {
@@ -14,4 +15,9 @@ class Room extends Model
         'type',
         'service_fee',
     ];
+
+    public function orderTables()
+    {
+        return $this->hasMany(OrderTables::class);
+    }
 }

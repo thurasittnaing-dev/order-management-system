@@ -1,8 +1,8 @@
 @extends('layouts.modernize')
 
-@section('title', 'Categories')
+@section('title', 'Edit Category')
 
-@section('page', 'Categories')
+@section('page', 'Edit Category')
 
 @section('content')
 

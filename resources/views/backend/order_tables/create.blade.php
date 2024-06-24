@@ -33,14 +33,41 @@
                             <select name="status" id="status"
                                 class="form-control lib-s2 @error('status') is-invalid  @enderror">
                                 <option value="">--Select--</option>
-                                <option value="1" selected>Active</option>
-                                <option value="0">Inactive</option>
+                                <option value="1" {{ old('status', '1') == '1' ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                             </select>
                             @error('status')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="room" class="mb-2">Room<span class="text-danger">*</span></label>
+                            <select name="room" id="room" class="form-control @error('room') is-invalid  @enderror">
+                                <option value="">--Select--</option>
+                                @foreach ($rooms as $room)
+                                    <option @if (old('room') == $room->id) selected @endif value="{{ $room->id }}">
+                                        {{ $room->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('room')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="in_used" class="mb-2">In_Used<span class="text-danger">*</span></label>
+                            <select name="in_used" id="in_used"
+                                class="form-control lib-s2 @error('in_used') is-invalid  @enderror">
+                                <option value="">--Select--</option>
+                                <option value="0" {{ old('in_used', '0') == '0' ? 'selected' : '' }}>No</option>
+                                <option value="1" {{ old('in_used') == '1' ? 'selected' : '' }}>Yes</option>
+                            </select>
+                            @error('in_used')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
 
                     <div class="row">
@@ -54,10 +81,6 @@
                 </form>
             </div>
         </div>
-
-
-
-
     </div>
 @endsection
 

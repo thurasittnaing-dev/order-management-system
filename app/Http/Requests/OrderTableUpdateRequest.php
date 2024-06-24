@@ -26,6 +26,8 @@ class OrderTableUpdateRequest extends FormRequest
         return [
             'max_person' => 'required|numeric|max:30',
            'status' => 'required',
+            'in_used' => 'required',
+            'room' => 'required',
        ];
     }
 }
