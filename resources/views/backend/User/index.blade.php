@@ -97,7 +97,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->role }}</td>
+                                    <td>{{ ucfirst($user->role )}}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->address }}</td>
                                     <td>

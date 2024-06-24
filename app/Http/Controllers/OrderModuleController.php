@@ -16,11 +16,13 @@ class OrderModuleController extends Controller
 
     public function rooms()
     {
-        return view('order.rooms');
+        $data = $this->orderModuleService->getRooms();
+        return view('order.rooms',$data);
     }
 
     public function tables($room)
     {
         return view('order.tables');
     }
+
 }
