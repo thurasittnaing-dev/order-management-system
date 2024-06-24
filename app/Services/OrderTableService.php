@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\OrderTableUpdateRequest;
 use App\Models\OrderTables;
+use App\Models\Room;
 use PhpParser\Node\Stmt\TryCatch;
 
 class OrderTableService
@@ -25,11 +26,20 @@ class OrderTableService
     if (request('status') != '') {
       $query->where('active', request('status'));
     }
+    if (request('room') != '') {
+        $query = $query->whereHas('room', function ($q) {
+                $q->where('name', request('room'));
+        });
+    }
+    if (request('in_used') != '') {
+        $query->where('in_used', request('in_used'));
+    }
 
     return [
       'i' => getTableIndexer(5),
       'count' => $query->count(),
       'maxPersons' => OrderTables::groupBy('max_person')->pluck('max_person')->toArray(),
+      'rooms' => Room::groupBy('name')->pluck('name')->toArray(),
       'order_tables' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
     ];
   }
@@ -40,14 +50,16 @@ class OrderTableService
       OrderTables::create([
         'table_no' => generateTableNo(),
         'max_person' => $request->max_person,
-        'active' => $request->status
+        'active' => $request->status,
+        'in_used' => $request->in_used,
+        'room_id' => $request->room,
       ]);
 
       return [
         'status' => 'success',
         'message' => 'Order Table Created.',
       ];
-    } catch (\Throwable $th) {
+    } catch (\Exception $e) {
       return [
         'status' => 'error',
         'message' => 'Something went wrong',
@@ -75,9 +87,10 @@ class OrderTableService
   {
     try {
       $data = [
-        'table_no' => generateTableNo(),
         'max_person' => $request->max_person,
-        'active' => $request->status
+        'active' => $request->status,
+        'in_used' => $request->in_used,
+        'room_id' => $request->room,
       ];
 
       $order_table->update($data);

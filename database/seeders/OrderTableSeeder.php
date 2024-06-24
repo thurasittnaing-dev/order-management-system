@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\OrderTables;
+use App\Models\Room;
 
 class OrderTableSeeder extends Seeder
 {
@@ -15,12 +16,16 @@ class OrderTableSeeder extends Seeder
     public function run()
     {
         $maxPersons = [2, 5, 10, 25];
+        $rooms = Room::all();
 
         for ($i = 0; $i < 30; $i++) {
+            $room = $rooms->random();
             $data =  [
                 'table_no' => generateTableNo(),
                 'max_person' => $maxPersons[rand(0, 3)],
-                'active' => true
+                'active' => true,
+                'in_used' => false,
+                'room_id' => $room->id,
             ];
             OrderTables::create($data);
         }

@@ -10,6 +10,8 @@
             $table_no = $_GET['table_no'] ?? '';
             $status = $_GET['status'] ?? '';
             $max_person = $_GET['max_person'] ?? '';
+            $room = $_GET['room'] ?? '';
+            $in_used = $_GET['in_used'] ?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
@@ -17,26 +19,38 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-2">
                             <input type="text" name="table_no" class="form-control" placeholder="Table No"
                                 value="{{ $table_no }}">
                         </div>
-                        <div class="mb-3 col-md-3">
+                        <div class="mb-3 col-md-2">
                             <select id="max person" class="form-control lib-s2" name="max person" >
                                 <option value=" " >Max Person</option>
-                                {{-- @foreach ($order_tables as $order_table)
-                                    <option value=" {{ $order_table->max_person }} ">{{ $order_table->max_person }}</option>
-                                @endforeach --}}
                                 @foreach ($maxPersons as $max_person)
                                 <option value="{{ $max_person }}">{{ $max_person }}</option>
                             @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select id="status" class="form-control lib-s2" name="status">
                                 <option value="" selected>Status</option>
                                 <option value="1" @if ($status == '1') selected @endif>Active</option>
                                 <option value="0" @if ($status == '0') selected @endif>Inactive</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <select id="room" class="form-control lib-s2" name="room" >
+                                <option value=" " >Room</option>
+                                @foreach ($rooms as $room)
+                                <option value="{{ $room }}">{{ $room }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select id="in_used" class="form-control lib-s2" name="in_used">
+                                <option value="" selected>In Used</option>
+                                <option value="0" @if ($in_used == '0') selected @endif>No</option>
+                                <option value="1" @if ($in_used == '1') selected @endif>Yes</option>
                             </select>
                         </div>
                     </div>
@@ -78,6 +92,8 @@
                                 <th scope="col">Table No</th>
                                 <th scope="col">Max person</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Room</th>
+                                <th scope="col">In Used</th>
                                 <th scope="col">Created at</th>
                                 <th scope="col">
                                     <center>Action</center>
@@ -92,10 +108,18 @@
                                     <td>{{ $order_table->table_no }}</td>
                                     <td>{{ $order_table->max_person }}</td>
                                     <td>
-                                        @if ($order_table->active )
+                                        @if ($order_table->active)
                                             <span class="text-success">Active</span>
                                         @else
                                             <span class="text-danger">Inactive</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $order_table->room->name }}</td>
+                                    <td>
+                                        @if ($order_table->in_used)
+                                            <span class="text-success">Yes</span>
+                                        @else
+                                            <span class="text-danger">No</span>
                                         @endif
                                     </td>
                                     <td>{{ $order_table->created_at->format('d/m/Y') }}</td>
