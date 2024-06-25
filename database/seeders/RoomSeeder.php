@@ -17,42 +17,56 @@ class RoomSeeder extends Seeder
     {
         $rooms = [
             [
-                'name' => 'Standard Room 1',
-                'image' => 'normal_room.jpg',
+                'tmp_name' => 'Standard Room-',
+                'tmp_image' => 'normal_room',
                 'type' => 'normal',
-                'service_fee' => '0',
+                'service_fee' => 0,
             ],
             [
-                'name' => 'Family Suite A',
-                'image' => 'family_room.jpg',
+                'tmp_name' => 'Family Room-',
+                'tmp_image' => 'family_room',
                 'type' => 'family',
-                'service_fee' => '20000',
+                'service_fee' => 20000,
             ],
             [
-                'name' => 'Private Room X',
-                'image' => 'private_room.jpg',
+                'tmp_name' => 'Private Room-',
+                'tmp_image' => 'private_room',
                 'type' => 'private',
-                'service_fee' => '30000',
+                'service_fee' => 30000,
             ],
             [
-                'name' => 'VIP Suite Z',
-                'image' => 'vip_room.jpg',
+                'tmp_name' => 'VIP Room-',
+                'tmp_image' => 'vip_room',
                 'type' => 'vip',
-                'service_fee' => '50000',
+                'service_fee' => 50000,
             ],
         ];
 
         foreach ($rooms as $roomData) {
-            $filename = $this->uploadImageFile($roomData['image']);
-            $roomData['image'] = $filename;
-            Room::create($roomData);
+            for ($i = 1; $i <= 3; $i++) {
+                $uploadFilename = $roomData['tmp_image'] . $i . '.jpg';
+                $filename = $this->uploadImageFile($uploadFilename);
+                $roomData['image'] = $filename;
+                $roomData['name'] = $roomData['tmp_name'] . $i;
+                Room::create($this->prepareRoomData($roomData));
+            }
         }
+    }
+
+    public function prepareRoomData($data)
+    {
+        return [
+            'image' => $data['image'],
+            'name' => $data['name'],
+            'type' => $data['type'],
+            'service_fee' => $data['service_fee'],
+        ];
     }
 
     public function uploadImageFile($filename)
     {
         $extension = '.png';
-        $storedFileName = null;
+        $storedFileName = '-';
         $defaultFileLocation = public_path('images/default_rooms/' . $filename);
 
         if (file_exists($defaultFileLocation)) {

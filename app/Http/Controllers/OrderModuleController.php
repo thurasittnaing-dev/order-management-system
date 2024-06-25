@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Services\OrderModuleService;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,15 @@ class OrderModuleController extends Controller
 
     public function rooms()
     {
-        return view('order.rooms');
+        $data = $this->orderModuleService->getRooms();
+        return view('order.rooms',$data);
     }
 
     public function tables($room)
     {
-        return view('order.tables');
+
+        $data = $this->orderModuleService->getOrderTables($room);
+        return view('order.tables',$data);
     }
+
 }

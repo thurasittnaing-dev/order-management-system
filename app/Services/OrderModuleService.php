@@ -2,6 +2,39 @@
 
 namespace App\Services;
 
+use App\Models\OrderTables;
+use App\Models\Room;
+use Illuminate\Support\Facades\DB;
+
 class OrderModuleService
 {
+    public function getRooms()
+    {
+        $query = Room::query();
+        return[
+            'rooms' => $query->get(),
+            'totalRooms' => $query->count(),
+            'roomTypes' => Room::select('type')->distinct()->get(),
+            'roomsByType' => Room::all()->groupBy('type'),
+            'roomCountsByType' => Room::select('type', DB::raw('count(*) as total'))
+                                ->groupBy('type')
+                                ->pluck('total', 'type'),
+
+        ];
+    }
+
+    public function getOrderTables($room)
+    {
+        $tables = OrderTables::where('room_id', $room)->get();
+
+        return[
+            'tables' => $tables,
+            'totalTables' => $tables->count(),
+            'room' => Room::with('orderTables')->find($room),
+            'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
+
+        ];
+
+
+    }
 }

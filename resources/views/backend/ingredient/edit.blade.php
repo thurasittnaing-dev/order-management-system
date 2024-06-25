@@ -26,7 +26,27 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
+                    <div class="mb-3">
+                        <label for="type" class="form-label fw-bold">Type<span class="text-danger">*</span></label>
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="drink" name="type" value="drink" {{ $ingredient->type == 'drink' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="drink">Drink</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input @error('type') is-invalid @enderror" type="radio" id="food" name="type" value="food" {{ $ingredient->type == 'food' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="food">Food</label>
+                            </div>
+                            @error('type')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label fw-bold">Description</label>
+                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                            rows="3">{{ old('description') }}</textarea>
+                    </div>
                     <div class="row">
                         <div class="d-flex">
                             <a href="{{ route('ingredient.index') }}" class="btn btn-outline-dark me-2">Back</a>
