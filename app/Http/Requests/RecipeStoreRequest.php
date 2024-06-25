@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\DiscountNotExecuteAmount;
 
-class CategoryStoreRequest extends FormRequest
+class RecipeStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +27,14 @@ class CategoryStoreRequest extends FormRequest
         return [
             'name' => 'required|max:50',
             'file' => 'required|mimes:png,jpg,jpeg|max:6000',
-            'type' => 'required',
             'description' => 'nullable',
+            'amount' => 'required|numeric|min:0',
+            'discount' => ['required', 'numeric', 'min:0', new DiscountNotExecuteAmount],
+            // 'net_amount' => ['required','numeric','min:0', new ValidNetAmount($this->input('amount'), $this->input('discount'))],
+            'net_amount' => 'nullable|numeric|min:0',
+            'is_promotion' => 'nullable|boolean',
+            'status' => 'required',
+            'category_id' => 'required',
         ];
     }
 }
