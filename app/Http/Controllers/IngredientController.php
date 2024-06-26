@@ -27,7 +27,7 @@ class IngredientController extends Controller
     }
 
     public function store( IngredientStoreRequest $request)
-    {
+    {   
         $data = $this->ingredientService->store($request);
         return redirect()->route('ingredient.index')->with($data['status'],$data['message']);
     }

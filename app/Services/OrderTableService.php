@@ -13,7 +13,6 @@ class OrderTableService
   {
     $query = OrderTables::query();
 
-
     // ->when(request('table_no'), fn ($q) => $q->where('table_no', 'LIKE', '%' . request('table_no') . '%'));
 
     if (request('table_no') != '') {
@@ -33,6 +32,10 @@ class OrderTableService
     }
     if (request('in_used') != '') {
         $query->where('in_used', request('in_used'));
+    }
+    if (request()->has('room_id')) {
+        $roomId = request()->query('room_id');
+        $query->where('room_id', $roomId);
     }
 
     return [
