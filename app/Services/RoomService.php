@@ -8,12 +8,14 @@ class RoomService {
     public function index() {
         $query = Room::query()
                     ->when(request('name'),fn($query) => $query->where('name', 'LIKE', '%' . request('name') . '%'))
-                    ->when(request('type'),fn($query)=>$query->where('type', request('type')));;
+                    ->when(request('type'),fn($query)=>$query->where('type', request('type')));
+
 
         return [
             'i' => getTableIndexer(5),
             'count' => $query->count(),
             'rooms' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
+            'withRooms'=>Room::withCount('orderTables')->get()
         ];
     }
 

@@ -67,6 +67,7 @@
                             <th>#</th>
                             <th style="width: 20rem">Room Name</th>
                             <th>Type</th>
+                            <th> Tables Count</th>
                             <th>Service Fee</th>
                             <th>Action</th>
                         </tr>
@@ -85,6 +86,14 @@
                                     </div>
                                 </td>
                                 <td>{{ $room->type }}</td>
+                                <td>
+                                    <ul>
+                                        @foreach ($room->orderTables as $orderTable)
+                                        <li>{{ $orderTable->table_no }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+
                                 <td>{{ $room->service_fee }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -104,6 +113,7 @@
                                 <td align="center" colspan="6">There is no room yet!</td>
                             </tr>
                         @endforelse
+
                     </tbody>
                 </table>
             </div>

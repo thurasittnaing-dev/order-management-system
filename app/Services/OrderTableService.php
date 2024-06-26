@@ -12,6 +12,7 @@ class OrderTableService
   public function index()
   {
     $query = OrderTables::query();
+    
 
 
     // ->when(request('table_no'), fn ($q) => $q->where('table_no', 'LIKE', '%' . request('table_no') . '%'));

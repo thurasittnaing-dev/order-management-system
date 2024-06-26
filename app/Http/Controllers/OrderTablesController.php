@@ -20,7 +20,6 @@ class OrderTablesController extends Controller
 
     public function index()
     {
-        $rooms = Room::get();
         $data = $this->orderTableService->index();
         return view('backend/order_tables.index', $data);
     }

@@ -23,14 +23,18 @@
                             <input type="text" name="table_no" class="form-control" placeholder="Table No"
                                 value="{{ $table_no }}">
                         </div>
-                        <div class="mb-3 col-md-2">
-                            <select id="max person" class="form-control lib-s2" name="max person" >
-                                <option value=" " >Max Person</option>
+
+                        <div class="col-md-2">
+                            <select id="max person" class="form-control lib-s2" name="max person">
+                                <option value="">Max Person</option>
                                 @foreach ($maxPersons as $max_person)
-                                <option value="{{ $max_person }}">{{ $max_person }}</option>
-                            @endforeach
+                                    <option value="{{ $max_person }}" @if (request('max_person') == $max_person) selected @endif>
+                                        {{ $max_person }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
+
                         <div class="col-md-2">
                             <select id="status" class="form-control lib-s2" name="status">
                                 <option value="" selected>Status</option>
@@ -39,11 +43,13 @@
                             </select>
                         </div>
                         <div class="mb-3 col-md-2">
-                            <select id="room" class="form-control lib-s2" name="room" >
-                                <option value=" " >Room</option>
+                            <select id="room" class="form-control lib-s2" name="room">
+                                <option value=" ">Room</option>
                                 @foreach ($rooms as $room)
-                                <option value="{{ $room }}">{{ $room }}</option>
-                            @endforeach
+                                    <option value="{{ $room }}" @if (request('room') == $room) selected @endif>
+                                        {{ $room }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-2">
@@ -126,9 +132,10 @@
                                     <td align="center">
                                         <div class="d-flex justify-content-center">
 
-                                            <a href="{{ route('order_tables.edit', ['order_table'=> $order_table]) }}"
+                                            <a href="{{ route('order_tables.edit', ['order_table' => $order_table]) }}"
                                                 class="btn btn-sm btn-warning me-1">Edit</a>
-                                            <form action="{{ route('order_tables.destroy', ['order_table' => $order_table ]) }}"
+                                            <form
+                                                action="{{ route('order_tables.destroy', ['order_table' => $order_table]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('delete')
