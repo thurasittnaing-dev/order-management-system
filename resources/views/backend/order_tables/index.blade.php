@@ -12,6 +12,7 @@
             $max_person = $_GET['max_person'] ?? '';
             $room = $_GET['room'] ?? '';
             $in_used = $_GET['in_used'] ?? '';
+
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
@@ -52,6 +53,7 @@
                                 @endforeach
                             </select>
                         </div>
+
                         <div class="col-md-2">
                             <select id="in_used" class="form-control lib-s2" name="in_used">
                                 <option value="" selected>In Used</option>

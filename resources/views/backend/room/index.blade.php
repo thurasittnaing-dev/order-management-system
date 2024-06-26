@@ -67,7 +67,7 @@
                             <th>#</th>
                             <th style="width: 20rem">Room Name</th>
                             <th>Type</th>
-                            <th> Tables Count</th>
+                            <th>Total Tables</th>
                             <th>Service Fee</th>
                             <th>Action</th>
                         </tr>
@@ -87,11 +87,9 @@
                                 </td>
                                 <td>{{ $room->type }}</td>
                                 <td>
-                                    <ul>
-                                        @foreach ($room->orderTables as $orderTable)
-                                        <li>{{ $orderTable->table_no }}</li>
-                                        @endforeach
-                                    </ul>
+                                    <a href="{{ route('order_tables.index',['room_id'=>$room->id])}}">
+                                        <span class="badge bg-primary">{{ $room->order_tables_count }}</span>
+                                    </a>
                                 </td>
 
                                 <td>{{ $room->service_fee }}</td>
