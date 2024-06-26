@@ -44,12 +44,6 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-// Order Group
-Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
-    // Make Order
-    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
-});
-
 
 // Order Group
 Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
@@ -64,4 +58,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 
     // Make Order
     Route::get('make_order/{table}/{invoice?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+});
+
+
+// Kitchen Group
+Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
+    // Orders
+    Route::get('/orders', [OrderModuleController::class, 'orders'])->name('orders');
 });

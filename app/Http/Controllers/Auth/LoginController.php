@@ -55,7 +55,7 @@ class LoginController extends Controller
                 break;
 
             case 'kitchen':
-                return redirect()->route('main-dashboard');
+                return redirect()->route('orders');
                 break;
 
             default:

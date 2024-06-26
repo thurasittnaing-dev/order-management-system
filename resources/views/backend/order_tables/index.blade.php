@@ -47,8 +47,8 @@
                             <select id="room" class="form-control lib-s2" name="room">
                                 <option value=" ">Room</option>
                                 @foreach ($rooms as $room)
-                                    <option value="{{ $room }}" @if (request('room') == $room) selected @endif>
-                                        {{ $room }}
+                                    <option value="{{ $room->id }}" @if (request('room') == $room->id) selected @endif>
+                                        {{ $room->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -150,7 +150,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td align="center" colspan="6">There is no tables yet!</td>
+                                    <td align="center" colspan="8">There is no tables yet!</td>
                                 </tr>
                             @endforelse
                         </tbody>
