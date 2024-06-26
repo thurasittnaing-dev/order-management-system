@@ -28,6 +28,11 @@ class OrderModuleController extends Controller
         return view('order.tables', $data);
     }
 
+    public function recipes($table , $invoice = null)
+    {
+        $data = $this->orderModuleService->getMenu();
+        return view('order.recipes',$data);
+    }
     public function makeOrder($table, $invoice = null)
     {
         dd($table, $invoice);

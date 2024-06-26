@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\OrderTables;
 use App\Models\Room;
+use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
 class OrderModuleService
@@ -34,7 +35,12 @@ class OrderModuleService
             'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
 
         ];
+    }
 
-
+    public function getMenu()
+    {
+        return[
+            'categories' => Category::all(),
+        ];
     }
 }
