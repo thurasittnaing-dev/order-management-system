@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\OrderModuleController;
+use App\Http\Controllers\RecipeController;
 
 // Redirect Route
 Route::get('/', fn () => redirect()->route('main-dashboard'));
@@ -41,6 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     //Ingredient Table Routes
     Route::resource('ingredient', IngredientController::class);
+
+    //Recipe Table Routes
+    Route::resource('recipe', RecipeController::class);
 });
 
 
