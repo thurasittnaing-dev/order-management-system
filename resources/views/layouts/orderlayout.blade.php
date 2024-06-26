@@ -45,8 +45,8 @@
                 <a href="#"
                     class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle"
                     id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('images/admin.jpg') }}" alt="mdo" width="35" height="35"
-                        class="rounded-circle">
+                    <img src="{{ asset('images/admin.png') }}" alt="mdo" width="35" height="35"
+                        style="object-fit: cover;" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
                     <li><a class="dropdown-item" href="{{ route('logout') }}"
