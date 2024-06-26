@@ -14,7 +14,7 @@
             <form action="{{ route('recipe.update', $recipe) }}" method="POST" autocomplete="off" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="name" class="form-label fw-bold">Name<span class="text-danger">*</span></label>
@@ -59,6 +59,33 @@
                         @error('category_id')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                    </div>
+                    {{-- <div class="col-md-6 mb-3">
+                        <label for="ingredients" class="form-label fw-bold">Ingredients<span class="text-danger">*</span></label>
+                        <select name="ingredients[]" id="ingredients" multiple class="form-control lib-s2-multiple @error('ingredients') is-invalid @enderror">
+                            <option value="">--Select--</option>
+                            @foreach ($ingredients as $ingredient)
+                                <option  value="{{ $ingredient->id }}" @if (is_array(old('ingredients')) && in_array($ingredient->id, old('ingredients'))) selected @endif>
+                                    {{ $ingredient->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('ingredients')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div> --}}
+                    <div class="col-md-6 mb-3">
+                        <label for="ingredients" class="form-label fw-bold">Ingredients<span class="text-danger">*</span></label>
+                        <select name="ingredients[]" id="ingredients" multiple class="form-control lib-s2-multiple @error('ingredients') is-invalid @enderror">
+                            <option value="">--Select--</option>
+                            @foreach ($ingredients as $ingredient)
+                                <option  value="{{ $ingredient->id }}"
+                                    @if (is_array(old('ingredients', $recipe->ingredients->pluck('id')->toArray())) && in_array($ingredient->id, old('ingredients', $recipe->ingredients->pluck('id')->toArray()))) selected @endif>
+                                    {{ $ingredient->name }}</option>
+                            @endforeach
+                        </select>
+                        {{-- @error('ingredients')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror --}}
                     </div>
                     <div class="col-md-6">
                         <label for="amount" class="form-label fw-bold">Amount<span class="text-danger">*</span></label>

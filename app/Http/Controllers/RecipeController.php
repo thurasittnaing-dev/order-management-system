@@ -7,6 +7,7 @@ use App\Http\Requests\RecipeStoreRequest;
 use App\Http\Requests\RecipeUpdateRequest;
 use App\Models\Recipe;
 use App\Models\Category;
+use App\Models\Ingredient;
 use App\Services\RecipeService;
 
 
@@ -29,7 +30,8 @@ class RecipeController extends Controller
     public function create()
     {
         $categories = Category::get();
-        return view('backend/recipe.create',compact('categories'));
+        $ingredients = Ingredient::get();
+        return view('backend/recipe.create',compact('categories','ingredients'));
     }
 
     public function store(RecipeStoreRequest $request)
@@ -48,7 +50,8 @@ class RecipeController extends Controller
     public function edit(Recipe $recipe)
     {
         $categories = Category::get();
-        return view('backend/recipe.edit',compact('recipe','categories'));
+        $ingredients = Ingredient::get();
+        return view('backend/recipe.edit',compact('recipe','categories','ingredients'));
     }
 
     public function update(RecipeUpdateRequest $request,Recipe $recipe)

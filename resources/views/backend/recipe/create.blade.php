@@ -15,7 +15,7 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="name" class="form-label fw-bold">Name<span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                             name="name" value="{{ old('name') }}">
@@ -24,7 +24,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="file" class="form-label fw-bold">Image<span class="text-danger">*</span></label>
                         <div class="">
                             <input type="file" name="file" id="file"
@@ -34,7 +34,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="description" class="form-label fw-bold">Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                             rows="3">{{ old('description') }}</textarea>
@@ -42,7 +42,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="category_id" class="form-label fw-bold">Category<span class="text-danger">*</span></label>
                         <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid  @enderror">
                             <option value="">--Select--</option>
@@ -55,7 +55,20 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
+                        <label for="ingredients" class="form-label fw-bold">Ingredients<span class="text-danger">*</span></label>
+                        <select name="ingredients[]" id="ingredients" multiple class="form-control lib-s2-multiple @error('ingredients') is-invalid @enderror">
+                            <option value="">--Select--</option>
+                            @foreach ($ingredients as $ingredient)
+                                <option  value="{{ $ingredient->id }}" @if (is_array(old('ingredients')) && in_array($ingredient->id, old('ingredients'))) selected @endif>
+                                    {{ $ingredient->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('ingredients')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="amount" class="form-label fw-bold">Amount<span class="text-danger">*</span></label>
                         <input type="text" class="form-control num-only @error('amount') is-invalid  @enderror" id="amount"
                             name="amount" value="{{ old('amount') }}">
@@ -63,7 +76,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="discount" class="form-label fw-bold">Discount<span class="text-danger">*</span></label>
                         <input type="text" class="form-control num-only @error('discount') is-invalid  @enderror" id="discount"
                             name="discount" value="{{ old('discount') }}">
@@ -91,7 +104,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div> --}}
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="status" class="form-label fw-bold">Status<span class="text-danger">*</span></label>
                         <select class="form-control lib-s2 @error('status') is-invalid @enderror" id="status" name="status">
                             <option value="" selected></option>
@@ -116,6 +129,8 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @section('css')

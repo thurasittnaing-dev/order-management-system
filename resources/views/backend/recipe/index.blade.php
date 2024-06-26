@@ -67,9 +67,10 @@
                             <th style="width: 20rem">Recipe Name</th>
                             <th>Description</th>
                             <th>Category Name</th>
+                            <th>Ingredient</th>
                             <th>Amount</th>
                             <th>Discount</th>
-                            <th>Promotion</th>
+                            {{-- <th>Promotion</th> --}}
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -89,9 +90,14 @@
                                 </td>
                                 <td>{{ $recipe->description }}</td>
                                 <td>{{ $recipe->category->name }}</td>
+                                <td>
+                                    @foreach($recipe->ingredients as $ingredient)
+                                                {{ $ingredient->name }}
+                                    @endforeach
+                                </td>
                                 <td>{{ $recipe->amount }}</td>
                                 <td>{{ $recipe->discount }}</td>
-                                <td>{{ $recipe->is_promotion }}</td>
+                                {{-- <td>{{ $recipe->is_promotion }}</td> --}}
                                 <td>
                                     @if ($recipe->status == 'active')
                                         <span class="text-success">Active</span>
