@@ -67,6 +67,7 @@
                             <th>#</th>
                             <th style="width: 20rem">Room Name</th>
                             <th>Type</th>
+                            <th>Total Tables</th>
                             <th>Service Fee</th>
                             <th>Action</th>
                         </tr>
@@ -85,6 +86,12 @@
                                     </div>
                                 </td>
                                 <td>{{ $room->type }}</td>
+                                <td>
+                                    <a href="{{ route('order_tables.index',['room_id'=>$room->id])}}">
+                                        <span class="badge bg-primary">{{ $room->order_tables_count }}</span>
+                                    </a>
+                                </td>
+
                                 <td>{{ $room->service_fee }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
@@ -104,6 +111,7 @@
                                 <td align="center" colspan="6">There is no room yet!</td>
                             </tr>
                         @endforelse
+
                     </tbody>
                 </table>
             </div>

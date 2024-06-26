@@ -17,14 +17,15 @@
                     </li>
                 </div>
 
-                @foreach ($maxPersons as $max_person=> $groupedTables)
-                <div class="col-md-2">
-                    <li class="nav-item d-grid" role="presentation">
-                        <button class="nav-link" id="{{ $max_person }}-tab" data-bs-toggle="tab" data-bs-target="#{{ $max_person }}"
-                            type="button" role="tab" aria-controls="{{ $max_person }}" aria-selected="false">{{ $max_person }} Persons
-                            Table</button>
-                    </li>
-                </div>
+                @foreach ($maxPersons as $max_person => $groupedTables)
+                    <div class="col-md-2">
+                        <li class="nav-item d-grid" role="presentation">
+                            <button class="nav-link" id="{{ $max_person }}-tab" data-bs-toggle="tab"
+                                data-bs-target="#{{ $max_person }}" type="button" role="tab"
+                                aria-controls="{{ $max_person }}" aria-selected="false">{{ $max_person }} Persons
+                                Table</button>
+                        </li>
+                    </div>
                 @endforeach
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -36,92 +37,37 @@
                                     <div class="table-card">
                                         <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
                                         <span class="table-badge">{{ $table->max_person }} Persons</span>
+                                        <span class="table-card-no">{{ $table->table_no }}</span>
                                     </div>
                                 </a>
                             @endforeach
 
-                            {{-- @for ($i = 0; $i < 4; $i++)
-                                <a href="" class="col-md-2 not-allowed">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table-busy.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor --}}
                         </div>
                     </div>
                 </div>
-                @foreach ($maxPersons as $max_person=> $groupedTables)
-                <div class="tab-pane fade" id="{{ $max_person }}" role="tabpanel" aria-labelledby="{{ $max_person }}-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @foreach ($groupedTables as $table)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">{{ $table->max_person }} Persons</span>
-                                    </div>
-                                </a>
-                            @endforeach
-
-                            {{-- @for ($i = 0; $i < 4; $i++)
-                                <a href="" class="col-md-2 not-allowed">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table-busy.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor --}}
+                @foreach ($maxPersons as $max_person => $groupedTables)
+                    <div class="tab-pane fade" id="{{ $max_person }}" role="tabpanel"
+                        aria-labelledby="{{ $max_person }}-tab">
+                        <div class="mt-3">
+                            <div class="row g-2">
+                                @foreach ($groupedTables as $table)
+                                    <a href="" class="col-md-2">
+                                        <div class="table-card">
+                                            <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
+                                            <span class="table-badge">{{ $table->max_person }} Persons</span>
+                                            <span class="table-card-no">{{ $table->table_no }}</span>
+                                            @if ($table->in_used)
+                                                <div class="box">
+                                                    <div class="ribbon-danger"><span>In Used</span></div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
-                {{-- <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="family-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i = 0; $i < 6; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-
-                            @for ($i = 0; $i < 4; $i++)
-                                <a href="" class="col-md-2 not-allowed">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table-busy.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="vip" role="tabpanel" aria-labelledby="vip-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i = 0; $i < 6; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-
-                            @for ($i = 0; $i < 4; $i++)
-                                <a href="" class="col-md-2 not-allowed">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table-busy.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
