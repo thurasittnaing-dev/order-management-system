@@ -37,7 +37,9 @@ class RecipeService
             $data['image'] = $image;
             // $data['category_id'] = $data['category'];
             // unset($data['category']);
-            Recipe::create($data);
+            $recipe = Recipe::create($data);
+
+            $recipe->ingredients()->attach($data['ingredients']);
 
             return [
                 'status' => 'success',
@@ -94,6 +96,10 @@ class RecipeService
                 $file->storeAs('public/recipes', $filename);
             }
             $recipe->update($data);
+            if (isset($data['ingredients'])) {
+                $recipe->ingredients()->sync($data['ingredients']);
+            }
+
             return [
                 'status' => 'success',
                 'message' => 'Sucessfully Updated.',

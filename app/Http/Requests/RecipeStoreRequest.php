@@ -35,6 +35,8 @@ class RecipeStoreRequest extends FormRequest
             'is_promotion' => 'nullable|boolean',
             'status' => 'required',
             'category_id' => 'required',
+            'ingredients' => 'required|array',
+            'ingredients.*' => 'integer|exists:ingredients,id',
         ];
     }
 }

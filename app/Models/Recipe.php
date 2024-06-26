@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
+use App\Models\Ingredient;
 
 class Recipe extends Model
 {
@@ -14,5 +15,10 @@ class Recipe extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class);
     }
 }
