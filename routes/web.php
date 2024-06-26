@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\OrderModuleController;
+use App\Http\Controllers\RecipeController;
 
 // Redirect Route
 Route::get('/', fn () => redirect()->route('main-dashboard'));
@@ -41,14 +42,11 @@ Route::middleware(['auth'])->group(function () {
 
     //Ingredient Table Routes
     Route::resource('ingredient', IngredientController::class);
+
+    //Recipe Table Routes
+    Route::resource('recipe', RecipeController::class);
 });
 
-
-// Order Group
-Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function () {
-    // Make Order
-    Route::get('/make-order', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
-});
 
 
 // Order Group
@@ -64,4 +62,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 
     // Make Order
     Route::get('make_order/{table}/{invoice?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+});
+
+
+// Kitchen Group
+Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
+    // Orders
+    Route::get('/orders', [OrderModuleController::class, 'orders'])->name('orders');
 });

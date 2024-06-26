@@ -105,7 +105,9 @@
 
             </div>
         </div>
-
+        <div class="card-footer justify-content-center d-flex align-items-center py-3 px-1">
+            {{ $ingredients->links() }}
+        </div>
         </div>
     </div>
 @endsection

@@ -35,6 +35,6 @@ class OrderModuleController extends Controller
     }
     public function makeOrder($table, $invoice = null)
     {
-        dd($table, $invoice);
+        return view('order.make_order');
     }
 }

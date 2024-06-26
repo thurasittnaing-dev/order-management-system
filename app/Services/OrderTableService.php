@@ -13,33 +13,33 @@ class OrderTableService
   {
     $query = OrderTables::query();
 
-
     // ->when(request('table_no'), fn ($q) => $q->where('table_no', 'LIKE', '%' . request('table_no') . '%'));
 
     if (request('table_no') != '') {
       $query = $query->where('table_no', 'LIKE', '%' . request('table_no') . '%');
     }
     if (request('max_person') != '') {
-        $query = $query->where('max_person', request('max_person') );
-      }
+      $query = $query->where('max_person', request('max_person'));
+    }
 
     if (request('status') != '') {
       $query->where('active', request('status'));
     }
     if (request('room') != '') {
-        $query = $query->whereHas('room', function ($q) {
-                $q->where('name', request('room'));
-        });
+      $query = $query->whereHas('room', function ($q) {
+        $q->where('id', request('room'));
+      });
     }
     if (request('in_used') != '') {
-        $query->where('in_used', request('in_used'));
+      $query->where('in_used', request('in_used'));
     }
+
 
     return [
       'i' => getTableIndexer(5),
       'count' => $query->count(),
       'maxPersons' => OrderTables::groupBy('max_person')->pluck('max_person')->toArray(),
-      'rooms' => Room::groupBy('name')->pluck('name')->toArray(),
+      'rooms' => Room::get(['id', 'name']),
       'order_tables' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
     ];
   }
