@@ -9,25 +9,32 @@ use App\Models\Room;
 class OrderTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     *     Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
         $maxPersons = [2, 5, 10, 25];
+        $tablePerPerson = 5;
         $rooms = Room::all();
 
-        for ($i = 0; $i < 30; $i++) {
-            $room = $rooms->random();
-            $data =  [
-                'table_no' => generateTableNo(),
-                'max_person' => $maxPersons[rand(0, 3)],
-                'active' => true,
-                'in_used' => false,
-                'room_id' => $room->id,
-            ];
-            OrderTables::create($data);
+        foreach($rooms as $room){
+            foreach($maxPersons as $maxPerson){
+                for ($i = 0; $i < $tablePerPerson; $i++) {
+                    $data =  [
+                        'table_no' => generateTableNo(),
+                        'max_person' => $maxPerson,
+                        'active' => true,
+                        'in_used' => false,
+                        'room_id' => $room->id,
+                    ];
+                    OrderTables::create($data);
+                }
+            }
         }
+
+
     }
 }
+

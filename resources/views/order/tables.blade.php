@@ -76,52 +76,6 @@
                     </div>
                 </div>
                 @endforeach
-                {{-- <div class="tab-pane fade" id="family" role="tabpanel" aria-labelledby="family-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i = 0; $i < 6; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-
-                            @for ($i = 0; $i < 4; $i++)
-                                <a href="" class="col-md-2 not-allowed">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table-busy.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="vip" role="tabpanel" aria-labelledby="vip-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i = 0; $i < 6; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-
-                            @for ($i = 0; $i < 4; $i++)
-                                <a href="" class="col-md-2 not-allowed">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table-busy.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">5 Persons</span>
-                                    </div>
-                                </a>
-                            @endfor
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
