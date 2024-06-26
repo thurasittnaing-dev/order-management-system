@@ -58,4 +58,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 
     // Tables View
     Route::get('rooms/{room}/tables', [OrderModuleController::class, 'tables'])->name('tables');
+
+    // Recipes
+    Route::get('recipes/{table}/{invoice?}', [OrderModuleController::class, 'recipes'])->name('recipes');
+
+    // Make Order
+    Route::get('make_order/{table}/{invoice?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
 });

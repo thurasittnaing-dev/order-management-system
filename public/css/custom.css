@@ -32,8 +32,9 @@
 }
 
 #adminimg{
-    width: 48px;
-    height: auto;
+    width: 40px!important;
+    height: 40px!important;
+    object-fit: cover;
 }
 
 .text-primary {
@@ -328,3 +329,16 @@
 .not-allowed {
   cursor: not-allowed;
 }
+
+.table-card-no {
+  background-color: rgba(0, 0, 0, 0.53);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 0.35rem 0.5rem;
+}
+

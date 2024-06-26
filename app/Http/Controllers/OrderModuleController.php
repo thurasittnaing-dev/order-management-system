@@ -18,14 +18,18 @@ class OrderModuleController extends Controller
     public function rooms()
     {
         $data = $this->orderModuleService->getRooms();
-        return view('order.rooms',$data);
+        return view('order.rooms', $data);
     }
 
     public function tables($room)
     {
 
         $data = $this->orderModuleService->getOrderTables($room);
-        return view('order.tables',$data);
+        return view('order.tables', $data);
     }
 
+    public function makeOrder($table, $invoice = null)
+    {
+        dd($table, $invoice);
+    }
 }
