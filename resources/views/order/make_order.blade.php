@@ -14,7 +14,7 @@
                         <div class="d-flex justify-content-between p-3">
                             <div class="table-no">TABLE-0000001</div>
                             <div>
-                                <a href="" class="btn btn-primary me-1">Add Recipe</a>
+                                <a href="{{ route('recipes', 1) }}" class="btn btn-primary me-1">Add Recipe</a>
                                 <a href="" class="btn btn-success">Make Order</a>
                             </div>
                         </div>
