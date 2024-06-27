@@ -37,10 +37,18 @@ class OrderModuleService
         ];
     }
 
-    public function getMenu()
+    public function getMenu($table)
     {
         return[
             'categories' => Category::all(),
+        ];
+    }
+
+    public function getOrder($table)
+    {
+
+        return[
+            'orderTable' => OrderTables::select('id','table_no')->where('id', $table)->first(),
         ];
     }
 }

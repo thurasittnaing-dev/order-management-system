@@ -12,9 +12,9 @@
                 <div class="col-md-9">
                     <div class="recipe-card">
                         <div class="d-flex justify-content-between p-3">
-                            <div class="table-no">TABLE-0000001</div>
+                            <div class="table-no">{{ $orderTable->table_no}}</div>
                             <div>
-                                <a href="{{ route('recipes', 1) }}" class="btn btn-primary me-1">Add Recipe</a>
+                                <a href="{{ route('recipes', $orderTable->id) }}" class="btn btn-primary me-1">Add Recipe</a>
                                 <a href="" class="btn btn-success">Make Order</a>
                             </div>
                         </div>
