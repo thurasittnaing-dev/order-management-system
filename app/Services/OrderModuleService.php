@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\OrderTables;
 use App\Models\Room;
+use App\Models\Recipe;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
@@ -40,15 +41,24 @@ class OrderModuleService
     public function getMenu($table)
     {
         return[
-            'categories' => Category::all(),
+            'categories' => Category::with('recipes')->get(),
+            'orderTable_id' => OrderTables::select('id')->where('id', $table)->first(),
         ];
     }
 
-    public function getOrder($table)
+    public function getOrder($table, $recipe_id, $invoice)
     {
+        $orderTable = OrderTables::select('id', 'table_no')->where('id', $table)->first();
+        // $recipe = null;
+
+        // if ($recipe_id) {
+        //     $recipe = Recipe::find($recipe_id);
+        // }
+        // dd($recipe);
 
         return[
-            'orderTable' => OrderTables::select('id','table_no')->where('id', $table)->first(),
+            'orderTable' => $orderTable,
+
         ];
     }
 }

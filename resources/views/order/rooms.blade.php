@@ -42,22 +42,6 @@
                                 </div>
                             </a>
                         @endforeach
-
-                        {{-- @for ($i = 0; $i < 2; $i++)
-                            <a href="{{ route('tables', 1) }}">
-                                <div class="room-card">
-                                    <div class="box">
-                                        <div class="ribbon-danger"><span>Full</span></div>
-                                    </div>
-                                    <div class="rom-img">
-                                        <img src="{{ asset('images/default_rooms/family_room.jpg') }}" alt="">
-                                    </div>
-                                    <div class="room-title-badge">
-                                        Testing Room- {{ $i + 1 }}
-                                    </div>
-                                </div>
-                            </a>
-                        @endfor --}}
                     </div>
                 </div>
 
@@ -80,21 +64,6 @@
                                 </div>
                             </a>
                         @endforeach
-                        {{-- @for ($i = 0; $i < 2; $i++)
-                            <a href="{{ route('tables', 1) }}">
-                                <div class="room-card">
-                                    <div class="box">
-                                        <div class="ribbon-danger"><span>Full</span></div>
-                                    </div>
-                                    <div class="rom-img">
-                                        <img src="{{ asset('images/default_rooms/family_room.jpg') }}" alt="">
-                                    </div>
-                                    <div class="room-title-badge">
-                                        Testing Room- {{ $i + 1 }}
-                                    </div>
-                                </div>
-                            </a>
-                        @endfor --}}
                     </div>
                 </div>
                 @endforeach
