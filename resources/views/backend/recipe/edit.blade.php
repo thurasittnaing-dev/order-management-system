@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-6">
                         <label for="category_id" class="form-label fw-bold">Category<span class="text-danger">*</span></label>
-                        <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid  @enderror">
+                        <select name="category_id" id="category_id" class="form-control lib-s2 @error('category_id') is-invalid  @enderror">
                             <option value="">--Select--</option>
                             @foreach ($categories as $category)
                                 <option @if (old('category_id', $recipe->category_id) == $category->id) selected @endif value="{{ $category->id }}">
@@ -60,19 +60,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    {{-- <div class="col-md-6 mb-3">
-                        <label for="ingredients" class="form-label fw-bold">Ingredients<span class="text-danger">*</span></label>
-                        <select name="ingredients[]" id="ingredients" multiple class="form-control lib-s2-multiple @error('ingredients') is-invalid @enderror">
-                            <option value="">--Select--</option>
-                            @foreach ($ingredients as $ingredient)
-                                <option  value="{{ $ingredient->id }}" @if (is_array(old('ingredients')) && in_array($ingredient->id, old('ingredients'))) selected @endif>
-                                    {{ $ingredient->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('ingredients')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div> --}}
                     <div class="col-md-6 mb-3">
                         <label for="ingredients" class="form-label fw-bold">Ingredients<span class="text-danger">*</span></label>
                         <select name="ingredients[]" id="ingredients" multiple class="form-control lib-s2-multiple @error('ingredients') is-invalid @enderror">
@@ -83,9 +70,9 @@
                                     {{ $ingredient->name }}</option>
                             @endforeach
                         </select>
-                        {{-- @error('ingredients')
+                        @error('ingredients')
                             <div class="text-danger">{{ $message }}</div>
-                        @enderror --}}
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label for="amount" class="form-label fw-bold">Amount<span class="text-danger">*</span></label>
@@ -95,15 +82,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
-                        <label for="discount" class="form-label fw-bold">Discount<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control num-only @error('discount') is-invalid  @enderror" id="discount"
-                            name="discount" value="{{ old('discount', $recipe->discount ) }}">
-                        @error('discount')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
                     <div class="col-md-6">
                         <label for="status" class="form-label fw-bold">Status<span class="text-danger">*</span></label>
                         <select class="form-control lib-s2 @error('status') is-invalid @enderror" id="status" name="status">

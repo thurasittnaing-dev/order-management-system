@@ -395,11 +395,11 @@
   margin-bottom: 0.25rem;
 }
 
-.recipe-amount {
+.recipe-discount {
   color: green;
 }
 
-.recipe-discount {
+.recipe-amount {
   color: red;
 }
 

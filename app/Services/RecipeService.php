@@ -11,11 +11,15 @@ class RecipeService
     public function index() {
         $query = Recipe::query()
                     ->when(request('name'),fn($query) =>  $query->where('name', 'LIKE', '%' . request('name') . '%'))
+                    ->when(request('category'),fn($query)=>$query->whereHas('category', function ($q) {
+                        $q->where('id', request('category'));
+                      }))
                     ->when(request('status'),fn($query)=>$query->where('status', request('status')));
 
         return [
             'i' => getTableIndexer(5),
             'count' => $query->count(),
+            'categories' => Category::get(['id', 'name']),
             'recipes' => $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString(),
         ];
     }
@@ -109,6 +113,29 @@ class RecipeService
                 'status' => 'error',
                 'message' => 'Something went wrong',
               ];
+        }
+    }
+
+
+    public function storePromotion($request,$id)
+    {
+        try {
+            $recipe = Recipe :: find($id);
+            $data = $request->validated();
+            $recipe->update([
+                'discount' => $data['discount'],
+            ]);
+
+            return [
+                'status' => 'success',
+                'message' => 'Sucessfully Updated.',
+            ];
+
+        } catch (\Exception $e) {
+            return [
+                'status' => 'error',
+                'message' => 'Something went wrong',
+            ];
         }
     }
 }

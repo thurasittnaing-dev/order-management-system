@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\OrderTableSeeder;
 use Database\Seeders\RoomSeeder;
+use Database\Seeders\IngredientSeeder;
+use Database\Seeders\RecipeSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,6 +22,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             RoomSeeder::class,
             OrderTableSeeder::class,
+            IngredientSeeder::class,
+            RecipeSeeder::class,
 
         ]);
     }

@@ -21,4 +21,15 @@ class Recipe extends Model
     {
         return $this->belongsToMany(Ingredient::class);
     }
+    
+    public function calculateDiscountedAmount($discount)
+    {
+        // Ensure discount is valid and calculate discounted amount
+        if ($discount > 0) {
+            return $this->amount - $discount;
+        }
+
+        // If no discount or invalid discount, return original amount
+        return $this->amount;
+    }
 }

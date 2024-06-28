@@ -12,6 +12,15 @@
                 <span class="hide-menu">Dashboard</span>
             </a>
         </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link {{ menu_active('recipe') }}" href="{{ route('recipe.index') }}"
+                aria-expanded="false">
+                <span>
+                    <i class="ti ti-salad"></i>
+                </span>
+                <span class="hide-menu">Recipe</span>
+            </a>
+        </li>
 
 
         <li class="nav-small-cap">
@@ -68,14 +77,6 @@
             </a>
         </li>
 
-        <li class="sidebar-item">
-            <a class="sidebar-link {{ menu_active('recipe') }}" href="{{ route('recipe.index') }}"
-                aria-expanded="false">
-                <span>
-                    <i class="ti ti-list-numbers"></i>
-                </span>
-                <span class="hide-menu">Recipe</span>
-            </a>
-        </li>
+
     </ul>
 </nav>
