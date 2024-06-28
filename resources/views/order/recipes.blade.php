@@ -28,15 +28,14 @@
                         aria-labelledby="{{ $category->id}}-tab">
                         <div class="mt-3">
                             <div class="row g-2">
-                                @for ($i=0 ; $i<10 ; $i++)
+                                @foreach ($category->recipes as $recipe)
                                     <a href="" class="col-md-2">
                                         <div class="table-card">
-                                            <img src="{{ asset('images/mala.png') }}" class="table-img" alt="">
-                                            <span class="table-badge">Mala Xiang Gou</span>
+                                            <img src="{{ asset('storage/recipes/' . $recipe->image) }}" class="table-img" alt="">
+                                            <span class="table-badge">{{ $recipe->name }}</span>
                                         </div>
                                     </a>
-
-                                @endfor
+                                @endforeach
                             </div>
                         </div>
                     </div>
