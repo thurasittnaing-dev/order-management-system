@@ -20,7 +20,7 @@ class CreateRecipesTable extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->integer('amount');
-            $table->integer('discount');
+            $table->integer('discount')->default(0);
             $table->integer('net_amount')->default(0);
             $table->boolean('is_promotion')->default(false);
             $table->enum('status', ['active','inactive']);

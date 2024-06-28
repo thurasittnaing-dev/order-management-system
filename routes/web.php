@@ -46,7 +46,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('ingredient', IngredientController::class);
 
     //Recipe Table Routes
-    Route::resource('recipe', RecipeController::class);
+    Route::resource('recipe', RecipeController::class)->except('show');
+    Route::get('addpromotion/{recipe}', [RecipeController::class, 'addPromotion'])->name('recipe.addpromotion');
+    Route::post('storepromotion/{recipe}', [RecipeController::class, 'storePromotion'])->name('recipe.storepromotion');
 });
 
 
