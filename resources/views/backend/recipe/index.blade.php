@@ -8,8 +8,8 @@
 <div class="container-fluid">
     @php
         $name = $_GET['name'] ?? '';
+        $category = $_GET['category'] ?? '';
         $status = $_GET['status'] ?? '';
-        // $type = $_GET['type'] ?? '';
     @endphp
     <div class="card">
         <div class="card-header">Filter</div>
@@ -19,6 +19,16 @@
                     <div class="mb-3 col-md-3">
                         <input type="text" name="name" class="form-control" placeholder="Name"
                             value="{{ $name }}">
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <select id="category" class="form-control lib-s2" name="category">
+                            <option value=" ">Category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" @if (request('category') == $category->id) selected @endif>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3 col-md-3">
                         <select id="status" class="form-control lib-s2" name="status">
@@ -67,10 +77,7 @@
                             <th style="width: 20rem">Recipe Name</th>
                             <th>Description</th>
                             <th>Category Name</th>
-                            <th>Ingredient</th>
-                            <th>Amount</th>
-                            <th>Discount</th>
-                            {{-- <th>Promotion</th> --}}
+                            {{-- <th>Ingredient</th> --}}
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -83,21 +90,27 @@
                                     <div class="d-flex align-items-center">
                                         <img src="{{ asset('storage/recipes/' . $recipe->image) }}" alt=""
                                             class="image-img img-thumbnail img me-4">
-                                        <div class="fw-bold">
-                                            {{ $recipe->name }}
-                                        </div>
+                                            <div class="fw-bold">
+                                                <div class="">{{ $recipe->name }}</div>
+                                                    @if ($recipe->discount > 0)
+                                                        <div class="recipe-discount">
+                                                             {{ $recipe->calculateDiscountedAmount($recipe->discount) }}
+                                                        </div>
+                                                        <div class="recipe-amount"><del>{{ $recipe->amount }}</del></div>
+                                                    @else
+                                                        <div class="recipe-discount">{{ $recipe->amount }}</div>
+                                                    @endif
+                                            </div>
                                     </div>
                                 </td>
                                 <td>{{ $recipe->description }}</td>
                                 <td>{{ $recipe->category->name }}</td>
-                                <td>
+                                {{-- <td>
                                     @foreach($recipe->ingredients as $ingredient)
                                                 {{ $ingredient->name }}
                                     @endforeach
-                                </td>
-                                <td>{{ $recipe->amount }}</td>
-                                <td>{{ $recipe->discount }}</td>
-                                {{-- <td>{{ $recipe->is_promotion }}</td> --}}
+                                </td> --}}
+                                {{-- <td>{{ $recipe->amount }}</td> --}}
                                 <td>
                                     @if ($recipe->status == 'active')
                                         <span class="text-success">Active</span>
@@ -105,16 +118,29 @@
                                         <span class="text-danger">Inactive</span>
                                     @endif
                                 </td>
-                                <td>
+                                <td align="centers">
                                     <div class="d-flex justify-content-center">
-                                        <a href="{{ route('recipe.edit', $recipe) }}"
-                                            class="btn btn-sm btn-warning me-1">Edit</a>
-                                        <form action="{{ route('recipe.destroy', $recipe )}}" method="POST"
-                                            class="d-inline" onsubmit="return confirm('Are you sure?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                        </form>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton{{ $recipe->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                              Actions
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton{{ $recipe->id }}">
+                                                <li class="mt-2"><a href="{{ route('recipe.addpromotion', $recipe) }}"
+                                                    class="dropdown-item text-warning">Add Promotion</a>
+                                                </li>
+                                                <li class="mt-2"><a href="{{ route('recipe.edit', $recipe) }}"
+                                                    class="dropdown-item text-warning">Edit</a>
+                                                </li>
+                                              <li class="mt-2">
+                                                <form action="{{ route('recipe.destroy', $recipe) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onClick="return confirm('Are you sure?')"
+                                                        class="dropdown-item text-warning">Delete</button>
+                                                </form>
+                                              </li>
+                                            </ul>
+                                          </div>
                                     </div>
                                 </td>
                             </tr>

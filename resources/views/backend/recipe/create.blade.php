@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="category_id" class="form-label fw-bold">Category<span class="text-danger">*</span></label>
-                        <select name="category_id" id="category_id" class="form-control @error('category_id') is-invalid  @enderror">
+                        <select name="category_id" id="category_id" class="form-control lib-s2 @error('category_id') is-invalid  @enderror">
                             <option value="">--Select--</option>
                             @foreach ($categories as $category)
                                 <option @if (old('category_id') == $category->id) selected @endif value="{{ $category->id }}">
@@ -76,14 +76,14 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6 mb-3">
+                    {{-- <div class="col-md-6 mb-3">
                         <label for="discount" class="form-label fw-bold">Discount<span class="text-danger">*</span></label>
                         <input type="text" class="form-control num-only @error('discount') is-invalid  @enderror" id="discount"
                             name="discount" value="{{ old('discount') }}">
                         @error('discount')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     {{-- <div class="col-md-6">
                         <label for="net_amount" class="form-label fw-bold">Net Amount<span class="text-danger">*</span></label>
                         <input type="text" class="form-control num-only @error('net_amount') is-invalid  @enderror" id="net_amount"
@@ -129,7 +129,6 @@
         </div>
     </div>
 </div>
-
 
 @endsection
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RecipeStoreRequest;
 use App\Http\Requests\RecipeUpdateRequest;
+use App\Http\Requests\PromotionStoreRequest;
 use App\Models\Recipe;
 use App\Models\Category;
 use App\Models\Ingredient;
@@ -22,7 +23,7 @@ class RecipeController extends Controller
 
     public function index()
     {
-        $recipes = Recipe::get();
+        // $recipes = Recipe::get();
         $data = $this->recipeService->index();
         return view('backend/recipe.index', $data);
     }
@@ -57,6 +58,17 @@ class RecipeController extends Controller
     public function update(RecipeUpdateRequest $request,Recipe $recipe)
     {
         $data = $this->recipeService->update($request,$recipe);
+        return redirect()->route('recipe.index')->with($data['status'], $data['message']);
+    }
+
+    public function addPromotion(Recipe $recipe)
+    {
+        return view('backend.recipe.addpromotion',compact('recipe'));
+    }
+
+    public function storePromotion(PromotionStoreRequest $request,$id)
+    {
+        $data = $this->recipeService->storePromotion($request,$id);
         return redirect()->route('recipe.index')->with($data['status'], $data['message']);
     }
 }
