@@ -1,16 +1,18 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\KitchenModuleController;
+use App\Http\Controllers\OrderModuleController;
 use App\Http\Controllers\OrderTablesController;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UserController;
 use App\Models\OrderTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\IngredientController;
-use App\Http\Controllers\OrderModuleController;
-use App\Http\Controllers\RecipeController;
+
 
 // Redirect Route
 Route::get('/', fn () => redirect()->route('main-dashboard'));
@@ -68,5 +70,5 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 // Kitchen Group
 Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
     // Orders
-    Route::get('/orders', [OrderModuleController::class, 'orders'])->name('orders');
+    Route::get('/orders', [KitchenModuleController::class, 'orders'])->name('orders');
 });
