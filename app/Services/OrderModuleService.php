@@ -40,7 +40,7 @@ class OrderModuleService
     public function getMenu($table)
     {
         return[
-            'categories' => Category::all(),
+            'categories' => Category::with('recipes')->get(),
         ];
     }
 
