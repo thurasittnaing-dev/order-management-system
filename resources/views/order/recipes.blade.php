@@ -13,63 +13,47 @@
                 @foreach ($categories as $category)
                     <div class="col-md-2">
                         <li class="nav-item d-grid" role="presentation">
-                            <button class="nav-link" id="{{ $category->name }}-tab" data-bs-toggle="tab"
-                                data-bs-target="#{{ $category->name }}food" type="button" role="tab"
-                                aria-controls="{{ $category->name }}food" aria-selected="false">
+                            <button class="nav-link {{ $loop->first ? 'active' : '' }}" id="{{ $category->id}}-tab" data-bs-toggle="tab"
+                                data-bs-target="#{{ $category->id}}" type="button" role="tab"
+                                aria-controls="{{ $category->id}}" @if ($loop->first) aria-selected="true" @else aria-selected="false" @endif>
                                 {{ $category->name }}</button>
                         </li>
                     </div>
                 @endforeach
             </ul>
+
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade" id="chinesefood" role="tabpanel"
-                    aria-labelledby="chinesefood-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i=0 ; $i<10 ; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/mala.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">Mala Xiang Gou</span>
-                                    </div>
-                                </a>
-                            @endfor
+                @foreach ($categories as $category)
+                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $category->id}}" role="tabpanel"
+                        aria-labelledby="{{ $category->id}}-tab">
+                        <div class="mt-3">
+                            <div class="row g-2">
+                                @foreach ($category->recipes as $recipe)
+                                    <a href="{{ route('makeOrder', ['table' => $orderTable_id, 'recipe' => $recipe->id]) }}"
+                                        class="col-md-2 recipe-data" data-id="{{ $recipe->id }}"
+                                        data-name="{{ $recipe->name }}" data-amount="{{ $recipe->amount }}"
+                                        data-discount="{{ $recipe->discount }}" data-image="{{ asset('storage/recipes/' . $recipe->image) }}"
+                                        data-url="{{ route('makeOrder', ['table' => $orderTable_id, 'recipe' => $recipe->id]) }}" >
+                                        <div class="table-card">
+                                            @if($recipe->discount)
+                                                <div class="box">
+                                                    <div class="ribbon-danger"><span>Discount</span></div>
+                                                </div>
+                                            @endif
+
+                                            <img src="{{ asset('storage/recipes/' . $recipe->image) }}" class="table-img" alt="">
+                                            <span class="table-badge">{{ $recipe->name }} <br> Price ({{ $recipe->amount }}MMK) </span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="koreanfood" role="tabpanel"
-                    aria-labelledby="koreanfood-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i=0 ; $i<10 ; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/teokbokki.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">Teokbokki</span>
-                                    </div>
-                                </a>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="japanesefood" role="tabpanel"
-                    aria-labelledby="japanesefood-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @for ($i=0 ; $i<10 ; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/sushi.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">Sushi</span>
-                                    </div>
-                                </a>
-                            @endfor
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
+    @include('order.store_recipe_data')
 @endsection
 
 @section('css')
