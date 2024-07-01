@@ -61,7 +61,7 @@
             <a class="sidebar-link {{ menu_active('ingredient') }}" href="{{ route('ingredient.index') }}"
                 aria-expanded="false">
                 <span>
-                    <i class="ti ti-salad"></i>
+                    <i class="ti ti-article"></i>
                 </span>
                 <span class="hide-menu">Ingredient</span>
             </a>

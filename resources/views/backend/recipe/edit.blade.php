@@ -16,7 +16,7 @@
                 @method('PUT')
 
                 <div class="row mb-3">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="name" class="form-label fw-bold">Name<span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                             name="name" value="{{ old('name', $recipe->name) }}">
@@ -25,7 +25,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="file" class="form-label fw-bold">Image<span class="text-danger">*</span></label>
                         <div class="">
                             <input type="file" name="file" id="file"
@@ -39,7 +39,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="description" class="form-label fw-bold">Description</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                             rows="3">{{ old('description', $recipe->description ) }}</textarea>
@@ -47,7 +47,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="category_id" class="form-label fw-bold">Category<span class="text-danger">*</span></label>
                         <select name="category_id" id="category_id" class="form-control lib-s2 @error('category_id') is-invalid  @enderror">
                             <option value="">--Select--</option>
@@ -74,7 +74,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="amount" class="form-label fw-bold">Amount<span class="text-danger">*</span></label>
                         <input type="text" class="form-control num-only @error('amount') is-invalid  @enderror" id="amount"
                             name="amount" value="{{ old('amount', $recipe->amount ) }}">
@@ -82,7 +82,7 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-3">
                         <label for="status" class="form-label fw-bold">Status<span class="text-danger">*</span></label>
                         <select class="form-control lib-s2 @error('status') is-invalid @enderror" id="status" name="status">
                             <option value="" selected></option>
