@@ -21,6 +21,7 @@
 
                         <div class="my-1 p-2 d-flex" title="Recipe Status Label">
                             <div class="recipe-status-label bg-danger">Not Send</div>
+                            <div class="recipe-status-label bg-info">Make Order</div>
                             <div class="recipe-status-label bg-warning">Cooking</div>
                             <div class="recipe-status-label bg-success">Ready</div>
                         </div>
