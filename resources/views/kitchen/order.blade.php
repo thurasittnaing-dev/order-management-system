@@ -25,7 +25,7 @@
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="cancel-tab" data-bs-toggle="tab" data-bs-target="#cancel"
-                            type="button" role="tab" aria-controls="" aria-selected="true">Cancel(5)</button>
+                            type="button" role="tab" aria-controls="" aria-selected="true">Cancel(10)</button>
                     </li>
                 </div>
                 <div class="col-md-3">
@@ -41,92 +41,83 @@
                     <div class="mt-3">
                         <div class="row g-2">
                             @for ($i = 0; $i < 10; $i++)
-                                <div class="col-md-2">
-                                    <div class="table-card">
-                                        <a href="" class="col-md-2">
-                                            <img src="{{ asset('images/sushi.png') }}" class="table-img" alt="">
-                                            <span class="table-badge"> Sushi</span>
+                                <div class="col-md-2 mb-2">
+                                    <div class="table-card " style="width: 100%">
+                                        <a href="#" class="">
+                                            <img src="{{ asset('images/sushi.png') }}" class="table-img " alt="">
+                                            <span class="table-badge ">Sushi</span>
                                         </a>
-
                                     </div>
-                                    <div class="mt-2 d-flex">
-                                        <a href= "#" class="btn btn-success me-5">Confirm</a>
-                                        <a href="#"  class="btn btn-danger">Cancel</a>
+                                    <div class="mt-2 d-flex gap-2">
+                                        <a href= "#" class="btn btn-warning flex-grow-1">Confirm</a>
+                                        <a href="#" class="btn btn-danger flex-grow-1">Cancel</a>
                                     </div>
-
                                 </div>
                             @endfor
                         </div>
-
                     </div>
                 </div>
-
             </div>
+
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show " id="confirm" role="tabpanel" aria-labelledby="confirm-tab">
                     <div class="mt-3">
                         <div class="row g-2">
                             @for ($i = 0; $i < 10; $i++)
-                                <div class="col-md-2">
-                                    <div class="table-card">
-                                        <a href="" class="col-md-2">
-                                            <img src="{{ asset('images/sushi.png') }}" class="rconfirm-img" alt="">
-                                            <span class="rconfirm-badge"> Sushi</span>
+                                <div class="col-md-2 mb-2">
+                                    <div class="table-card " style="width: 100%">
+                                        <a href="#" class=" ">
+                                            <img src="{{ asset('images/sushi.png') }}" class="rconfirm-img " alt="">
+                                            <span class="rconfirm-badge ">Sushi</span>
                                         </a>
-
                                     </div>
-                                    <div class="mt-2 d-flex">
-                                        <a href= "#" class="btn btn-success me-5">Ready</a>
-                                        <a href="#"  class="btn btn-danger">Cancel</a>
+                                    <div class="mt-2 d-flex gap-2">
+                                        <a href= "#" class="btn btn-success w-100">Ready</a>
+                                        <a href="#" class="btn btn-danger w-100">Cancel</a>
                                     </div>
-
                                 </div>
                             @endfor
-
                         </div>
                     </div>
                 </div>
-
             </div>
+
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show " id="cancel" role="tabpanel" aria-labelledby="cancel-tab">
                     <div class="mt-3">
                         <div class="row g-2">
-                            @for ($i = 0; $i < 5; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/sushi.png') }}" class="rcancel-img" alt="">
-                                        <span class="rcancel-badge">Sushi</span>
+                            @for ($i = 0; $i < 10; $i++)
+                                <div class="col-md-2 mb-2">
+                                    <div class="table-card " style="width: 100%">
+                                        <a href="#" class=" ">
+                                            <img src="{{ asset('images/sushi.png') }}" class="rcancel-img "
+                                                alt="">
+                                            <span class="rcancel-badge ">Sushi</span>
+                                        </a>
                                     </div>
-                                </a>
+                                </div>
                             @endfor
-
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-pane fade show " id="ready" role="tabpanel" aria-labelledby="ready-tab">
                     <div class="mt-3">
                         <div class="row g-2">
                             @for ($i = 0; $i < 0; $i++)
-                                <a href="" class="col-md-2">
-                                    <div class="table-card">
+                                <a href="" class="col-md-2 mb-2">
+                                    <div class="table-card" style="width: 100%">
                                         <img src="{{ asset('images/sushi.png') }}" class="table-img" alt="">
                                         <span class="table-badge">Sushi</span>
                                     </div>
                                 </a>
                             @endfor
-
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
-
         </div>
     </div>
-
 @endsection
 
 @section('css')
