@@ -14,8 +14,15 @@ class RecipeService
                     ->when(request('category'),fn($query)=>$query->whereHas('category', function ($q) {
                         $q->where('id', request('category'));
                       }))
-                    ->when(request('status'),fn($query)=>$query->where('status', request('status')));
-
+                    ->when(request('status'),fn($query)=>$query->where('status', request('status')))
+                    ->when(request('discount') !== null, function ($query) {
+                        $discount = request('discount');
+                        if ($discount === '1') {
+                            $query->where('discount', '>', 0);
+                        } elseif ($discount === '0') {
+                            $query->where('discount', '=', 0);
+                        }
+                    });
         return [
             'i' => getTableIndexer(5),
             'count' => $query->count(),

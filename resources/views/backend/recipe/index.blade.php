@@ -10,6 +10,7 @@
         $name = $_GET['name'] ?? '';
         $category = $_GET['category'] ?? '';
         $status = $_GET['status'] ?? '';
+        $discount = $_GET['discount'] ?? '';
     @endphp
     <div class="card">
         <div class="card-header">Filter</div>
@@ -35,6 +36,13 @@
                             <option value="" selected>Status</option>
                             <option value="active" @if ($status == 'active') selected @endif>Active</option>
                             <option value="inactive" @if ($status == 'inactive') selected @endif>Inactive</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <select id="discount" class="form-control lib-s2" name="discount">
+                            <option value=" ">Promotion</option>
+                            <option value="1" @if ($discount === '1') selected @endif>Yes</option>
+                            <option value="0" @if ($discount === '0') selected @endif>No</option>
                         </select>
                     </div>
                 </div>
