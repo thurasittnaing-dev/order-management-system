@@ -73,4 +73,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
     // Orders
     Route::get('/orders', [KitchenModuleController::class, 'orders'])->name('orders');
+
 });
+
+
