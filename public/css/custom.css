@@ -355,13 +355,13 @@
     padding: 0.35rem 0.5rem;
     text-align: center;
   }
-  .rcancle-img {
+  .rcancel-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  .rcancle-badge {
+  .rcancel-badge {
     background-color: rgba(211, 68, 68, 0.53);
     color: #fff;
     position: absolute;
