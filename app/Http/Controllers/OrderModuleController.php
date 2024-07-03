@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Services\OrderModuleService;
 use Illuminate\Http\Request;
+use App\Models\OrderTables;
 
 class OrderModuleController extends Controller
 {
@@ -36,6 +37,13 @@ class OrderModuleController extends Controller
     public function makeOrder($table , $recipe_id=null, $invoice = null)
     {
         $data = $this->orderModuleService->getOrder($table, $recipe_id, $invoice);
+        return view('order.make_order',$data);
+    }
+    public function store(Request $request, OrderTables $table , $invoice = null)
+    {
+        $data = json_decode($request->data);
+        dd($data,$table->room->service_fee,$table->id,auth()->user()->id);
+        $data = $this->orderModuleService->storeOrder($request,$table, $recipe_id, $invoice);
         return view('order.make_order',$data);
     }
 }

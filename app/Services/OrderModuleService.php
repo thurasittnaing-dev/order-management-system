@@ -49,13 +49,16 @@ class OrderModuleService
     public function getOrder($table, $recipe_id, $invoice)
     {
         $orderTable = OrderTables::select('id', 'table_no')->where('id', $table)->first();
-        // $recipe = null;
 
-        // if ($recipe_id) {
-        //     $recipe = Recipe::find($recipe_id);
-        // }
-        // dd($recipe);
+        return[
+            'orderTable' => $orderTable,
 
+        ];
+    }
+
+    public function storeOrder($request, $table, $recipe_id, $invoice)
+    {
+        $orderTable = OrderTables::select('id', 'table_no')->where('id', $table)->first();
         return[
             'orderTable' => $orderTable,
 
