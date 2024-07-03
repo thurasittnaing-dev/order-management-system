@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Services\OrderModuleService;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderStoreRequest;
 use App\Models\OrderTables;
 
 class OrderModuleController extends Controller
@@ -39,11 +40,11 @@ class OrderModuleController extends Controller
         $data = $this->orderModuleService->getOrder($table, $recipe_id, $invoice);
         return view('order.make_order',$data);
     }
-    public function store(Request $request, OrderTables $table , $invoice = null)
+    public function store(OrderStoreRequest $request, OrderTables $table , $invoice = null)
     {
-        $data = json_decode($request->data);
-        dd($data,$table->room->service_fee,$table->id,auth()->user()->id);
-        $data = $this->orderModuleService->storeOrder($request,$table, $recipe_id, $invoice);
-        return view('order.make_order',$data);
+        // $data = json_decode($request->data);
+        // dd($data,$table->room->service_fee,$table->id,auth()->user()->id);
+        $data = $this->orderModuleService->storeOrder($request,$table, $invoice);
+        return redirect()->route('makeOrder',['table' => $table->id, 'invoice' => $invoice])->with($data);
     }
 }

@@ -15,7 +15,7 @@
                             <div class="table-no">{{ $orderTable->table_no}}</div>
                             <div>
                                 <a href="{{ route('recipes', $orderTable->id) }}" class="btn btn-primary me-1">Add Recipe</a>
-                                <form id="recipe-form" action="{{ route('storeOrder', ['table'=> $orderTable]) }} " method="POST">
+                                <form id="recipe-form" action="{{ route('storeOrder', ['table'=> $orderTable->id]) }} " method="POST">
                                     @csrf
                                     <input type="hidden" name="data" id="data" value="">
                                     <button class="btn btn-success make-order-btn" type="submit">Make Order</button>
