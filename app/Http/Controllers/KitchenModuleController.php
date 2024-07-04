@@ -2,29 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderRecipes;
+use App\Services\KitchenModuleService;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 
 class KitchenModuleController extends Controller
 {
+    // protected $kitchenModuleService;
+
+    // public function __construct(KitchenModuleService $kitchenModuleService)
+    // {
+    //     $this->kitchenModuleService = $kitchenModuleService;
+    // }
+    // public function orders()
+    // {
+    //     $recipes = OrderRecipes::with('recipe')->get();
+    //     return view('kitchen.order',compact('recipes'));
+    // }
     public function orders()
     {
-
-        $orders = Order::where('status', 'pending')->count();
-        return view('kitchen.order', ['count' => $orders]);
-    }
-    public function status(Request $request){
-        $request->validate([
-            'order_id' => 'required|exists:order_recipes,id',
-            'status' => 'required|in:confirm,cancel,ready',
-        ]);
-        $orderRecipe = OrderRecipes::find($request->order_id);
-        $orderRecipe->status = $request->status;
-        $orderRecipe->save();
-        return redirect()->route('orders')->with('success', 'Order status updated successfully!');
-
+        $recipes = OrderRecipes::with('recipe')->where('status', 'pending')->get();
+        $confirm = OrderRecipes::with('recipe')->where('status', 'confirm')->get();
+        $cancel  = OrderRecipes::with('recipe')->where('status', 'cancel')->get();
+        $ready   = OrderRecipes::with('recipe')->where('status', 'ready')->get();
+        return view('kitchen.order', compact('recipes','confirm','cancel','ready'));
     }
 
+    public function updateStatus(Request $request)
+    {
+        $order = OrderRecipes::find($request->recipe_id);
+        if ($order) {
+            // Update the status based on the button clicked
+            if ($request->has('confirm')) {
+                $order->status = 'confirm';
+            } elseif ($request->has('cancel')) {
+                $order->status = 'cancel';
+            } elseif ($request->has('ready')) {
+                $order->status = 'ready';
+            }
+
+
+            $order->save();
+        }
+        return redirect()->back();
+    }
+
+
+    // public function status(Request $request, OrderRecipes $orderRecipes)
+    // {
+    //     $orderRecipes = OrderRecipes::all();
+    // }
 }
