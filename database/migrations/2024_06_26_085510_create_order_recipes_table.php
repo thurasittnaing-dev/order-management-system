@@ -19,7 +19,7 @@ class CreateOrderRecipesTable extends Migration
             $table->foreignId('recipe_id')->constrained('recipes');
             $table->integer('discount');
             $table->integer('amount');
-            $table->enum('status', ['pending','confirm','cancel','ready']);
+            $table->enum('status', ['pending','confirm','cancel','ready'])->default('pending');
             $table->timestamps();
         });
     }

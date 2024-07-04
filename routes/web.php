@@ -66,6 +66,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 
     // Make Order
     Route::get('make_order/{table}/{invoice?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+
+    //Store Order
+    Route::post('/store_order/{table}/{invoice?}', [OrderModuleController::class, 'store'])->name('storeOrder');
 });
 
 

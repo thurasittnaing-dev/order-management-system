@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\OrderTables;
+use App\Models\Order;
 
 if (!function_exists('menu_active')) {
   function menu_active($module)
@@ -48,7 +49,7 @@ if (!function_exists('generateTableNo')) {
 if (!function_exists('generateInvoiceNo')) {
   function generateInvoiceNo()
   {
-    $orderCount = OrderTables::count();
-    return 'INV-' . str_pad($tableCount + 1, 6, '0', STR_PAD_LEFT);
+    $orderCount = Order::count();
+    return 'INV-' . str_pad($orderCount + 1, 6, '0', STR_PAD_LEFT);
   }
 }
