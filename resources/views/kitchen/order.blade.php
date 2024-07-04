@@ -12,7 +12,7 @@
                 <div class="col-md-3">
                     <li class="nav-item d-grid " role="presentation">
                         <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending"
-                            type="button" role="tab" aria-controls="pending" aria-selected="true">Pending(10)</button>
+                            type="button" role="tab" aria-controls="pending" aria-selected="true">Pending{{ $count }}</button>
                     </li>
                 </div>
 
@@ -36,21 +36,28 @@
                 </div>
 
             </ul>
+
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active " id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     <div class="mt-3">
                         <div class="row g-2">
                             @for ($i = 0; $i < 10; $i++)
                                 <div class="col-md-2 mb-2">
-                                    <div class="table-card " style="width: 100%">
+                                    <div class="table-card" style="width: 100%">
                                         <a href="#" class="">
-                                            <img src="{{ asset('images/sushi.png') }}" class="table-img " alt="">
-                                            <span class="table-badge ">Sushi</span>
+                                            <img src="{{ asset('images/sushi.png') }}" class="table-img" alt="">
+                                            <span class="table-badge">Sushi</span>
                                         </a>
                                     </div>
                                     <div class="mt-2 d-flex gap-2">
-                                        <a href= "#" class="btn btn-warning flex-grow-1">Confirm</a>
-                                        <a href="#" class="btn btn-danger flex-grow-1">Cancel</a>
+                                        <form action="{{ route('order.status') }}" method="POST" class="flex-grow-1">
+                                            @csrf
+                                            <button type="submit" class="btn btn-warning w-100">Confirm</button>
+                                        </form>
+                                        <form action="{{ route('order.status') }}" method="POST" class="flex-grow-1">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger w-100">Cancel</button>
+                                        </form>
                                     </div>
                                 </div>
                             @endfor
@@ -58,6 +65,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show " id="confirm" role="tabpanel" aria-labelledby="confirm-tab">
@@ -72,8 +80,14 @@
                                         </a>
                                     </div>
                                     <div class="mt-2 d-flex gap-2">
-                                        <a href= "#" class="btn btn-success w-100">Ready</a>
-                                        <a href="#" class="btn btn-danger w-100">Cancel</a>
+                                        <form action="{{ route('order.status') }}" method="POST" class="flex-grow-1">
+                                            @csrf
+                                            <button type="submit" class="btn btn-warning w-100">Ready</button>
+                                        </form>
+                                        <form action="{{ route('order.status') }}" method="POST" class="flex-grow-1">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger w-100">Cancel</button>
+                                        </form>
                                     </div>
                                 </div>
                             @endfor
