@@ -5,6 +5,9 @@ namespace App\Services;
 use App\Models\OrderTables;
 use App\Models\Room;
 use App\Models\Recipe;
+use App\Models\Order;
+use App\Models\OrderRecipes;
+
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 
@@ -49,16 +52,71 @@ class OrderModuleService
     public function getOrder($table, $recipe_id, $invoice)
     {
         $orderTable = OrderTables::select('id', 'table_no')->where('id', $table)->first();
-        // $recipe = null;
-
-        // if ($recipe_id) {
-        //     $recipe = Recipe::find($recipe_id);
-        // }
-        // dd($recipe);
 
         return[
             'orderTable' => $orderTable,
 
         ];
+    }
+
+
+
+
+
+    public function storeOrder($request, $table, $invoice)
+    {
+        $validatedData = $request->validated();
+        $data = json_decode($validatedData['data']);
+        try {
+            $order =Order::create([
+              'invoice_no' => generateInvoiceNo(),
+                'order_table_id'=>$table->id,
+                'service_charges'=>$table->room->service_fee,
+                'user_id' =>auth()->user()->id,
+            ]);
+
+            $totalDiscount = 0;
+            $totalAmount = 0;
+
+
+            foreach ($data as $recipeData) {
+                $recipe = Recipe::find($recipeData->id);
+                $discount = $recipe->discount * $recipeData->quantity;
+                $amount = $recipe->amount * $recipeData->quantity;
+                OrderRecipes::create([
+                    'order_id' => $order->id,
+                    'recipe_id' => $recipe->id,
+                    'quantity' => $recipeData->quantity,
+                    'discount' => $recipe->discount,
+                    'amount' => $recipe->amount,
+                ]);
+
+                $totalDiscount += $discount;
+                $totalAmount += $amount;
+            }
+
+            $netAmount = ($totalAmount + $order->service_charges) - $totalDiscount;
+
+            $order->update([
+                'discount' => $totalDiscount,
+                'amount' => $totalAmount,
+                'net_amount' => $netAmount,
+            ]);
+
+
+            return [
+              'status' => 'success',
+              'message' => 'Order and OrderRecipe Created.',
+
+            ];
+          } catch (\Exception $e) {
+            dd($e);
+            return [
+              'status' => 'error',
+              'message' => 'Something went wrong',
+            ];
+          }
+
+
     }
 }

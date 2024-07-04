@@ -18,6 +18,8 @@
                     image: recipeImage
                 };
 
+                recipeData.quantity = 1;
+
                 // Retrieve existing recipes from localStorage
                 let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
 

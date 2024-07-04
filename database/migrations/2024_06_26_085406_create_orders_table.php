@@ -15,15 +15,15 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoice_no');
+            $table->string('invoice_no');
             $table->foreignId('order_table_id')->constrained('order_tables')->onDelete('cascade');
-            $table->integer('discount');
-            $table->integer('amount');
+            $table->integer('discount')->default(0);
+            $table->integer('amount')->default(0);
             $table->integer('service_charges');
-            $table->integer('net_amount');
-            $table->integer('paid');
-            $table->integer('change');
-            $table->boolean('status')->default(false);
+            $table->integer('net_amount')->default(0);
+            $table->integer('paid')->default(0);
+            $table->integer('change')->default(0);
+            $table->boolean('status')->default(true);
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

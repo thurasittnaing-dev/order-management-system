@@ -29,120 +29,129 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
 
-        const updateLocalStorage = (recipes) => {
-            localStorage.setItem('selectedRecipes', JSON.stringify(recipes));
-        };
+document.addEventListener('DOMContentLoaded', (event) => {
+    let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
 
-        const renderRecipes = () => {
-            const tableBody = document.getElementById('recipes-table-body');
-            tableBody.innerHTML = ''; // Clear the table body
+    const updateLocalStorage = (recipes) => {
+        let data = JSON.stringify(recipes);
+        $('#data').val(data);
+        localStorage.setItem('selectedRecipes', data);
+    };
 
-            if (selectedRecipes.length > 0) {
-                let totalAmount = 0;
-                let totalDiscount = 0;
+    const renderRecipes = () => {
+        const tableBody = document.getElementById('recipes-table-body');
+        tableBody.innerHTML = ''; // Clear the table body
 
-                selectedRecipes.forEach((recipe, index) => {
-                    recipe.quantity = recipe.quantity || 1;
-                    const discount = recipe.discount > 0 ? recipe.amount - recipe.discount : recipe.amount;
-                    let subAmount = recipe.quantity * recipe.amount; // Initialize amount
-                    let subDiscount = recipe.quantity * recipe.discount; // Calculate subtotal discount
+        if (selectedRecipes.length > 0) {
+            let totalAmount = 0;
+            let totalDiscount = 0;
 
-                    totalAmount += subAmount;
-                    totalDiscount += subDiscount;
+            selectedRecipes.forEach((recipe, index) => {
+                recipe.quantity = recipe.quantity || 1;
+                const discount = recipe.discount > 0 ? recipe.amount - recipe.discount : recipe.amount;
+                let subAmount = recipe.quantity * recipe.amount; // Initialize amount
+                let subDiscount = recipe.quantity * recipe.discount; // Calculate subtotal discount
 
-                    const recipeRow = document.createElement('tr');
-                    recipeRow.dataset.id = recipe.id;
+                totalAmount += subAmount;
+                totalDiscount += subDiscount;
 
-                    recipeRow.innerHTML = `
-                        <td>
-                            <div class="condition-status bg-danger">${index + 1}</div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <img src="${recipe.image}" class="recipe-img img img-thumbnail me-2" alt="">
-                                <div>
-                                    <div class="recipe-title">${recipe.name}</div>
-                                    ${recipe.discount > 0 ? `
-                                        <div>
-                                            <div class="recipe-discount">${discount} MMK</div>
-                                            <div class="recipe-amount"><del>${recipe.amount} MMK</del></div>
-                                        </div>` : `
-                                        <div>
-                                            <div class="recipe-discount">${recipe.amount} MMK</div>
-                                        </div>`
-                                    }
-                                </div>
+                const recipeRow = document.createElement('tr');
+                recipeRow.dataset.id = recipe.id;
+
+                recipeRow.innerHTML = `
+                    <td>
+                        <div class="condition-status bg-danger">${index + 1}</div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${recipe.image}" class="recipe-img img img-thumbnail me-2" alt="">
+                            <div>
+                                <div class="recipe-title">${recipe.name}</div>
+                                ${recipe.discount > 0 ? `
+                                    <div>
+                                        <div class="recipe-discount">${discount} MMK</div>
+                                        <div class="recipe-amount"><del>${recipe.amount} MMK</del></div>
+                                    </div>` : `
+                                    <div>
+                                        <div class="recipe-discount">${recipe.amount} MMK</div>
+                                    </div>`
+                                }
                             </div>
-                        </td>
-                        <td>
-                            <div class="input-group" style="width: 8rem;">
-                                <input type="number" class="form-control num-only" min="0" max="1000" value="${recipe.quantity}">
-                                <button class="btn btn-outline-danger" type="button" id="button-addon2">
-                                    <i class="ti ti-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                        <td align="right">${subDiscount}</td>
-                        <td align="right">${subAmount}</td>
-                    `;
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-group" style="width: 8rem;">
+                            <input type="number" class="form-control num-only" min="0" max="1000" value="${recipe.quantity}">
+                            <button class="btn btn-outline-danger" type="button" id="button-addon2">
+                                <i class="ti ti-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                    <td align="right">${subDiscount}</td>
+                    <td align="right">${subAmount}</td>
+                `;
 
-                    // Event listener for quantity change
-                    const quantityInput = recipeRow.querySelector('.num-only');
-                    quantityInput.addEventListener('change', () => {
-                        const newQuantity = parseInt(quantityInput.value);
-                        if (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 1000) {
-                            recipe.quantity = newQuantity;
-                            subAmount = recipe.quantity * recipe.amount; // Recalculate amount
-                            subDiscount = recipe.quantity * recipe.discount; // Recalculate subDiscount
-                            updateLocalStorage(selectedRecipes); // Update localStorage
-                            renderRecipes(); // Re-render recipes
-                        } else {
-                            // Reset input if invalid value
-                            quantityInput.value = recipe.quantity;
-                        }
-                    });
-
-                    // Add delete event listener to the button
-                    recipeRow.querySelector('.btn-outline-danger').addEventListener('click', () => {
-                        selectedRecipes = selectedRecipes.filter(r => r.id !== recipe.id);
-                        updateLocalStorage(selectedRecipes);
-                        renderRecipes();
-                    });
-
-                    tableBody.appendChild(recipeRow);
+                // Event listener for quantity change
+                const quantityInput = recipeRow.querySelector('.num-only');
+                quantityInput.addEventListener('change', () => {
+                    const newQuantity = parseInt(quantityInput.value);
+                    if (!isNaN(newQuantity) && newQuantity >= 0 && newQuantity <= 100) {
+                        recipe.quantity = newQuantity;
+                        subAmount = recipe.quantity * recipe.amount; // Recalculate amount
+                        subDiscount = recipe.quantity * recipe.discount; // Recalculate subDiscount
+                        updateLocalStorage(selectedRecipes); // Update localStorage
+                        renderRecipes(); // Re-render recipes
+                    } else {
+                        // Reset input if invalid value
+                        quantityInput.value = recipe.quantity;
+                    }
                 });
 
-                // Update footer with calculated totals
-                const tfoot = document.getElementById('recipes-table-foot');
-                tfoot.innerHTML = `
-                    <tr class="border-0">
-                        <td align="right" colspan="4" class="border-0">Service Charges</td>
-                        <td align="right" class="border-0">0</td>
-                    </tr>
-                    <tr class="border-0">
-                        <td align="right" colspan="4" class="border-0">Total Discount</td>
-                        <td align="right" class="border-0">${totalDiscount} MMK</td>
-                    </tr>
-                    <tr>
-                        <td align="right" colspan="4">Total Amount</td>
-                        <td align="right">${totalAmount} MMK</td>
-                    </tr>
-                    <tr class="bg-light">
-                        <td align="right" colspan="4">Total Net Amount</td>
-                        <td align="right">${totalAmount - totalDiscount} MMK</td>
-                    </tr>
-                `;
-            } else {
-                document.getElementById('no-recipes').style.display = 'table-row';
-            }
-        };
+                // Add delete event listener to the button
+                recipeRow.querySelector('.btn-outline-danger').addEventListener('click', () => {
+                    selectedRecipes = selectedRecipes.filter(r => r.id !== recipe.id);
+                    updateLocalStorage(selectedRecipes);
+                    renderRecipes();
+                });
 
-        // Initial render of recipes
-        renderRecipes();
-    });
+                tableBody.appendChild(recipeRow);
+            });
+
+            // Update footer with calculated totals
+            const tfoot = document.getElementById('recipes-table-foot');
+            tfoot.innerHTML = `
+                <tr class="border-0">
+                    <td align="right" colspan="4" class="border-0">Service Charges</td>
+                    <td align="right" class="border-0">0</td>
+                </tr>
+                <tr class="border-0">
+                    <td align="right" colspan="4" class="border-0">Total Discount</td>
+                    <td align="right" class="border-0">${totalDiscount} MMK</td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="4">Total Amount</td>
+                    <td align="right">${totalAmount} MMK</td>
+                </tr>
+                <tr class="bg-light">
+                    <td align="right" colspan="4">Total Net Amount</td>
+                    <td align="right">${totalAmount - totalDiscount} MMK</td>
+                </tr>
+            `;
+        } else {
+            document.getElementById('no-recipes').style.display = 'table-row';
+        }
+
+        let toUpdateData = localStorage.getItem('selectedRecipes');
+        $('#data').val(toUpdateData);
+    };
+
+    // Initial render of recipes
+    renderRecipes();
+
+
+});
+
 </script>
 
 
