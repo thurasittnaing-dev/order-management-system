@@ -4,18 +4,24 @@
     <form action="" class="mt-4" id="checkout-form">
         <div class="mb-3">
             <label for="" class="mb-2">Invoice No</label>
-            <input type="text" name="invocie_no" class="form-control" disabled value="INV-0000001">
+            <input type="text" name="invocie_no" class="form-control" disabled value=" {{ $invoice }}">
         </div>
 
         <div class="mb-3">
             <label for="" class="mb-2">Invoice Date</label>
             <input type="text" name="date" class="form-control" disabled value="{{ date('d-M-Y') }}">
         </div>
-
-        <div class="mb-3">
-            <label for="" class="mb-2">Total Amount</label>
-            <input type="number" name="total_amount" class="form-control num-only" disabled value="250000">
-        </div>
+        @if(isset($order))
+            <div class="mb-3">
+                <label for="" class="mb-2">Total Amount</label>
+                <input type="number" name="total_amount" class="form-control num-only" disabled value="{{ $order->net_amount }}">
+            </div>
+        @else
+            <div class="mb-3">
+                <label for="" class="mb-2">Total Amount</label>
+                <input type="number" name="total_amount" class="form-control num-only" disabled value=" ">
+            </div>
+        @endif
 
         <div class="mb-3">
             <label for="" class="mb-2">Paid Amount</label>

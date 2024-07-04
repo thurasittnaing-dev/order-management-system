@@ -32,7 +32,7 @@
                                     <a href="{{ route('makeOrder', ['table' => $orderTable_id, 'recipe' => $recipe->id]) }}"
                                         class="col-md-2 recipe-data" data-id="{{ $recipe->id }}"
                                         data-name="{{ $recipe->name }}" data-amount="{{ $recipe->amount }}"
-                                        data-discount="{{ $recipe->discount }}" data-image="{{ asset('storage/recipes/' . $recipe->image) }}"
+                                        data-discount="{{ $recipe->discount }}" data-image="{{ asset('storage/recipes/' . $recipe->image)}}"
                                         data-url="{{ route('makeOrder', ['table' => $orderTable_id, 'recipe' => $recipe->id]) }}" >
                                         <div class="table-card">
                                             @if($recipe->discount)
