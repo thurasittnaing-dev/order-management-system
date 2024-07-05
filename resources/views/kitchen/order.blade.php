@@ -12,26 +12,26 @@
                 <div class="col-md-3">
                     <li class="nav-item d-grid " role="presentation">
                         <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending"
-                            type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
+                            type="button" role="tab" aria-controls="pending" aria-selected="true">Pending({{ $recipesCount }})</button>
                     </li>
                 </div>
 
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm"
-                            type="button" role="tab" aria-controls="" aria-selected="true">Confirm</button>
+                            type="button" role="tab" aria-controls="" aria-selected="true">Confirm({{ $confirmCount }})</button>
                     </li>
                 </div>
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="cancel-tab" data-bs-toggle="tab" data-bs-target="#cancel"
-                            type="button" role="tab" aria-controls="" aria-selected="true">Cancel</button>
+                            type="button" role="tab" aria-controls="" aria-selected="true">Cancel({{ $cancelCount }})</button>
                     </li>
                 </div>
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="ready-tab" data-bs-toggle="tab" data-bs-target="#ready" type="button"
-                            role="tab" aria-controls="" aria-selected="true">Ready</button>
+                            role="tab" aria-controls="" aria-selected="true">Ready({{ $readyCount }})</button>
                     </li>
                 </div>
 

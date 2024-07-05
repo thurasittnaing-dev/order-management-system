@@ -11,48 +11,22 @@ use Illuminate\Support\Facades\Log;
 
 class KitchenModuleController extends Controller
 {
-    // protected $kitchenModuleService;
+    protected $kitchenModuleService;
 
-    // public function __construct(KitchenModuleService $kitchenModuleService)
-    // {
-    //     $this->kitchenModuleService = $kitchenModuleService;
-    // }
-    // public function orders()
-    // {
-    //     $recipes = OrderRecipes::with('recipe')->get();
-    //     return view('kitchen.order',compact('recipes'));
-    // }
+    public function __construct(KitchenModuleService $kitchenModuleService)
+    {
+        $this->kitchenModuleService = $kitchenModuleService;
+    }
+
     public function orders()
     {
-        $recipes = OrderRecipes::with('recipe')->where('status', 'pending')->get();
-        $confirm = OrderRecipes::with('recipe')->where('status', 'confirm')->get();
-        $cancel  = OrderRecipes::with('recipe')->where('status', 'cancel')->get();
-        $ready   = OrderRecipes::with('recipe')->where('status', 'ready')->get();
-        return view('kitchen.order', compact('recipes','confirm','cancel','ready'));
+        $data = $this->kitchenModuleService->getOrdersForToday();
+        return view('kitchen.order', $data);
     }
 
     public function updateStatus(Request $request)
     {
-        $order = OrderRecipes::find($request->recipe_id);
-        if ($order) {
-            // Update the status based on the button clicked
-            if ($request->has('confirm')) {
-                $order->status = 'confirm';
-            } elseif ($request->has('cancel')) {
-                $order->status = 'cancel';
-            } elseif ($request->has('ready')) {
-                $order->status = 'ready';
-            }
-
-
-            $order->save();
-        }
+        $this->kitchenModuleService->updateStatusFromRequest($request);
         return redirect()->back();
     }
-
-
-    // public function status(Request $request, OrderRecipes $orderRecipes)
-    // {
-    //     $orderRecipes = OrderRecipes::all();
-    // }
 }
