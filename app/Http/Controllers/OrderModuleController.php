@@ -35,16 +35,21 @@ class OrderModuleController extends Controller
         $data = $this->orderModuleService->getMenu($table);
         return view('order.recipes',$data);
     }
-    public function makeOrder($table , $recipe_id=null, $invoice = null)
-    {
-        $data = $this->orderModuleService->getOrder($table, $recipe_id, $invoice);
-        return view('order.make_order',$data);
-    }
+
     public function store(OrderStoreRequest $request, OrderTables $table , $invoice = null)
     {
         // $data = json_decode($request->data);
         // dd($data,$table->room->service_fee,$table->id,auth()->user()->id);
         $data = $this->orderModuleService->storeOrder($request,$table, $invoice);
+        $invoice = $data['invoice'] ?? $invoice;
         return redirect()->route('makeOrder',['table' => $table->id, 'invoice' => $invoice])->with($data);
+
+    }
+
+
+    public function makeOrder($table , $invoice = null ,$order=null)
+    {
+        $data = $this->orderModuleService->getOrder($table, $invoice,$order);
+        return view('order.make_order',$data);
     }
 }

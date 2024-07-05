@@ -65,7 +65,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
     Route::get('recipes/{table}/{invoice?}', [OrderModuleController::class, 'recipes'])->name('recipes');
 
     // Make Order
-    Route::get('make_order/{table}/{invoice?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+    Route::get('make_order/{table}/{invoice?}/{order?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+
 
     //Store Order
     Route::post('/store_order/{table}/{invoice?}', [OrderModuleController::class, 'store'])->name('storeOrder');
@@ -76,7 +77,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
     // Orders
     Route::get('/orders', [KitchenModuleController::class, 'orders'])->name('orders');
-
+    //Status
+    Route::post('/order/status', [KitchenModuleController::class, 'updateStatus'])->name('order.status');
 });
 
 

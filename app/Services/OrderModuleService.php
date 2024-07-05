@@ -46,21 +46,9 @@ class OrderModuleService
         return[
             'categories' => Category::with('recipes')->get(),
             'orderTable_id' => OrderTables::select('id')->where('id', $table)->first(),
-        ];
-    }
-
-    public function getOrder($table, $recipe_id, $invoice)
-    {
-        $orderTable = OrderTables::select('id', 'table_no')->where('id', $table)->first();
-
-        return[
-            'orderTable' => $orderTable,
 
         ];
     }
-
-
-
 
 
     public function storeOrder($request, $table, $invoice)
@@ -68,6 +56,7 @@ class OrderModuleService
         $validatedData = $request->validated();
         $data = json_decode($validatedData['data']);
         try {
+
             $order =Order::create([
               'invoice_no' => generateInvoiceNo(),
                 'order_table_id'=>$table->id,
@@ -105,10 +94,9 @@ class OrderModuleService
 
 
             return [
-              'status' => 'success',
-              'message' => 'Order and OrderRecipe Created.',
-
+              'invoice'=> $order->invoice_no,
             ];
+
           } catch (\Exception $e) {
             dd($e);
             return [
@@ -116,7 +104,17 @@ class OrderModuleService
               'message' => 'Something went wrong',
             ];
           }
+    }
 
+    public function getOrder($table, $invoice,$order)
+    {
+        $orderTable = OrderTables::select('id', 'table_no')->where('id', $table)->first();
+        $order = Order::select('net_amount')->where('invoice_no',$invoice)->first();
 
+        return[
+            'orderTable' => $orderTable,
+            'invoice' => $invoice,
+            'order' => $order,
+        ];
     }
 }

@@ -13,12 +13,12 @@
                     <div class="recipe-card">
                         <div class="d-flex justify-content-between p-3">
                             <div class="table-no">{{ $orderTable->table_no}}</div>
-                            <div>
+                            <div class="d-flex justify-content-between align-items-right">
                                 <a href="{{ route('recipes', $orderTable->id) }}" class="btn btn-primary me-1">Add Recipe</a>
                                 <form id="recipe-form" action="{{ route('storeOrder', ['table'=> $orderTable->id]) }} " method="POST">
                                     @csrf
                                     <input type="hidden" name="data" id="data" value="">
-                                    <button class="btn btn-success make-order-btn" type="submit">Make Order</button>
+                                    <button class="btn btn-success make-order-btn" id="make-order-button" type="submit">Make Order</button>
                                 </form>
                             </div>
                         </div>
@@ -29,6 +29,9 @@
                             <div class="recipe-status-label bg-warning">Cooking</div>
                             <div class="recipe-status-label bg-success">Ready</div>
                         </div>
+                        @php
+                            $serviceCharges = $table->room->service_fee ?? 0;
+                        @endphp
 
                         @include('order.order_recipes')
                     </div>

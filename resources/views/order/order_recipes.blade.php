@@ -30,6 +30,8 @@
 
 <script>
 
+
+
 document.addEventListener('DOMContentLoaded', (event) => {
     let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
 
@@ -115,6 +117,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     renderRecipes();
                 });
 
+                // Alert if recipe ID already exists in localStorage
+                recipeRow.querySelector('.recipe-img').addEventListener('click', function() {
+                    const clickedRecipeId = this.getAttribute('data-id');
+                    const existsInLocalStorage = selectedRecipes.some(r => r.id === clickedRecipeId);
+                    if (existsInLocalStorage) {
+                        alert('This recipe is already in your order.');
+                    }
+                });
+
                 tableBody.appendChild(recipeRow);
             });
 
@@ -123,7 +134,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             tfoot.innerHTML = `
                 <tr class="border-0">
                     <td align="right" colspan="4" class="border-0">Service Charges</td>
-                    <td align="right" class="border-0">0</td>
+                    <td align="right" class="border-0">0 MMK</td>
                 </tr>
                 <tr class="border-0">
                     <td align="right" colspan="4" class="border-0">Total Discount</td>
