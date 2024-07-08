@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\Models\Recipe;
 use App\Models\Category;
-use PhpParser\Node\Stmt\TryCatch;
+use App\Models\Recipe;
+use Illuminate\Support\Facades\DB;
 
 class RecipeService
 {
@@ -33,6 +33,7 @@ class RecipeService
 
     public function store($request)
     {
+        DB::beginTransaction();
         try {
             $image = null;
             if ($request->hasFile('file')) {
@@ -47,16 +48,18 @@ class RecipeService
             $data = $request->validated();
             $data['image'] = $image;
             // $data['category_id'] = $data['category'];
-            // unset($data['category']);
+            // unset($data['category'])store;
             $recipe = Recipe::create($data);
 
             $recipe->ingredients()->attach($data['ingredients']);
 
+            DB::commit();
             return [
                 'status' => 'success',
                 'message' => 'Sucessfully Created.',
             ];
         } catch (\Exception $e) {
+            DB::rollBack();
             dd($e->getMessage());
             return [
                 'status' => 'error',
