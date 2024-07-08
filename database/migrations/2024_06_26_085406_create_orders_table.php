@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->integer('net_amount')->default(0);
             $table->integer('paid')->default(0);
             $table->integer('change')->default(0);
-            $table->boolean('status')->default(true);
+            $table->boolean('status')->default(false);
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

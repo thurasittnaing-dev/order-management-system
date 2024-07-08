@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\OrderRecipe;
+use App\Models\OrderRecipes;
 
 class Order extends Model
 {
@@ -14,6 +14,6 @@ class Order extends Model
 
     public function orderRecipes()
     {
-        return $this->hasMany(OrderRecipe::class);
+        return $this->hasMany(OrderRecipes::class);
     }
 }
