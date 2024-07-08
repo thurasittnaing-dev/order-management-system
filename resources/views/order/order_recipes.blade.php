@@ -1,4 +1,3 @@
-
 {{-- working code --}}
 
 <table class="table mt-1">
@@ -17,21 +16,11 @@
     </thead>
 
     <tbody id="recipes-table-body">
-        @php
-            $totalDiscount = 0;
-            $totalAmount = 0;
-        @endphp
         @if (!is_null($order))
-            @php
-                $serviceCharges = $orderTable->room->service_fee;
-            @endphp
             @forelse ($order->orderRecipes as $key => $value)
                 @php
-                    $subDiscount = $value->recipe->discount * $value->quantity ;
-                    $subAmount = $value->recipe->amount *  $value->quantity;
-                    $totalDiscount += $subDiscount;
-                    $totalAmount += $subAmount;
-
+                    $subDiscount = $value->recipe->discount * $value->quantity;
+                    $subAmount = $value->recipe->amount * $value->quantity;
                 @endphp
                 <tr>
                     @php
@@ -59,12 +48,14 @@
                     </td>
                     <td>
                         <div class="d-flex align-items-center">
-                            <img src="{{ asset('storage/recipes/' . $value->recipe->image) }}" class="recipe-img img img-thumbnail me-2" alt="">
+                            <img src="{{ asset('storage/recipes/' . $value->recipe->image) }}"
+                                class="recipe-img img img-thumbnail me-2" alt="">
                             <div>
                                 <div class="recipe-title">{{ $value->recipe->name }}</div>
-                                @if($value->recipe->discount > 0)
+                                @if ($value->recipe->discount > 0)
                                     <div>
-                                        <div class="recipe-discount">{{ $value->recipe->amount - $value->recipe->discount }} MMK</div>
+                                        <div class="recipe-discount">
+                                            {{ $value->recipe->amount - $value->recipe->discount }} MMK</div>
                                         <div class="recipe-amount"><del>{{ $value->recipe->amount }} MMK</del></div>
                                     </div>
                                 @else
@@ -87,24 +78,22 @@
     </tbody>
 
     <tfoot id="recipes-table-foot">
-        @php
-            $totalNetAmount = (isset($serviceCharges) ? $serviceCharges : 0) + $totalAmount - $totalDiscount;
-        @endphp
         <tr class="border-0">
             <td align="right" colspan="4" class="border-0">Service Charges</td>
-            <td align="right" class="border-0">{{ isset($serviceCharges) ? $serviceCharges : 0 }} MMK</td>
-        </tr>
-        <tr class="border-0">
-            <td align="right" colspan="4" class="border-0">Total Discount</td>
-            <td align="right" class="border-0">{{ $totalDiscount }} MMK</td>
+            <td align="right" class="border-0"><span id="service-fee">{{ $serviceFee }}</span> MMK</td>
         </tr>
         <tr>
             <td align="right" colspan="4">Total Amount</td>
-            <td align="right">{{ $totalAmount }} MMK</td>
+            <td align="right"><span id="total-amount">{{ $totalAmount }}</span> MMK</td>
+        </tr>
+        <tr class="border-0">
+            <td align="right" colspan="4" class="border-0">Total Discount</td>
+            <td align="right" class="border-0"><span id="total-discount">{{ $totalDiscount }}</span> MMK</td>
         </tr>
         <tr class="bg-light">
             <td align="right" colspan="4">Total Net Amount</td>
-            <td align="right">{{ $totalNetAmount }} MMK</td>
+            <td align="right"><span id="total-net-amount">{{ $totalAmount + $serviceFee - $totalDiscount }}</span> MMK
+            </td>
         </tr>
     </tfoot>
 
@@ -112,12 +101,17 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-    let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
-    let invoiceRecipes = [];
+        let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
+        let invoiceRecipes = [];
+        let allTotalAmount = @json($totalAmount);
+        let allTotalDiscount = @json($totalDiscount);
+        let serviceFee = @json($serviceFee);
 
-    @if (!is_null($order))
-    invoiceRecipes = @json($order->orderRecipes)
-    @endif
+        @if (!is_null($order))
+            invoiceRecipes = @json($order->orderRecipes);
+        @endif
+
+        console.log(invoiceRecipes);
 
         const updateLocalStorage = (recipes) => {
             let data = JSON.stringify(recipes);
@@ -127,20 +121,23 @@
 
         const renderLocalStorageRecipes = () => {
             const localStorageBody = document.getElementById('recipes-table-body');
-            localStorageBody.innerHTML = ''; // Clear previous localStorage entries
+
+            if (invoiceRecipes.length == 0) {
+                localStorageBody.innerHTML = ''; // Clear previous localStorage entries
+            }
 
             if (selectedRecipes.length > 0) {
-                let totalAmount = 0;
-                let totalDiscount = 0;
+
 
                 selectedRecipes.forEach((recipe, index) => {
                     recipe.quantity = recipe.quantity || 1;
-                    const discount = recipe.discount > 0 ? recipe.amount - recipe.discount : recipe.amount;
+                    const discount = recipe.discount > 0 ? recipe.amount - recipe.discount : recipe
+                        .amount;
                     let subAmount = recipe.quantity * recipe.amount;
                     let subDiscount = recipe.quantity * recipe.discount;
 
-                    totalAmount += subAmount;
-                    totalDiscount += subDiscount;
+                    allTotalAmount += subAmount;
+                    allTotalDiscount += subDiscount;
 
                     const recipeRow = document.createElement('tr');
                     recipeRow.dataset.id = recipe.id;
@@ -169,7 +166,7 @@
                         <td>
                             <div class="input-group" style="width: 8rem;">
                                 <input type="number" class="form-control num-only" min="0" max="1000" value="${recipe.quantity}">
-                                <button class="btn btn-outline-danger" type="button" id="button-addon2">
+                                <button class="btn btn-outline-danger" type="button" data-test="testing">
                                     <i class="ti ti-trash"></i>
                                 </button>
                             </div>
@@ -187,6 +184,9 @@
                             subAmount = recipe.quantity * recipe.amount;
                             subDiscount = recipe.quantity * recipe.discount;
                             updateLocalStorage(selectedRecipes);
+                            updateTableFooterInfo(allTotalAmount, allTotalDiscount,
+                                serviceFee);
+                            recipeRow.remove();
                             renderLocalStorageRecipes();
                         } else {
                             quantityInput.value = recipe.quantity;
@@ -195,15 +195,17 @@
 
                     // Add delete event listener to the button
                     recipeRow.querySelector('.btn-outline-danger').addEventListener('click', () => {
+                        // console.log($(this).data('test'));
                         selectedRecipes = selectedRecipes.filter(r => r.id !== recipe.id);
                         updateLocalStorage(selectedRecipes);
-                        renderLocalStorageRecipes();
+                        recipeRow.remove();
                     });
 
                     // Alert if recipe ID already exists in localStorage
                     recipeRow.querySelector('.recipe-img').addEventListener('click', function() {
                         const clickedRecipeId = this.getAttribute('data-id');
-                        const existsInLocalStorage = selectedRecipes.some(r => r.id === clickedRecipeId);
+                        const existsInLocalStorage = selectedRecipes.some(r => r.id ===
+                            clickedRecipeId);
                         if (existsInLocalStorage) {
                             alert('This recipe is already in your order.');
                         }
@@ -219,23 +221,23 @@
                 tfoot.innerHTML = `
                     <tr class="border-0">
                         <td align="right" colspan="4" class="border-0">Service Charges</td>
-                        <td align="right" class="border-0">${serviceFee} MMK</td>
+                        <td align="right" class="border-0"><span id="service-fee">${serviceFee}</span> MMK</td>
                     </tr>
                     <tr class="border-0">
                         <td align="right" colspan="4" class="border-0">Total Discount</td>
-                        <td align="right" class="border-0">${totalDiscount} MMK</td>
+                        <td align="right" class="border-0"><span id="total-discount">${allTotalDiscount}</span> MMK</td>
                     </tr>
                     <tr>
                         <td align="right" colspan="4">Total Amount</td>
-                        <td align="right">${totalAmount} MMK</td>
+                        <td align="right"><span id="total-amount">${allTotalAmount}</span> MMK</td>
                     </tr>
                     <tr class="bg-light">
                         <td align="right" colspan="4">Total Net Amount</td>
-                        <td align="right">${(serviceFee+totalAmount) - totalDiscount} MMK</td>
+                        <td align="right"><span id="total-net-amount">${(serviceFee+allTotalAmount) - allTotalDiscount}</span> MMK</td>
                     </tr>
                 `;
             } else {
-                document.getElementById('no-recipes').style.display = 'table-row';
+                // document.getElementById('no-recipes').style.display = 'table-row';
             }
 
             let toUpdateData = localStorage.getItem('selectedRecipes');
@@ -246,10 +248,38 @@
         renderLocalStorageRecipes();
     });
 
+    function updateTableFooterInfo(allTotalAmount, allTotalDiscount, serviceFee) {
+        let selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipes')) || [];
+        var changeTotalAmount = allTotalAmount;
+        var changeTotalDiscount = allTotalDiscount;
+
+        selectedRecipes.forEach((recipe, index) => {
+            let subAmount = recipe.quantity * recipe.amount;
+            let subDiscount = recipe.quantity * recipe.discount;
+
+            changeTotalAmount += subAmount;
+            changeTotalDiscount += subDiscount;
+        });
+
+
+        const tfoot = document.getElementById('recipes-table-foot');
+        tfoot.innerHTML = `
+                    <tr class="border-0">
+                        <td align="right" colspan="4" class="border-0">Service Charges</td>
+                        <td align="right" class="border-0"><span id="service-fee">${serviceFee}</span> MMK</td>
+                    </tr>
+                    <tr class="border-0">
+                        <td align="right" colspan="4" class="border-0">Total Discount</td>
+                        <td align="right" class="border-0"><span id="total-discount">${changeTotalDiscount}</span> MMK</td>
+                    </tr>
+                    <tr>
+                        <td align="right" colspan="4">Total Amount</td>
+                        <td align="right"><span id="total-amount">${changeTotalAmount}</span> MMK</td>
+                    </tr>
+                    <tr class="bg-light">
+                        <td align="right" colspan="4">Total Net Amount</td>
+                        <td align="right"><span id="total-net-amount">${(serviceFee+changeTotalAmount) - changeTotalDiscount}</span> MMK</td>
+                    </tr>
+                `;
+    }
 </script>
-
-
-
-
-
-

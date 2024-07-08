@@ -15,14 +15,14 @@ class OrderModuleService
     public function getRooms()
     {
         $query = Room::query();
-        return[
+        return [
             'rooms' => $query->get(),
             'totalRooms' => $query->count(),
             'roomTypes' => Room::select('type')->distinct()->get(),
             'roomsByType' => Room::all()->groupBy('type'),
             'roomCountsByType' => Room::select('type', DB::raw('count(*) as total'))
-                                ->groupBy('type')
-                                ->pluck('total', 'type'),
+                ->groupBy('type')
+                ->pluck('total', 'type'),
 
         ];
     }
@@ -31,7 +31,7 @@ class OrderModuleService
     {
         $tables = OrderTables::where('room_id', $room)->get();
 
-        return[
+        return [
             'tables' => $tables,
             'totalTables' => $tables->count(),
             'room' => Room::with('orderTables')->find($room),
@@ -42,11 +42,11 @@ class OrderModuleService
 
     public function getMenu($table, $order)
     {
-        return[
+        // dd($table, $order);
+        return [
             'categories' => Category::with('recipes')->get(),
-            'orderTable_id' => OrderTables::select('id')->where('id', $table)->first(),
-            'order' => Order::select('id')->where('id', $table)->first(),
-
+            'orderTable_id' => $table,
+            'order' => $order,
         ];
     }
 
@@ -77,8 +77,8 @@ class OrderModuleService
                         'order_id' => $order->id,
                         'recipe_id' => $recipe->id,
                         'quantity' => $recipeData->quantity,
-                        'discount' => $recipe->discount,
-                        'amount' => $recipe->amount,
+                        'discount' => $recipe->discount *  $recipeData->quantity,
+                        'amount' => $recipe->amount *  $recipeData->quantity,
                     ]);
                 }
             } else {
@@ -91,8 +91,8 @@ class OrderModuleService
                         'order_id' => $orderData->id,
                         'recipe_id' => $recipe->id,
                         'quantity' => $recipeData->quantity,
-                        'discount' => $recipe->discount,
-                        'amount' => $recipe->amount,
+                        'discount' => $recipe->discount *  $recipeData->quantity,
+                        'amount' => $recipe->amount *  $recipeData->quantity,
                     ]);
                 }
             }
@@ -103,7 +103,6 @@ class OrderModuleService
                 'message' => 'Success',
                 'order_id' => $order_id
             ];
-
         } catch (\Exception $e) {
             DB::rollback();
             dd($e);
