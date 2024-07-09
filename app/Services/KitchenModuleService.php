@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 use App\Models\OrderRecipes;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\DB;
 
 class KitchenModuleService
 {
@@ -29,6 +30,9 @@ class KitchenModuleService
         if ($order) {
             $order->status = $status;
             $order->save();
+            session()->flash('success', 'Order status updated successfully.');
+        } else {
+            session()->flash('error', 'Order not found.');
         }
     }
 
@@ -41,5 +45,13 @@ class KitchenModuleService
         } elseif ($request->has('ready')) {
             $this->updateOrderStatus($request->recipe_id, 'ready');
         }
+    }
+    public function getOrdersByDate($date)
+    {
+        $orders = Order::when($date, function ($query, $date) {
+            return $query->whereDate('created_at', $date);
+        })->get();
+
+        return $orders;
     }
 }

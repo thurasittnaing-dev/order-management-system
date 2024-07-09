@@ -24,9 +24,27 @@ class KitchenModuleController extends Controller
         return view('kitchen.order', $data);
     }
 
+
     public function updateStatus(Request $request)
     {
         $this->kitchenModuleService->updateStatusFromRequest($request);
         return redirect()->back();
+    }
+
+    // public function history(Request $request)
+    // {
+    //     $date = $request->input('date');
+    //     $orders = Order::when($date, function ($query, $date) {
+    //         return $query->whereDate('created_at', $date);
+    //     })->get();
+
+    //     return view('kitchen.history', compact('orders'));
+    // }
+    public function history(Request $request)
+    {
+        $date = $request->input('date');
+        $orders = $this->kitchenModuleService->getOrdersByDate($date);
+
+        return view('kitchen.history', compact('orders'));
     }
 }
