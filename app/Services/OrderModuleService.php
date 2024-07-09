@@ -29,8 +29,7 @@ class OrderModuleService
 
     public function getOrderTables($room)
     {
-        $tables = OrderTables::where('room_id', $room)->get();
-
+        $tables = OrderTables::with('current_order')->where('room_id', $room)->get();
         return [
             'tables' => $tables,
             'totalTables' => $tables->count(),

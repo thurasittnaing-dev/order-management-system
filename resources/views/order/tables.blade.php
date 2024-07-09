@@ -33,7 +33,8 @@
                     <div class="mt-3">
                         <div class="row g-2">
                             @foreach ($tables as $table)
-                                <a href="{{ route('makeOrder', $table->id) }}" class="col-md-2">
+                                <a href="{{ route('makeOrder', ['table' => $table->id, 'order' => $table->current_order]) }}"
+                                    class="col-md-2">
                                     <div class="table-card">
                                         <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
                                         <span class="table-badge">{{ $table->max_person }} Persons</span>
@@ -51,7 +52,8 @@
                         <div class="mt-3">
                             <div class="row g-2">
                                 @foreach ($groupedTables as $table)
-                                    <a href="{{ route('makeOrder', $table->id) }}" class="col-md-2">
+                                    <a href="{{ route('makeOrder', ['table' => $table->id, 'order' => $table->current_order]) }}"
+                                        class="col-md-2">
                                         <div class="table-card">
                                             <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
                                             <span class="table-badge">{{ $table->max_person }} Persons</span>
