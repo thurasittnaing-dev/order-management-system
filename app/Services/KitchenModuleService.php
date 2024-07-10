@@ -78,4 +78,3 @@ class KitchenModuleService
         return $result;
     }
 }
-
