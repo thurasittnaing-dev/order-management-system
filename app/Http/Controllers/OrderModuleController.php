@@ -62,4 +62,11 @@ class OrderModuleController extends Controller
             'totalNetAmount' => ($serviceFee + $totalAmount) - $totalDiscount,
         ]);
     }
+
+    public function checkout(Request $request, Order $order = null){
+        $data = $this->orderModuleService->updateOrder($request,$order);
+        $table = $order->order_table_id;
+        return redirect()->route('makeOrder', ['table' => $table, 'order' => $order]);
+
+    }
 }

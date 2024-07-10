@@ -112,4 +112,42 @@ class OrderModuleService
         }
     }
 
+    public function updateOrder($request, $order)
+    {
+        // $totalAmount = $request->input('total_amount');
+        // $totalDiscount = $request->input('total_discount');
+        // $serviceFee = $request->input('service_fee');
+        // $totalNetAmount = $request->input('total_net_amount');
+        // $paidAmount = $request->input('paid_amount');
+        // $changeAmount = $request->input('change_amount');
+
+        DB::beginTransaction();
+
+        try {
+            $order->update([
+                'discount' => $request->input('total_discount'),
+                'amount' => $request->input('total_amount'),
+                'service_charges' => $request->input('service_fee'),
+                'net_amount' => $request->input('total_net_amount'),
+                'paid' => $request->input('paid_amount'),
+                'change' => $request->input('change_amount'),
+                'status' => true,
+            ]);
+
+            DB::commit();
+            return [
+                'status' => 'update-success',
+                'message' => 'Success',
+            ];
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+            return [
+                'status' => 'error',
+                'message' => 'Something went wrong',
+            ];
+        }
+    }
+
+
 }
