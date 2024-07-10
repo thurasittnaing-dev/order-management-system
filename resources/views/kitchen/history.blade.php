@@ -14,7 +14,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="mb-3 col-md-3">
-                            <input type="date" name="date" class="form-control" placeholder="Date" value="{{ request('date') }}">
+                            <input type="date" name="date" class="form-control" placeholder="Date"
+                                value="{{ request('date') }}">
                         </div>
                     </div>
                 </div>
@@ -29,37 +30,53 @@
                 </div>
             </form>
         </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-bordered text-center mb-0">
-                    <thead class="">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Table No</th>
-                            <th scope="col">Recipe Name</th>
-                            <th scope="col">Invoice No</th>
-                            <th scope="col">Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $i = 0;
-                        @endphp
-                        @forelse ($orders as $order)
+        <div class="card">
+            <div class="card-header py-3 px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="text-primary">Total Histories:{{ $total_histories }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+
+                    <table class="table table-bordered text-center mb-0">
+                        <thead>
                             <tr>
-                                <td>{{ ++$i }}</td>
-                                <td>{{ $order->table_no }}</td>
-                                <td>{{ $order->recipe_name }}</td>
-                                <td>{{ $order->invoice_no }}</td>
-                                <td>{{ $order->quantity }}</td>
+                                <th scope="col">#</th>
+                                <th scope="col">Table No</th>
+                                <th scope="col">Recipe Name</th>
+                                <th scope="col">Invoice No</th>
+                                <th scope="col">Total Quantity</th>
                             </tr>
-                        @empty
-                            <tr>
-                                <td align="center" colspan="6">There is no order yet!</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+
+                            @php
+                                $i = 0;
+                            @endphp
+
+                            @forelse ($orders as $order)
+                                <tr>
+                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $order['table_no'] }}</td>
+                                    <td>{{ $order['recipe_name'] }}</td>
+                                    <td>{{ $order['invoice_no'] }}</td>
+                                    <td>{{ $order['total_quantity'] }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td align="center" colspan="5">There is no history yet!</td>
+                                </tr>
+                            @endforelse
+
+                        </tbody>
+                    </table>
+
+
+
+                </div>
             </div>
         </div>
 

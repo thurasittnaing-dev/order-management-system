@@ -57,12 +57,17 @@
                 <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     <div class="mt-3">
                         <div class="row g-2">
+
+
                             @foreach ($recipes as $item)
                                 <div class="col-md-2 mb-2">
-                                    <div class="table-card" style="width: 100%">
+                                    <div class="table-card position-relative" style="width: 100%">
                                         <a href="#" class="">
                                             <img src="{{ asset('/storage/recipes/' . $item->recipe->image) }}"
                                                 class="table-img" alt="">
+                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                {{ $item->quantity }}
+                                            </span>
                                         </a>
                                     </div>
                                     <div class="mt-2 d-flex gap-2">
@@ -91,6 +96,8 @@
                                     </div>
                                 </div>
                             @endforeach
+
+
                         </div>
                     </div>
                 </div>

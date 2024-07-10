@@ -31,20 +31,13 @@ class KitchenModuleController extends Controller
         return redirect()->back();
     }
 
-    // public function history(Request $request)
-    // {
-    //     $date = $request->input('date');
-    //     $orders = Order::when($date, function ($query, $date) {
-    //         return $query->whereDate('created_at', $date);
-    //     })->get();
 
-    //     return view('kitchen.history', compact('orders'));
-    // }
     public function history(Request $request)
     {
         $date = $request->input('date');
         $orders = $this->kitchenModuleService->getOrdersByDate($date);
+        $total_histories = count($orders);
 
-        return view('kitchen.history', compact('orders'));
+        return view('kitchen.history', compact('orders', 'total_histories'));
     }
 }
