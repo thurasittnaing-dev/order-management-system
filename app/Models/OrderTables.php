@@ -21,4 +21,9 @@ class OrderTables extends Model
     {
         return $this->hasOne(Order::class, 'order_table_id', 'id')->where('status', false);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

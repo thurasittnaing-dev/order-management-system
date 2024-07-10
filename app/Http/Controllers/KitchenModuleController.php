@@ -24,9 +24,20 @@ class KitchenModuleController extends Controller
         return view('kitchen.order', $data);
     }
 
+
     public function updateStatus(Request $request)
     {
         $this->kitchenModuleService->updateStatusFromRequest($request);
         return redirect()->back();
+    }
+
+
+    public function history(Request $request)
+    {
+        $date = $request->input('date');
+        $orders = $this->kitchenModuleService->getOrdersByDate($date);
+        $total_histories = count($orders);
+
+        return view('kitchen.history', compact('orders', 'total_histories'));
     }
 }

@@ -82,6 +82,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
     Route::get('/orders', [KitchenModuleController::class, 'orders'])->name('orders');
     //Status
     Route::post('/order/status', [KitchenModuleController::class, 'updateStatus'])->name('order.status');
+    //History
+    Route::get('/history', [KitchenModuleController::class, 'history'])->name('history');
 });
 
 
