@@ -5,7 +5,7 @@
             <span class="hide-menu text-primary">Main Menus</span>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link" href="#" aria-expanded="false">
+            <a class="sidebar-link {{ menu_active('main-dashboard') }}" href="{{ route('main-dashboard') }}" aria-expanded="false">
                 <span>
                     <i class="ti ti-chart-line"></i>
                 </span>
@@ -19,6 +19,15 @@
                     <i class="ti ti-salad"></i>
                 </span>
                 <span class="hide-menu">Recipe</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link {{ menu_active('invoices') }}" href="{{ route('invoices.index') }}"
+                aria-expanded="false">
+                <span>
+                    <i class="ti ti-file-dollar"></i>
+                </span>
+                <span class="hide-menu">Invoice</span>
             </a>
         </li>
 
