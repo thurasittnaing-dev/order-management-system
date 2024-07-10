@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\DB;
+use App\Models\Order;
 use App\Models\OrderRecipes;
+use App\Models\OrderTables;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\DB;
 
 class KitchenModuleService
 {
@@ -29,6 +31,9 @@ class KitchenModuleService
         if ($order) {
             $order->status = $status;
             $order->save();
+            session()->flash('success', 'Order status updated successfully.');
+        } else {
+            session()->flash('error', 'Order not found.');
         }
     }
 
@@ -41,5 +46,35 @@ class KitchenModuleService
         } elseif ($request->has('ready')) {
             $this->updateOrderStatus($request->recipe_id, 'ready');
         }
+    }
+
+
+    public function getOrdersByDate($date)
+    {
+        $orders = Order::whereHas('orderRecipes', function ($query) {
+            $query->where('status', 'ready');
+        })
+            ->when($date, function ($query, $date) {
+                return $query->whereDate('created_at', $date);
+            })
+            ->with(['orderTable', 'orderRecipes.recipe'])
+            ->get();
+
+        $result = [];
+
+        foreach ($orders as $order) {
+            foreach ($order->orderRecipes as $orderRecipe) {
+                if ($orderRecipe->status === 'ready') {
+                    $result[] = [
+                        'table_no' => $order->orderTable->table_no,
+                        'invoice_no' => $order->invoice_no,
+                        'recipe_name' => $orderRecipe->recipe->name,
+                        'total_quantity' => $orderRecipe->quantity,
+                    ];
+                }
+            }
+        }
+
+        return $result;
     }
 }

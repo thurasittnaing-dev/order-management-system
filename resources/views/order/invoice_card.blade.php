@@ -4,33 +4,35 @@
     <form action="" class="mt-4" id="checkout-form">
         <div class="mb-3">
             <label for="" class="mb-2">Invoice No</label>
-            <input type="text" name="invocie_no" class="form-control" disabled value=" {{ $invoice }}">
+            <input type="text" name="invocie_no" class="form-control" disabled
+                value=" {{ is_null($order) ? '' : $order->invoice_no }}">
         </div>
 
         <div class="mb-3">
             <label for="" class="mb-2">Invoice Date</label>
-            <input type="text" name="date" class="form-control" disabled value="{{ date('d-M-Y') }}">
+            <input type="text" name="date" class="form-control" disabled
+                value="{{ is_null($order) ? '' : date('d-M-Y', strtotime($order->created_at)) }}">
         </div>
-        @if(isset($order))
+        @if (isset($order))
             <div class="mb-3">
                 <label for="" class="mb-2">Total Amount</label>
-                <input type="number" name="total_amount" class="form-control num-only" disabled value="{{ $order->net_amount }}">
+                <input type="number" name="total_amount" class="form-control num-only" disabled value="">
             </div>
         @else
             <div class="mb-3">
                 <label for="" class="mb-2">Total Amount</label>
-                <input type="number" name="total_amount" class="form-control num-only" disabled value=" ">
+                <input type="number" name="total_amount" class="form-control num-only" disabled value="">
             </div>
         @endif
 
         <div class="mb-3">
             <label for="" class="mb-2">Paid Amount</label>
-            <input type="number" name="paid_amount" class="form-control mf num-only" value="300000">
+            <input type="number" name="paid_amount" class="form-control mf num-only" value="">
         </div>
 
         <div class="mb-3">
             <label for="" class="mb-2">Change Amount</label>
-            <input type="number" name="change_amount" class="form-control mf num-only" value="50000">
+            <input type="number" name="change_amount" class="form-control mf num-only" value="">
         </div>
     </form>
 

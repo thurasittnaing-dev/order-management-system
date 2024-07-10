@@ -71,14 +71,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
     Route::get('rooms/{room}/tables', [OrderModuleController::class, 'tables'])->name('tables');
 
     // Recipes
-    Route::get('recipes/{table}/{invoice?}', [OrderModuleController::class, 'recipes'])->name('recipes');
+    Route::get('recipes/{table}/{order?}', [OrderModuleController::class, 'recipes'])->name('recipes');
 
     // Make Order
-    Route::get('make_order/{table}/{invoice?}/{order?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
+    Route::get('make_order/{table}/{order?}', [OrderModuleController::class, 'makeOrder'])->name('makeOrder');
 
 
     //Store Order
-    Route::post('/store_order/{table}/{invoice?}', [OrderModuleController::class, 'store'])->name('storeOrder');
+    Route::post('/store_order/{table}/{order?}', [OrderModuleController::class, 'store'])->name('storeOrder');
 });
 
 
@@ -88,6 +88,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
     Route::get('/orders', [KitchenModuleController::class, 'orders'])->name('orders');
     //Status
     Route::post('/order/status', [KitchenModuleController::class, 'updateStatus'])->name('order.status');
+    //History
+    Route::get('/history', [KitchenModuleController::class, 'history'])->name('history');
 });
 
 

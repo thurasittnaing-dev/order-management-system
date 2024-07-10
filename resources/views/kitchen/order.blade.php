@@ -6,32 +6,48 @@
 
 @section('content')
     <div class="container-fluid">
+        <!-- Alert Messages -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="page-card">
             <div class="text-center room-title"> Kitchen </div>
             <ul class="nav nav-tabs d-flex justify-content-between" id="myTab" role="tablist">
                 <div class="col-md-3">
                     <li class="nav-item d-grid " role="presentation">
                         <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending"
-                            type="button" role="tab" aria-controls="pending" aria-selected="true">Pending({{ $recipesCount }})</button>
+                            type="button" role="tab" aria-controls="pending" aria-selected="true">Pending<span
+                                class="badge bg-info ms-2">{{ $recipesCount }}</span></button>
                     </li>
                 </div>
 
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="confirm-tab" data-bs-toggle="tab" data-bs-target="#confirm"
-                            type="button" role="tab" aria-controls="" aria-selected="true">Confirm({{ $confirmCount }})</button>
+                            type="button" role="tab" aria-controls="" aria-selected="true">Confirm<span
+                                class="badge bg-primary ms-2">{{ $confirmCount }}</span></button>
                     </li>
                 </div>
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="cancel-tab" data-bs-toggle="tab" data-bs-target="#cancel"
-                            type="button" role="tab" aria-controls="" aria-selected="true">Cancel({{ $cancelCount }})</button>
+                            type="button" role="tab" aria-controls="" aria-selected="true">Cancel<span
+                                class="badge bg-danger ms-2">{{ $cancelCount }}</span></button>
                     </li>
                 </div>
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link " id="ready-tab" data-bs-toggle="tab" data-bs-target="#ready" type="button"
-                            role="tab" aria-controls="" aria-selected="true">Ready({{ $readyCount }})</button>
+                            role="tab" aria-controls="" aria-selected="true">Ready<span
+                                class="badge bg-success ms-2">{{ $readyCount }}</span></button>
                     </li>
                 </div>
 
@@ -41,12 +57,17 @@
                 <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     <div class="mt-3">
                         <div class="row g-2">
+
+
                             @foreach ($recipes as $item)
                                 <div class="col-md-2 mb-2">
-                                    <div class="table-card" style="width: 100%">
+                                    <div class="table-card position-relative" style="width: 100%">
                                         <a href="#" class="">
                                             <img src="{{ asset('/storage/recipes/' . $item->recipe->image) }}"
                                                 class="table-img" alt="">
+                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                {{ $item->quantity }}
+                                            </span>
                                         </a>
                                     </div>
                                     <div class="mt-2 d-flex gap-2">
@@ -75,6 +96,8 @@
                                     </div>
                                 </div>
                             @endforeach
+
+
                         </div>
                     </div>
                 </div>
@@ -98,7 +121,7 @@
                                             @csrf
                                             <input type="hidden" name="recipe_id" value="{{ $item->id }}">
                                             <button type="submit" name="ready"
-                                             class="btn btn-warning w-100">Ready</button>
+                                                class="btn btn-warning w-100">Ready</button>
                                         </form>
                                         <form action="{{ route('order.status') }}" method="POST" class="flex-grow-1">
                                             @csrf

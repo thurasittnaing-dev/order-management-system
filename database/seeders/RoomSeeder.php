@@ -26,19 +26,19 @@ class RoomSeeder extends Seeder
                 'tmp_name' => 'Family Room-',
                 'tmp_image' => 'family_room',
                 'type' => 'family',
-                'service_fee' => 20000,
+                'service_fee' => 3000,
             ],
             [
                 'tmp_name' => 'Private Room-',
                 'tmp_image' => 'private_room',
                 'type' => 'private',
-                'service_fee' => 30000,
+                'service_fee' => 4000,
             ],
             [
                 'tmp_name' => 'VIP Room-',
                 'tmp_image' => 'vip_room',
                 'type' => 'vip',
-                'service_fee' => 50000,
+                'service_fee' => 5000,
             ],
         ];
 

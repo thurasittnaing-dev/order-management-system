@@ -36,12 +36,18 @@
             </a>
             <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
 
-                 <li class="nav-item d-grid" role="presentation">
-                        <button class="nav-link" id="" data-bs-toggle="tab" type="button" role="tab"  >Incoming</button>
-                 </li>
-                 <li class="nav-item d-grid" role="presentation">
-                        <button class="nav-link" id="" data-bs-toggle="tab" type="button" role="tab"  >History</button>
-                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('orders') }}" class="nav-link {{ singleMenuActive('orders') }} py-3 border-bottom"
+                        aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                        Incoming
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('history') }}" class="nav-link {{ singleMenuActive('history') }} py-3 border-bottom"
+                        aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                        History
+                    </a>
+                </li>
             </ul>
             <div class="dropdown border-top">
                 <a href="#"
