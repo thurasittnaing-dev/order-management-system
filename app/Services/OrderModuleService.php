@@ -112,69 +112,42 @@ class OrderModuleService
         }
     }
 
+    public function updateOrder($request, $order)
+    {
+        // $totalAmount = $request->input('total_amount');
+        // $totalDiscount = $request->input('total_discount');
+        // $serviceFee = $request->input('service_fee');
+        // $totalNetAmount = $request->input('total_net_amount');
+        // $paidAmount = $request->input('paid_amount');
+        // $changeAmount = $request->input('change_amount');
 
-    // public function storeOrder($request, $table, $orderData)
-    // {
-    //     $validatedData = $request->validated();
-    //     $data = json_decode($validatedData['data']);
-    //     $order_id = '';
+        DB::beginTransaction();
 
-    //     DB::beginTransaction();
+        try {
+            $order->update([
+                'discount' => $request->input('total_discount'),
+                'amount' => $request->input('total_amount'),
+                'service_charges' => $request->input('service_fee'),
+                'net_amount' => $request->input('total_net_amount'),
+                'paid' => $request->input('paid_amount'),
+                'change' => $request->input('change_amount'),
+                'status' => true,
+            ]);
 
-    //     try {
+            DB::commit();
+            return [
+                'status' => 'update-success',
+                'message' => 'Success',
+            ];
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+            return [
+                'status' => 'error',
+                'message' => 'Something went wrong',
+            ];
+        }
+    }
 
-    //         if(is_null($orderData)){
-    //             $order =Order::create([
-    //             'invoice_no' => generateInvoiceNo(),
-    //                 'order_table_id'=>$table->id,
-    //                 'service_charges'=>$table->room->service_fee,
-    //                 'user_id' =>auth()->user()->id,
-    //             ]);
 
-    //             $order_id = $order->id;
-
-    //             foreach ($data as $recipeData) {
-    //                 $recipe = Recipe::find($recipeData->id);
-
-    //                 OrderRecipes::create([
-    //                     'order_id' => $order->id,
-    //                     'recipe_id' => $recipe->id,
-    //                     'quantity' => $recipeData->quantity,
-    //                     'discount' => $recipe->discount,
-    //                     'amount' => $recipe->amount,
-    //                 ]);
-    //             }
-    //         }
-
-    //         if(!is_null($orderData)) {
-
-    //              foreach ($data as $recipeData) {
-    //                 $recipe = Recipe::find($recipeData->id);
-
-    //                 OrderRecipes::create([
-    //                     'order_id' => $orderData->id,
-    //                     'recipe_id' => $recipe->id,
-    //                     'quantity' => $recipeData->quantity,
-    //                     'discount' => $recipe->discount,
-    //                     'amount' => $recipe->amount,
-    //                 ]);
-    //             }
-    //         }
-
-    //         DB::commit();
-    //         return [
-    //             'status' => 'order-success',
-    //             'message' => 'Success',
-    //             'order_id' => $order_id
-    //         ];
-
-    //       } catch (\Exception $e) {
-    //         DB::rollback();
-    //         dd($e);
-    //         return [
-    //           'status' => 'error',
-    //           'message' => 'Something went wrong',
-    //         ];
-    //       }
-    // }
 }
