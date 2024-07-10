@@ -4,7 +4,6 @@
 
 @section('page', 'Order Menu')
 
-
 @section('content')
     <div class="container-fluid">
         <div class="page-card">
@@ -39,6 +38,12 @@
                                         <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
                                         <span class="table-badge">{{ $table->max_person }} Persons</span>
                                         <span class="table-card-no">{{ $table->table_no }}</span>
+                                        @if ($table->current_order == true)
+                                            <div class="box">
+                                                <div class="ribbon-danger"><span>In Use</span></div>
+                                            </div>
+                                        @endif
+
                                     </div>
                                 </a>
                             @endforeach
@@ -58,9 +63,9 @@
                                             <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
                                             <span class="table-badge">{{ $table->max_person }} Persons</span>
                                             <span class="table-card-no">{{ $table->table_no }}</span>
-                                            @if ($table->in_used)
+                                            @if ($table->current_order == true )
                                                 <div class="box">
-                                                    <div class="ribbon-danger"><span>In Used</span></div>
+                                                    <div class="ribbon-danger"><span>In Use</span></div>
                                                 </div>
                                             @endif
                                         </div>
