@@ -27,7 +27,26 @@
             </div>
         @endif
 
-        @if ($order->status == false)
+        <div class="mb-3">
+            <label for="" class="mb-2">Paid Amount</label>
+            <input type="number" name="paid_amount" class="form-control mf num-only" value="" id="paid-amount">
+        </div>
+        <div class="mb-3">
+            <label for="" class="mb-2">Change Amount</label>
+            <input type="number" name="change_amount" class="form-control mf num-only" value="" id="change-amount" readonly>
+        </div>
+        <div>
+            <input type="hidden" name="total_amount" value="{{ $totalAmount }}" id="total-amount">
+            <input type="hidden" name="total_discount"  value="{{ $totalDiscount }}" id="total-discount">
+            <input type="hidden" name="service_fee"  value="{{ $serviceFee }}" id="service-fee">
+        </div>
+        <div class="checkout-footer">
+            <div class="d-grid">
+                <button id="checkout-btn" type="submit" class="btn btn-lg btn-primary"><i class="ti ti-cash-register"></i> Checkout</button>
+            </div>
+        </div>
+
+        {{-- @if ($order ? $order->status : '')
             <div class="mb-3">
                 <label for="" class="mb-2">Paid Amount</label>
                 <input type="number" name="paid_amount" class="form-control mf num-only" value="" id="paid-amount">
@@ -49,15 +68,16 @@
         @else
             <div class="mb-3">
                 <label for="" class="mb-2">Paid Amount</label>
-                <input type="number" name="paid_amount" class="form-control mf num-only" value="{{ $order->paid }}" id="paid-amount" readonly>
+                <input type="number" name="paid_amount" class="form-control mf num-only" value="{{ $order ? $order->paid : 0 }}" id="paid-amount" disabled>
             </div>
             <div class="mb-3">
                 <label for="" class="mb-2">Change Amount</label>
-                <input type="number" name="change_amount" class="form-control mf num-only" value="{{ $order->change }}" id="change-amount" readonly>
+                <input type="number" name="change_amount" class="form-control mf num-only" value="{{ $order ? $order->change : 0 }}" id="change-amount" disabled>
             </div>
             <div class="mb-3">
                 <input type="text" class="form-control mf bg-success text-light" value=" Successfully Checkout " readonly>
-        @endif
+            </div>
+        @endif --}}
     </form>
 </div>
 
