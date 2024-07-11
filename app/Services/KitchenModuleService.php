@@ -4,9 +4,7 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\OrderRecipes;
-use App\Models\OrderTables;
-use App\Models\Recipe;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class KitchenModuleService
 {
@@ -39,11 +37,9 @@ class KitchenModuleService
         if ($request->has('confirm')) {
             $this->updateOrderStatus($request->recipe_id, 'confirm');
             session()->flash('success', 'Order status confirmed successfully.');
-
         } elseif ($request->has('cancel')) {
             $this->updateOrderStatus($request->recipe_id, 'cancel');
             session()->flash('success', 'Order status canceled successfully.');
-
         } elseif ($request->has('ready')) {
             $this->updateOrderStatus($request->recipe_id, 'ready');
             session()->flash('success', 'Order status readied successfully.');
@@ -51,13 +47,16 @@ class KitchenModuleService
     }
 
 
-    public function getOrdersByDate($date)
+    public function getPaginatedOrdersByDateRange($startDate, $endDate, $perPage = 10)
     {
         $orders = Order::whereHas('orderRecipes', function ($query) {
             $query->where('status', 'ready');
         })
-            ->when($date, function ($query, $date) {
-                return $query->whereDate('created_at', $date);
+            ->when($startDate, function ($query, $startDate) {
+                $query->whereDate('created_at', '>=', $startDate);
+            })
+            ->when($endDate, function ($query, $endDate) {
+                $query->whereDate('created_at', '<=', $endDate);
             })
             ->with(['orderTable', 'orderRecipes.recipe'])
             ->get();
@@ -77,6 +76,12 @@ class KitchenModuleService
             }
         }
 
-        return $result;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = array_slice($result, ($currentPage - 1) * $perPage, $perPage);
+        $paginatedOrders = new LengthAwarePaginator($currentItems, count($result), $perPage, $currentPage, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
+
+        return $paginatedOrders;
     }
 }

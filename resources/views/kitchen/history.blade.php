@@ -12,10 +12,16 @@
             <div class="card-header">Filter</div>
             <form action="{{ route('history') }}" method="GET" autocomplete="off">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="mb-3 col-md-3">
-                            <input type="date" name="date" class="form-control" placeholder="Date"
-                                value="{{ request('date') }}">
+                    <div class="form-row d-flex">
+                        <div class="form-group col-md-3 me-2">
+                            <label for="start_date">Start Date</label>
+                            <input type="date" class="form-control" id="start_date" name="start_date"
+                            value="{{ request('start_date') }}">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="end_date">End Date</label>
+                            <input type="date" class="form-control" id="end_date" name="end_date"
+                            value="{{ request('end_date') }}">
                         </div>
                     </div>
                 </div>
