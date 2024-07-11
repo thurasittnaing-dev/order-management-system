@@ -149,5 +149,16 @@ class OrderModuleService
         }
     }
 
+    public function getInuseTable()
+    {
+        $query = OrderTables::query();
+        $tables = $query->get();
+        return [
+            'tables' => $tables,
+            'totalTables' => $query->count(),
+            'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
+        ];
+    }
+
 
 }

@@ -13,5 +13,14 @@
                 <span class="hide-menu">Rooms</span>
             </a>
         </li>
+        <li class="sidebar-item">
+            <a class="sidebar-link {{ singleMenuActive('singleMenuActive') }}" href=" "
+                aria-expanded="false">
+                <span>
+                    <i class="ti ti-home-search text-dark"></i>
+                </span>
+                <span class="hide-menu">History</span>
+            </a>
+        </li>
     </ul>
 </nav>
