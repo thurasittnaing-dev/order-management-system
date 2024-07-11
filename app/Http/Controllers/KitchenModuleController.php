@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\OrderRecipes;
 use App\Services\KitchenModuleService;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 
@@ -32,12 +33,29 @@ class KitchenModuleController extends Controller
     }
 
 
+    // public function history(Request $request)
+    // {
+    //     $date = $request->input('date');
+    //     $orders = $this->kitchenModuleService->getOrdersByDate($date);
+    //     $total_histories = count($orders);
+
+    //     return view('kitchen.history', compact('orders', 'total_histories'));
+    // }
+
     public function history(Request $request)
     {
         $date = $request->input('date');
         $orders = $this->kitchenModuleService->getOrdersByDate($date);
-        $total_histories = count($orders);
+        $perPage = 10;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $currentItems = array_slice($orders, ($currentPage - 1) * $perPage, $perPage);
+        $paginatedOrders = new LengthAwarePaginator($currentItems, count($orders), $perPage, $currentPage, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
 
-        return view('kitchen.history', compact('orders', 'total_histories'));
+        return view('kitchen.history', [
+            'orders' => $paginatedOrders,
+            'total_histories' => count($orders),
+        ]);
     }
 }

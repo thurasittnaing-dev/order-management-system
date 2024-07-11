@@ -40,6 +40,12 @@
                         Rooms
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('orderHistory') }} " class="nav-link {{ singleMenuActive('orderHistory') }} py-3 border-bottom"
+                        aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                        History
+                    </a>
+                </li>
             </ul>
             <div class="dropdown border-top">
                 <a href="#"

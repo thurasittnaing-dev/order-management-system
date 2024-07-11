@@ -34,13 +34,12 @@
             <div class="card-header py-3 px-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <p class="text-primary">Total Histories:{{ $total_histories }}</p>
+                        <p class="text-primary">Total Histories: {{ $total_histories }}</p>
                     </div>
                 </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-
                     <table class="table table-bordered text-center mb-0">
                         <thead>
                             <tr>
@@ -52,14 +51,9 @@
                             </tr>
                         </thead>
                         <tbody>
-
-                            @php
-                                $i = 0;
-                            @endphp
-
-                            @forelse ($orders as $order)
+                            @forelse ($orders as $index => $order)
                                 <tr>
-                                    <td>{{ ++$i }}</td>
+                                    <td>{{ $index + 1 + ($orders->currentPage() - 1) * $orders->perPage() }}</td>
                                     <td>{{ $order['table_no'] }}</td>
                                     <td>{{ $order['recipe_name'] }}</td>
                                     <td>{{ $order['invoice_no'] }}</td>
@@ -70,12 +64,11 @@
                                     <td align="center" colspan="5">There is no history yet!</td>
                                 </tr>
                             @endforelse
-
                         </tbody>
                     </table>
-
-
-
+                    <div class="d-flex justify-content-center mt-3">
+                        {{ $orders->appends(request()->input())->links() }}
+                    </div>
                 </div>
             </div>
         </div>

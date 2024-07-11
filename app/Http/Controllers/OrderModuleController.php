@@ -69,4 +69,9 @@ class OrderModuleController extends Controller
         return redirect()->route('makeOrder', ['table' => $table, 'order' => $order]);
 
     }
+    public function orderHistory( )
+    {
+        $data = $this->orderModuleService->getInuseTable();
+        return view('order.order_history',$data);
+    }
 }

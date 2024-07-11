@@ -30,7 +30,7 @@
                                 $color = 'info';
                                 break;
 
-                            case 'cooking':
+                            case 'confirm':
                                 $color = 'warning';
                                 break;
 

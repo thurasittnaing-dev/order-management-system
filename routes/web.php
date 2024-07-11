@@ -82,6 +82,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
     //Checkout
     Route::post('/checkout/{order?}', [OrderModuleController::class, 'checkout'])->name('checkout');
 
+    //Order History
+    Route::get('/order_history', [OrderModuleController::class, 'orderHistory'])->name('orderHistory');
+
 });
 
 
