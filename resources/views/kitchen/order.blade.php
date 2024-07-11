@@ -65,6 +65,9 @@
                                         <a href="#" class="">
                                             <img src="{{ asset('/storage/recipes/' . $item->recipe->image) }}"
                                                 class="table-img" alt="">
+                                            <span class="table-badge">{{ $item->recipe->name }} <br> Price
+                                                ({{ $item->recipe->amount }}MMK)
+                                            </span>
                                             <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
                                                 {{ $item->quantity }}
                                             </span>
@@ -114,6 +117,12 @@
                                         <a href="#" class="">
                                             <img src="{{ asset('/storage/recipes/' . $item->recipe->image) }}"
                                                 class="table-img" alt="">
+                                            <span class="table-badge">{{ $item->recipe->name }} <br> Price
+                                                ({{ $item->recipe->amount }}MMK)
+                                            </span>
+                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                {{ $item->quantity }}
+                                            </span>
                                         </a>
                                     </div>
                                     <div class="mt-2 d-flex gap-2">
@@ -148,6 +157,12 @@
                                         <a href="#" class="">
                                             <img src="{{ asset('/storage/recipes/' . $item->recipe->image) }}"
                                                 class="table-img" alt="">
+                                            <span class="table-badge">{{ $item->recipe->name }} <br> Price
+                                                ({{ $item->recipe->amount }}MMK)
+                                            </span>
+                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                {{ $item->quantity }}
+                                            </span>
                                         </a>
                                     </div>
                                 </div>
@@ -169,6 +184,12 @@
                                         <a href="#" class="">
                                             <img src="{{ asset('/storage/recipes/' . $item->recipe->image) }}"
                                                 class="table-img" alt="">
+                                            <span class="table-badge">{{ $item->recipe->name }} <br> Price
+                                                ({{ $item->recipe->amount }}MMK)
+                                            </span>
+                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                {{ $item->quantity }}
+                                            </span>
                                         </a>
                                     </div>
                                 </div>

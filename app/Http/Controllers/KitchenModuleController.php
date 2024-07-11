@@ -33,15 +33,6 @@ class KitchenModuleController extends Controller
     }
 
 
-    // public function history(Request $request)
-    // {
-    //     $date = $request->input('date');
-    //     $orders = $this->kitchenModuleService->getOrdersByDate($date);
-    //     $total_histories = count($orders);
-
-    //     return view('kitchen.history', compact('orders', 'total_histories'));
-    // }
-
     public function history(Request $request)
     {
         $date = $request->input('date');
