@@ -39,8 +39,7 @@ class OrderModuleController extends Controller
 
     public function store(OrderStoreRequest $request, OrderTables $table, Order $order = null)
     {
-        $orderData = Order::where('order_table_id', $table->id)->first();
-        $data = $this->orderModuleService->storeOrder($request, $table, $orderData);
+        $data = $this->orderModuleService->storeOrder($request, $table, $order);
         $orderData = Order::find($data['order_id']);
         return redirect()->route('makeOrder', ['table' => $table->id, 'order' => $orderData])
             ->with($data['status'], $data['message']);
@@ -48,7 +47,6 @@ class OrderModuleController extends Controller
 
     public function makeOrder(OrderTables $table, Order $order = null)
     {
-        // dd($order);
         $serviceFee =  $table->room->service_fee;
         $totalAmount =  is_null($order) ? 0 : $order->orderRecipes->sum('amount');
         $totalDiscount =   is_null($order) ? 0 : $order->orderRecipes->sum('discount');
@@ -63,15 +61,15 @@ class OrderModuleController extends Controller
         ]);
     }
 
-    public function checkout(Request $request, Order $order = null){
-        $data = $this->orderModuleService->updateOrder($request,$order);
+    public function checkout(Request $request, Order $order = null)
+    {
+        $data = $this->orderModuleService->updateOrder($request, $order);
         $table = $order->order_table_id;
         return redirect()->route('makeOrder', ['table' => $table, 'order' => $order]);
-
     }
-    public function orderHistory( )
+    public function orderHistory()
     {
         $data = $this->orderModuleService->getInuseTable();
-        return view('order.order_history',$data);
+        return view('order.order_history', $data);
     }
 }

@@ -159,6 +159,4 @@ class OrderModuleService
             'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
         ];
     }
-
-
 }

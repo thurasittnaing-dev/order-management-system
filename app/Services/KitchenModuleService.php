@@ -31,9 +31,6 @@ class KitchenModuleService
         if ($order) {
             $order->status = $status;
             $order->save();
-            session()->flash('success', 'Order status updated successfully.');
-        } else {
-            session()->flash('error', 'Order not found.');
         }
     }
 
@@ -41,10 +38,15 @@ class KitchenModuleService
     {
         if ($request->has('confirm')) {
             $this->updateOrderStatus($request->recipe_id, 'confirm');
+            session()->flash('success', 'Order status confirmed successfully.');
+
         } elseif ($request->has('cancel')) {
             $this->updateOrderStatus($request->recipe_id, 'cancel');
+            session()->flash('success', 'Order status canceled successfully.');
+
         } elseif ($request->has('ready')) {
             $this->updateOrderStatus($request->recipe_id, 'ready');
+            session()->flash('success', 'Order status readied successfully.');
         }
     }
 
