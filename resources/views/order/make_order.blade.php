@@ -12,13 +12,17 @@
                 <div class="col-md-9">
                     <div class="recipe-card">
                         <div class="d-flex justify-content-between p-3">
-                            <div class="table-no">{{ $orderTable->table_no}}</div>
+                            <div class="table-no">{{ $orderTable->table_no }}</div>
                             <div class="d-flex justify-content-between align-items-right">
-                                <a href="{{ route('recipes', ['table'=> $orderTable, 'order' => $order ] ) }}" class="btn btn-primary me-1">Add Recipe</a>
-                                <form id="recipe-form" action="{{ route('storeOrder', ['table'=> $orderTable, 'order' => $order ? $order->id : null]) }} " method="POST">
+                                <a href="{{ route('recipes', ['table' => $orderTable, 'order' => $order]) }}"
+                                    class="btn btn-primary me-1">Add Recipe</a>
+                                <form id="recipe-form"
+                                    action="{{ route('storeOrder', ['table' => $orderTable, 'order' => $order ? $order->id : null]) }} "
+                                    method="POST">
                                     @csrf
                                     <input type="hidden" name="data" id="data" value="">
-                                    <button class="btn btn-success make-order-btn" id="make-order-button" type="submit">Make Order</button>
+                                    <button class="btn btn-success make-order-btn" id="make-order-button"
+                                        type="submit">Make Order</button>
                                 </form>
                             </div>
                         </div>
@@ -51,9 +55,9 @@
 @endsection
 
 @section('js')
-<script>
-    @if(Session::has('order-success'))
-    localStorage.removeItem('selectedRecipes');
-    @endif
-</script>
+    <script>
+        @if (Session::has('order-success'))
+            localStorage.removeItem('selectedRecipes');
+        @endif
+    </script>
 @endsection
