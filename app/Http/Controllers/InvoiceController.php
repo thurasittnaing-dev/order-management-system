@@ -21,11 +21,12 @@ class InvoiceController extends Controller
         return view('backend.invoice.index', $data);
     }
 
-    // Display the specified invoice
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::with(['orderRecipes.recipe'])
+            ->where('id', $id)
+            ->first();
+
         return view('backend.invoice.show', compact('order'));
     }
 }
-

@@ -17,16 +17,38 @@ class DashboardController extends Controller
         $availableTablesCount = OrderTables::where('in_used',0)->count();
         $inUseTablesCount = OrderTables::where('in_used',1)->count();
 
-        $dailyIncome = Order::select(
-            DB::raw('DATE(created_at) as date'),
+        // Fetch monthly income for the current year
+        $monthlyIncome = Order::select(
+            DB::raw('MONTH(created_at) as month'),
             DB::raw('SUM(net_amount) as total_income')
-        )->groupBy('date')->get();
+        )->whereYear('created_at', date('Y'))
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
 
-        $dailyInvoices = Order::select(
-            DB::raw('DATE(created_at) as date'),
-            DB::raw('COUNT(*) as total_invoices')
-        )->groupBy('date')->get();
+        // Fetch monthly total invoices for the current year
+        $monthlyInvoices = Order::select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(id) as total_invoices')
+        )->whereYear('created_at', date('Y'))
+        ->groupBy('month')
+        ->orderBy('month')
+        ->get();
 
-        return view('backend.dashboard.main-dashboard', compact('totalRevenue','totalInvoices','availableTablesCount','inUseTablesCount','dailyIncome','dailyInvoices'));
+        // Initialize an array with all months set to 0
+        $monthsOfYear = array_fill(1, 12, 0);
+        $monthsOfYearInvoices = array_fill(1, 12, 0);
+
+        // Populate the array with actual income data
+        foreach ($monthlyIncome as $income) {
+            $monthsOfYear[$income->month] = $income->total_income;
+        }
+
+        // Populate the array with actual invoices data
+        foreach ($monthlyInvoices as $invoice) {
+            $monthsOfYearInvoices[$invoice->month] = $invoice->total_invoices;
+        }
+
+        return view('backend.dashboard.main-dashboard', compact('totalRevenue','totalInvoices','availableTablesCount','inUseTablesCount','monthsOfYear','monthsOfYearInvoices'));
     }
 }

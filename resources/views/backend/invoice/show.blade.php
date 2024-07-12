@@ -166,54 +166,37 @@
     <div class="invoice">
         <div class="invoice-header text-center">
             <h1>FOOD EXPRESS</h1>
-            {{-- <p>1234 Street Address, City, State, 56789</p>
-            <p>Phone: (123) 456-7890 | Email: contact@restaurant.com</p> --}}
+            <img src="{{ asset('images/logo.png') }}" alt="Food Express Logo" style="max-width: 100px;">
         </div>
 
         <div class="invoice-details">
             <div class="row mt-5">
-                {{-- <div class="col-md-6">
-                    <h5>Invoice To:</h5>
-                    <p>
-                        Customer Name<br>
-                        5678 Another St<br>
-                        City, State, 98765
-                    </p>
-                </div> --}}
-                {{-- <div class="col-md-6 text-end"> --}}
                     <h5>Invoice Details:</h5>
                     <p>
-                        Invoice #: {{ $order->invoice_no }}<br>
-                        Date: {{ $order->created_at }}
+                        Invoice : {{ $order->invoice_no }}<br>
+                        Date: {{ ($order->created_at)->format('Y-m-d') }}
                     </p>
-                {{-- </div> --}}
             </div>
         </div>
 
         <table class="invoice-table table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Invoice No</th>
-                    <th>Order Table ID</th>
+                    <th>Recipe Name</th>
+                    <th>Quantity</th>
                     <th>Discount</th>
                     <th>Amount</th>
-                    <th>Net Amount</th>
-                    <th>Paid</th>
-                    <th>Change</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->invoice_no }}</td>
-                    <td>{{ $order->order_table_id }}</td>
-                    <td>{{ $order->discount }}</td>
-                    <td>{{ $order->amount }}</td>
-                    <td>{{ $order->net_amount }}</td>
-                    <td>{{ $order->paid }}</td>
-                    <td>{{ $order->change }}</td>
-                </tr>
+                @foreach($order->orderRecipes as $orderRecipe)
+                    <tr>
+                        <td>{{ $orderRecipe->recipe->name }}</td>
+                        <td>{{ $orderRecipe->quantity }}</td>
+                        <td>{{ $orderRecipe->discount }}</td>
+                        <td>{{ $orderRecipe->amount }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
@@ -221,24 +204,20 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td>Subtotal</td>
+                        <td>Total Amount</td>
                         <td>{{ $order->amount }}</td>
                     </tr>
                     <tr>
-                        <td>Discount</td>
+                        <td>Service Charges</td>
+                        <td>{{ $order->service_charges }}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Discount</td>
                         <td>{{ $order->discount }}</td>
                     </tr>
                     <tr>
                         <td>Net Amount</td>
                         <td>{{ $order->net_amount }}</td>
-                    </tr>
-                    <tr>
-                        <td>Paid</td>
-                        <td>{{ $order->paid }}</td>
-                    </tr>
-                    <tr>
-                        <td>Change</td>
-                        <td>{{ $order->change }}</td>
                     </tr>
                 </tbody>
             </table>
