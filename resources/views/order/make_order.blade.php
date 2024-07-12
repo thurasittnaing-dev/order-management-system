@@ -25,6 +25,8 @@
                                         <button class="btn btn-success make-order-btn" id="make-order-button"
                                             type="">Make Order</button>
                                     </form>
+                                @else
+                                    <a href="{{ route('invoices.show', $order->id) }}" id="invoice-btn" class="btn btn-primary me-1">Invoice</a>
                                 @endif
                             </div>
                         </div>
@@ -100,33 +102,26 @@
                 }
             };
         });
-        // $(document).ready(function() {
-        //     if (localStorage.getItem('selectedRecipes') && JSON.parse(localStorage.getItem('selectedRecipes')).length >= 1) {
-        //         $('#make-order-button').on('click', function() {
-        //             $('#make-order-button').prop('disabled',false);
-        //             $('#recipe-form').submit();
-        //             Swal.fire({
-        //                 position: 'center',
-        //                 icon: 'success',
-        //                 title: 'Make Order Success',
-        //                 showConfirmButton: true,
-        //                 timer: 2000
-        //             });
-        //         });
-        //     }
-        //     else{
-        //         $('#make-order-button').prop('disabled',true);
-        //         $('#make-order-button').on('click', function() {
-        //             Swal.fire({
-        //                 position: 'center',
-        //                 icon: 'warning',
-        //                 title: 'Csnnot Make Order Please Add Recipes',
-        //                 showConfirmButton: true,
-        //                 timer: 2000
-        //             });
-        //         });
-        //     }
 
-        // });
+        $(document).ready(function() {
+            $('#invoice-btn').on('click', function(e) {
+                e.preventDefault(); // Prevent the default behavior of the link
+
+                // Open the invoice page in a new window/tab
+                var url = $(this).attr('href');
+                var newWindow = window.open(url, '_blank');
+
+                // Check if the new window opened successfully
+                if (newWindow) {
+                    // Wait for the new window to load and then print
+                    $(newWindow).on('load', function() {
+                        newWindow.print();
+                    });
+                }
+            });
+        });
+
+
+
     </script>
 @endsection

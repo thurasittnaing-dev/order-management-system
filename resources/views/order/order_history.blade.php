@@ -9,8 +9,8 @@
 <div class="container-fluid">
     @php
         $invoice_no = $_GET['invoice_no'] ?? '';
-        $invoice_no = $_GET['room_name'] ?? '';
-        $invoice_no = $_GET['table_no'] ?? '';
+        $room_name = $_GET['room_name'] ?? '';
+        $table_no = $_GET['table_no'] ?? '';
     @endphp
     <div class="card">
         <div class="card-header">Filter</div>
