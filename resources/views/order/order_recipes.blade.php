@@ -16,62 +16,64 @@
     </thead>
 
     <tbody id="recipes-table-body">
-        @if (!is_null($order))
+        @if (!is_null($order) )
             @forelse ($order->orderRecipes as $key => $value)
-                @php
-                    $subDiscount = $value->recipe->discount * $value->quantity;
-                    $subAmount = $value->recipe->amount * $value->quantity;
-                @endphp
-                <tr>
+                @if ($value->status !== 'cancel')
                     @php
-                        $color = '';
-                        switch ($value->status) {
-                            case 'pending':
-                                $color = 'info';
-                                break;
-
-                            case 'confirm':
-                                $color = 'warning';
-                                break;
-
-                            case 'ready':
-                                $color = 'success';
-                                break;
-
-                            default:
-                                $color = 'danger';
-                                break;
-                        }
+                        $subDiscount = $value->recipe->discount * $value->quantity;
+                        $subAmount = $value->recipe->amount * $value->quantity;
                     @endphp
-                    <td>
-                        <div class="condition-status bg-{{ $color }}">{{ $key + 1 }}</div>
-                    </td>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="{{ asset('storage/recipes/' . $value->recipe->image) }}"
-                                class="recipe-img img img-thumbnail me-2" alt="">
-                            <div>
-                                <div class="recipe-title">{{ $value->recipe->name }}</div>
-                                @if ($value->recipe->discount > 0)
-                                    <div>
-                                        <div class="recipe-discount">
-                                            {{ $value->recipe->amount - $value->recipe->discount }} MMK</div>
-                                        <div class="recipe-amount"><del>{{ $value->recipe->amount }} MMK</del></div>
-                                    </div>
-                                @else
-                                    <div>
-                                        <div class="recipe-discount">{{ $value->recipe->amount }} MMK</div>
-                                    </div>
-                                @endif
+                    <tr>
+                        @php
+                            $color = '';
+                            switch ($value->status) {
+                                case 'pending':
+                                    $color = 'info';
+                                    break;
+
+                                case 'confirm':
+                                    $color = 'warning';
+                                    break;
+
+                                case 'ready':
+                                    $color = 'success';
+                                    break;
+
+                                default:
+                                    $color = 'danger';
+                                    break;
+                            }
+                        @endphp
+                        <td>
+                            <div class="condition-status bg-{{ $color }}">{{ $key + 1 }}</div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('storage/recipes/' . $value->recipe->image) }}"
+                                    class="recipe-img img img-thumbnail me-2" alt="">
+                                <div>
+                                    <div class="recipe-title">{{ $value->recipe->name }}</div>
+                                    @if ($value->recipe->discount > 0)
+                                        <div>
+                                            <div class="recipe-discount">
+                                                {{ $value->recipe->amount - $value->recipe->discount }} MMK</div>
+                                            <div class="recipe-amount"><del>{{ $value->recipe->amount }} MMK</del></div>
+                                        </div>
+                                    @else
+                                        <div>
+                                            <div class="recipe-discount">{{ $value->recipe->amount }} MMK</div>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        {{ $value->quantity }}
-                    </td>
-                    <td align="right">{{ $subDiscount }}</td>
-                    <td align="right">{{ $subAmount }}</td>
-                </tr>
+                        </td>
+                        <td>
+                            {{ $value->quantity }}
+                        </td>
+                        <td align="right">{{ $subDiscount }}</td>
+                        <td align="right">{{ $subAmount }}</td>
+                    </tr>
+                @endif
             @empty
             @endforelse
         @endif

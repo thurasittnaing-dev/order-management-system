@@ -41,7 +41,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('orderHistory') }} " class="nav-link {{ singleMenuActive('orderHistory') }} py-3 border-bottom"
+                    <a href="{{ route('inuseTable') }} " class="nav-link {{ singleMenuActive('inuseTable') }} py-3 border-bottom"
+                        aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                        Inuse Tables
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('orderHistory') }}  " class="nav-link {{ singleMenuActive('orderHistory') }} py-3 border-bottom"
                         aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
                         History
                     </a>

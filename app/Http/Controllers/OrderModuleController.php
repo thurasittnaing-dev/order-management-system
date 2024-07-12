@@ -48,8 +48,17 @@ class OrderModuleController extends Controller
     public function makeOrder(OrderTables $table, Order $order = null)
     {
         $serviceFee =  $table->room->service_fee;
-        $totalAmount =  is_null($order) ? 0 : $order->orderRecipes->sum('amount');
-        $totalDiscount =   is_null($order) ? 0 : $order->orderRecipes->sum('discount');
+        // $totalAmount =  is_null($order) ? 0 : $order->orderRecipes->sum('amount');
+        // $totalDiscount =   is_null($order) ? 0 : $order->orderRecipes->sum('discount');
+
+        $totalAmount = is_null($order) ? 0 : $order->orderRecipes->filter(function($orderRecipe) {
+            return $orderRecipe->status !== 'cancel';
+        })->sum('amount');
+
+        $totalDiscount = is_null($order) ? 0 : $order->orderRecipes->filter(function($orderRecipe) {
+            return $orderRecipe->status !== 'cancel';
+        })->sum('discount');
+
 
         return view('order.make_order', [
             'orderTable' => $table,
@@ -67,9 +76,14 @@ class OrderModuleController extends Controller
         $table = $order->order_table_id;
         return redirect()->route('makeOrder', ['table' => $table, 'order' => $order]);
     }
-    public function orderHistory()
+    public function inuseTable()
     {
         $data = $this->orderModuleService->getInuseTable();
+        return view('order.inuse_table', $data);
+    }
+    public function orderHistory()
+    {
+        $data = $this->orderModuleService->getOrderHistory();
         return view('order.order_history', $data);
     }
 }

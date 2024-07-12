@@ -7,75 +7,86 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="page-card">
-        <ul class="nav nav-tabs d-flex justify-content-between" id="myTab" role="tablist">
-            <div class="col-md-3">
-                <li class="nav-item d-grid" role="presentation">
-                    <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all"
-                        type="button" role="tab" aria-controls="all" aria-selected="true">All</button>
-                </li>
-            </div>
 
-            @foreach ($maxPersons as $max_person => $groupedTables)
-                <div class="col-md-2">
-                    <li class="nav-item d-grid" role="presentation">
-                        <button class="nav-link" id="{{ $max_person }}-tab" data-bs-toggle="tab"
-                            data-bs-target="#{{ $max_person }}" type="button" role="tab"
-                            aria-controls="{{ $max_person }}" aria-selected="false">{{ $max_person }} Persons
-                            Table</button>
-                    </li>
-                </div>
-            @endforeach
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                <div class="mt-3">
-                    <div class="row g-2">
-                        @foreach ($tables as $table)
-                            @if ($table->current_order == true)
-                                <a href="{{ route('makeOrder', ['table' => $table->id, 'order' => $table->current_order]) }}"
-                                    class="col-md-2">
-                                    <div class="table-card">
-                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                        <span class="table-badge">{{ $table->max_person }} Persons</span>
-                                        <span class="table-card-no">{{ $table->table_no }}</span>
-                                        <div class="box">
-                                            <div class="ribbon-danger"><span>In Use</span></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endif
-                        @endforeach
+    <div class="card">
+        <div class="card-header">Filter</div>
+        <form action="{{ route('orderHistory') }}" method="GET" autocomplete="off">
+            <div class="card-body">
+                <div class="row">
+                    <div class="mb-3 col-md-3">
+                        <input type="text" name="invoice" class="form-control" placeholder="Invoice_No"
+                            value="">
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <input type="text" name="name" class="form-control" placeholder="Room Name"
+                            value="">
+                    </div>
+                    <div class="mb-3 col-md-2">
+                        <input type="text" name="table_no" class="form-control" placeholder="Table No"
+                            value="">
+                    </div>
+                    <div class="mb-3 col-md-3">
+                        <input type="date" name="date" class="form-control" placeholder="Date"
+                            value="">
                     </div>
                 </div>
             </div>
-            @foreach ($maxPersons as $max_person => $groupedTables)
-                <div class="tab-pane fade" id="{{ $max_person }}" role="tabpanel"
-                    aria-labelledby="{{ $max_person }}-tab">
-                    <div class="mt-3">
-                        <div class="row g-2">
-                            @foreach ($groupedTables as $table)
-                                @if ($table->current_order == true)
-                                    <a href="{{ route('makeOrder', ['table' => $table->id, 'order' => $table->current_order]) }}"
-                                        class="col-md-2">
-                                        <div class="table-card">
-                                            <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                            <span class="table-badge">{{ $table->max_person }} Persons</span>
-                                            <span class="table-card-no">{{ $table->table_no }}</span>
-                                            <div class="box">
-                                                <div class="ribbon-danger"><span>In Use</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                @endif
-                            @endforeach
 
-                        </div>
-                    </div>
+            <div class="card-footer d-flex justify-content-end">
+                <div>
+                    <a href="{{ route('orderHistory') }}" class="btn btn-danger">Clear</a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="ti ti-search me-1"></i>Search
+                    </button>
                 </div>
-            @endforeach
+            </div>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header py-3 px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="text-primary">Total Histories: (100)</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Invoice No</th>
+                            <th scope="col">Room Name</th>
+                            <th scope="col">Table No</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @forelse ($orders as $index => $order)
+                            <tr>
+                                <td>{{ $index + 1 + ($orders->currentPage() - 1) * $orders->perPage() }}</td>
+                                <td>{{ $order['table_no'] }}</td>
+                                <td>{{ $order['recipe_name'] }}</td>
+                                <td>{{ $order['invoice_no'] }}</td>
+                                <td>{{ $order['total_quantity'] }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td align="center" colspan="5">There is no history yet!</td>
+                            </tr>
+                        @endforelse --}}
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-center mt-3">
+
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 
 @endsection
