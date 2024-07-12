@@ -114,13 +114,6 @@ class OrderModuleService
 
     public function updateOrder($request, $order)
     {
-        // $totalAmount = $request->input('total_amount');
-        // $totalDiscount = $request->input('total_discount');
-        // $serviceFee = $request->input('service_fee');
-        // $totalNetAmount = $request->input('total_net_amount');
-        // $paidAmount = $request->input('paid_amount');
-        // $changeAmount = $request->input('change_amount');
-
         DB::beginTransaction();
 
         try {
@@ -150,6 +143,17 @@ class OrderModuleService
     }
 
     public function getInuseTable()
+    {
+        $query = OrderTables::query();
+        $tables = $query->get();
+        return [
+            'tables' => $tables,
+            'totalTables' => $query->count(),
+            'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
+        ];
+    }
+
+    public function getOrderHistory()
     {
         $query = OrderTables::query();
         $tables = $query->get();

@@ -76,6 +76,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
     //Order History
     Route::get('/order_history', [OrderModuleController::class, 'orderHistory'])->name('orderHistory');
 
+    //Inuse Table
+    Route::get('/inuse_table', [OrderModuleController::class, 'inuseTable'])->name('inuseTable');
+
 });
 
 
