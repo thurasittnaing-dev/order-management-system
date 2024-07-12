@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KitchenModuleController;
 use App\Http\Controllers\OrderModuleController;
 use App\Http\Controllers\OrderTablesController;
@@ -23,9 +25,11 @@ Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard Routes
-    Route::get('dashboard', function () {
-        return view('backend.dashboard.main-dashboard');
-    })->name('main-dashboard');
+    // Route::get('dashboard', function () {
+    //     return view('backend.dashboard.main-dashboard');
+    // })->name('main-dashboard');
+
+    Route::get('dashboard', [DashboardController::class, 'showDashboard'])->name('main-dashboard');
 
     // Category Routes
     Route::resource('category', CategoryController::class)->except('show');
@@ -49,6 +53,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('recipe', RecipeController::class)->except('show');
     Route::get('addpromotion/{recipe}', [RecipeController::class, 'addPromotion'])->name('recipe.addpromotion');
     Route::post('storepromotion/{recipe}', [RecipeController::class, 'storePromotion'])->name('recipe.storepromotion');
+
+    //Invoice
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
+
 });
 
 

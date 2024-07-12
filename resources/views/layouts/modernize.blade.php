@@ -99,6 +99,7 @@
     <script src="{{ asset('library/flatpickr/flatpickr.js') }}"></script>
     <script src="{{ asset('library/sweetalert2/sweetalert2.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('library/apexchart/apexchart.js') }}"></script>
     <script>
         @if (Session::has('success'))
             Swal.fire({
