@@ -81,7 +81,7 @@ class OrderModuleService
                     ]);
                 }
             } else {
-                $order_id = $orderData->id; // Ensure order_id is set to the existing order's ID
+                $order_id = $orderData->id;
 
                 foreach ($data as $recipeData) {
                     $recipe = Recipe::find($recipeData->id);
@@ -155,12 +155,33 @@ class OrderModuleService
 
     public function getOrderHistory()
     {
-        $query = OrderTables::query();
-        $tables = $query->get();
+        $query = Order::query()
+            ->when(request('invoice_no'), fn($query) => $query->where('invoice_no', 'LIKE', '%' . request('invoice_no') . '%'))
+            ->when(request('room_name'), function($query) {
+                $query->whereHas('orderTable', function($query) {
+                    $query->where('room_id', request('room_name'));
+                });
+            })
+            ->when(request('table_no'), function($query) {
+                $query->whereHas('orderTable', function($query) {
+                    $query->where('table_no', 'LIKE', '%' . request('table_no') . '%');
+                });
+            });
+        $totalCount = $query->count();
+        $orders = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();
+        foreach ($orders as $order) {
+            $tableId = $order->order_table_id;
+            $orderTable = OrderTables::find($tableId);
+            $order->room_name = $orderTable->room->name;
+            $order->table_no = $orderTable->table_no;
+        }
+        $rooms = Room::all();
+
         return [
-            'tables' => $tables,
-            'totalTables' => $query->count(),
-            'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
+            'i' => getTableIndexer(5),
+            'count' => $totalCount,
+            'orders' => $orders,
+            'rooms' => $rooms,
         ];
     }
 }
