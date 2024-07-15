@@ -94,6 +94,8 @@
                         <div class="col-md-6">
                             <form method="GET" action="{{ route('main-dashboard') }}"
                                 class="mb-3 d-flex justify-content-end" id="form-1">
+                                <input type="hidden" name="invoice_year" id="invoice-year-value"
+                                    value="{{ request('invoice-year') }}">
                                 <div class="form-group me-2">
                                     <label for="year" class="form-label">Select Year:</label>
                                     <select class="form-control" id="income-year" name="income_year">
@@ -122,6 +124,8 @@
                         <div class="col-md-6">
                             <form method="GET" action="{{ route('main-dashboard') }}"
                                 class="mb-3 d-flex justify-content-end" id="form-2">
+                                <input type="hidden" name="income_year" id="income-year-value"
+                                    value="{{ request('income-year') }}">
                                 <div class="form-group me-2">
                                     <label for="year" class="form-label">Select Year:</label>
                                     <select class="form-control" id="invoice-year" name="invoice_year">
@@ -325,10 +329,13 @@
         });
 
         $('#income-year').on('change', function() {
+            // console.log($('#invoice-year-value').val());
+            $('#invoice-year-value').val($('#invoice-year').val());
             $('#form-1').submit();
         });
 
         $('#invoice-year').on('change', function() {
+            $('#income-year-value').val($('#income-year').val());
             $('#form-2').submit();
         });
     </script>
