@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('modernize/assets/css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset('library/tabler/tabler.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     @yield('css')
 </head>
@@ -98,6 +99,7 @@
     <script src="{{ asset('library/select2/select2.min.js') }}"></script>
     <script src="{{ asset('library/flatpickr/flatpickr.js') }}"></script>
     <script src="{{ asset('library/sweetalert2/sweetalert2.js') }}"></script>
+    <script src="{{ asset('library/daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('library/apexchart/apexchart.js') }}"></script>
     <script>

@@ -81,9 +81,9 @@ class OrderModuleController extends Controller
         $data = $this->orderModuleService->getInuseTable();
         return view('order.inuse_table', $data);
     }
-    public function orderHistory()
+    public function orderHistory(Request $request)
     {
-        $data = $this->orderModuleService->getOrderHistory();
+        $data = $this->orderModuleService->getOrderHistory($request);
         return view('order.order_history', $data);
     }
 }

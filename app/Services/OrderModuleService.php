@@ -9,7 +9,6 @@ use App\Models\Order;
 use App\Models\OrderRecipes;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
-
 class OrderModuleService
 {
     public function getRooms()
@@ -153,7 +152,7 @@ class OrderModuleService
         ];
     }
 
-    public function getOrderHistory()
+    public function getOrderHistory($request)
     {
         $query = Order::query()
             ->when(request('invoice_no'), fn($query) => $query->where('invoice_no', 'LIKE', '%' . request('invoice_no') . '%'))
@@ -166,6 +165,13 @@ class OrderModuleService
                 $query->whereHas('orderTable', function($query) {
                     $query->where('table_no', 'LIKE', '%' . request('table_no') . '%');
                 });
+            })
+            ->when(request('datefilter'), function($query) {
+                $dateRange = request('datefilter');
+                $dates = explode("-", $dateRange);
+                $startDateTime = date('Y-m-d 00:00:00', strtotime($dates[0]));
+                $endDateTime = date('Y-m-d 23:59:59', strtotime($dates[1]));
+                $query->whereBetween('updated_at', [$startDateTime, $endDateTime]);
             });
         $totalCount = $query->count();
         $orders = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();

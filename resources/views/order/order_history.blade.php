@@ -5,12 +5,13 @@
 @section('page', 'Order History')
 
 @section('content')
-
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <div class="container-fluid">
     @php
         $invoice_no = $_GET['invoice_no'] ?? '';
         $room_name = $_GET['room_name'] ?? '';
         $table_no = $_GET['table_no'] ?? '';
+        $date = $_GET['datefilter']?? '';
     @endphp
     <div class="card">
         <div class="card-header">Filter</div>
@@ -21,7 +22,7 @@
                         <input type="text" name="invoice_no" class="form-control" placeholder="Invoice No"
                             value="{{ $invoice_no }}">
                     </div>
-                    <div class="mb-3 col-md-2">
+                    <div class="mb-3 col-md-3">
                         <select id="room_name" class="form-control lib-s2" name="room_name">
                             <option value=" ">Room</option>
                             @foreach ($rooms as $room)
@@ -31,13 +32,12 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-3 col-md-2">
+                    <div class="mb-3 col-md-3">
                         <input type="text" name="table_no" class="form-control" placeholder="Table No"
-                            value="">
+                            value="{{ $table_no }}">
                     </div>
                     <div class="mb-3 col-md-3">
-                        <input type="date" name="date" class="form-control" placeholder="Date"
-                            value="">
+                        <input type="text" class="form-control" name="datefilter" value="{{ $date }}" placeholder="Select Date" />
                     </div>
                 </div>
             </div>
@@ -96,7 +96,6 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center mt-3">
-
                 </div>
             </div>
         </div>
@@ -105,6 +104,32 @@
         {{ $orders->links() }}
     </div>
 </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<script type="text/javascript">
+    $(function() {
+
+      $('input[name="datefilter"]').daterangepicker({
+          autoUpdateInput: false,
+          locale: {
+              cancelLabel: 'Clear'
+          }
+      });
+
+      $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+          $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+      });
+
+      $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+          $(this).val('');
+      });
+
+    });
+</script>
+
 
 @endsection
 
