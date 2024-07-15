@@ -59,7 +59,7 @@
                     <img src="{{ asset('images/incomeicon.png') }}" class="image-img" alt="">
                 </span>
                 <div class="mx-4">
-                    <h3 class="card-title h2">{{ number_format($totalRevenue) }} MMK</h3>
+                    <h3 class="card-title h2">{{ number_format($totalRevenue) }} </h3>
                     <span class="text-primary d-flex align-items-center">
                         Total Revenue
                     </span>
@@ -68,12 +68,41 @@
         </div>
     </div>
 </div>
-
+{{-- <div class="mb-3 col-md-3">
+    <form method="GET" action="{{ route('main-dashboard') }}" class="mb-3">
+        <div class="form-group">
+            <label for="year">Select Year:</label>
+            <select class="form-control" id="year" name="year">
+                @foreach (range(date('Y'), 2020, -1) as $year)
+                    <option value="{{ $year }}" @if ($year == $selectedYear) selected @endif>{{ $year }}</option>
+                @endforeach
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+</div> --}}
 <div class="row mt-4">
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Monthly Income</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title">Monthly Income</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <form method="GET" action="{{ route('main-dashboard') }}" class="mb-3 d-flex justify-content-end">
+                            <div class="form-group me-2">
+                                <label for="year" class="form-label">Select Year:</label>
+                                <select class="form-control" id="year" name="income_year">
+                                    @foreach (range(date('Y'), 2020, -1) as $year)
+                                        <option value="{{ $year }}" @if ($year == $selectedYear) selected @endif>{{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary align-self-end">Apply</button>
+                        </form>
+                    </div>
+                </div>
                 <div id="income-chart"></div>
             </div>
         </div>
@@ -81,7 +110,24 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Monthly Invoices</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title">Monthly Invoices</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <form method="GET" action="{{ route('main-dashboard') }}" class="mb-3 d-flex justify-content-end">
+                            <div class="form-group me-2">
+                                <label for="year" class="form-label">Select Year:</label>
+                                <select class="form-control" id="year" name="invoice_year">
+                                    @foreach (range(date('Y'), 2020, -1) as $year)
+                                        <option value="{{ $year }}" @if ($year == $selectedInvoiceYear) selected @endif>{{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary align-self-end">Apply</button>
+                        </form>
+                    </div>
+                </div>
                 <div id="invoices-chart"></div>
             </div>
         </div>
@@ -91,13 +137,7 @@
 @endsection
 
 @section('css')
-    <style>
-        #monthly-chart {
-            width: 100%;
-            height: 50vh;
-            background-color: red;
-        }
-    </style>
+
 @endsection
 
 @section('js')
