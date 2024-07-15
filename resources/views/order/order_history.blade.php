@@ -5,7 +5,7 @@
 @section('page', 'Order History')
 
 @section('content')
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <div class="container-fluid">
     @php
         $invoice_no = $_GET['invoice_no'] ?? '';
@@ -104,11 +104,13 @@
         {{ $orders->links() }}
     </div>
 </div>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+@endsection
 
+@section('css')
+@endsection
+
+@section('js')
 <script type="text/javascript">
     $(function() {
 
@@ -129,13 +131,5 @@
 
     });
 </script>
-
-
-@endsection
-
-@section('css')
-@endsection
-
-@section('js')
 
 @endsection

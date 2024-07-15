@@ -62,50 +62,6 @@
     </form>
 </div>
 
-<script src="{{ asset('modernize/assets/libs/jquery/dist/jquery.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        // Calculate change amount when paid amount changes
-        $('#paid-amount').on('input', function() {
-            calculateChange();
-        });
-
-        // Calculate change amount when checkout button is clicked
-        $('#checkout-btn').on('click', function() {
-            calculateChange();
-            var order_id = {{ $order ? $order->id : 'null' }};
-            window.location.href = '/checkout/' + order_id;
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: " Successfully Checkout ",
-                showConfirmButton: true,
-                timer: 2000
-            });
-        });
-
-        function calculateChange() {
-            var totalAmount = {{ $totalAmount }};
-            var totalDiscount = {{ $totalDiscount }};
-            var serviceFee = {{$serviceFee}};
-            var totalNetAmount = {{ $totalNetAmount }};
-            var paidAmount = parseFloat($('#paid-amount').val()) || 0;
-            var changeAmount = paidAmount - totalNetAmount;
-            console.log('Change Amount:', changeAmount);
-
-            // Enable or disable the checkout button based on the paid amount
-            if (paidAmount < totalNetAmount) {
-                $('#change-amount').val('');
-                $('#checkout-btn').prop('disabled', true);
-            } else {
-                $('#change-amount').val(Math.round(changeAmount));
-                $('#checkout-btn').prop('disabled', false);
-            }
-        }
-
-    });
-</script>
-
 
 
 

@@ -64,6 +64,7 @@
             localStorage.removeItem('selectedRecipes');
         @endif
 
+        //js code for make_order btn
         $(document).ready(function() {
             function toggleMakeOrderButton() {
                 var recipes = localStorage.getItem('selectedRecipes');
@@ -103,17 +104,13 @@
             };
         });
 
+        //js code for invoice btn
         $(document).ready(function() {
             $('#invoice-btn').on('click', function(e) {
                 e.preventDefault(); // Prevent the default behavior of the link
-
-                // Open the invoice page in a new window/tab
                 var url = $(this).attr('href');
                 var newWindow = window.open(url, '_blank');
-
-                // Check if the new window opened successfully
                 if (newWindow) {
-                    // Wait for the new window to load and then print
                     $(newWindow).on('load', function() {
                         newWindow.print();
                     });
@@ -121,7 +118,47 @@
             });
         });
 
+        //js code for invoice_card
+        $(document).ready(function() {
+            // Calculate change amount when paid amount changes
+            $('#paid-amount').on('input', function() {
+                calculateChange();
+            });
 
+            // Calculate change amount when checkout button is clicked
+            $('#checkout-btn').on('click', function() {
+                calculateChange();
+                var order_id = {{ $order ? $order->id : 'null' }};
+                window.location.href = '/checkout/' + order_id;
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: " Successfully Checkout ",
+                    showConfirmButton: true,
+                    timer: 2000
+                });
+            });
 
+            function calculateChange() {
+                var totalAmount = {{ $totalAmount }};
+                var totalDiscount = {{ $totalDiscount }};
+                var serviceFee = {{$serviceFee}};
+                var totalNetAmount = {{ $totalNetAmount }};
+                var paidAmount = parseFloat($('#paid-amount').val()) || 0;
+                var changeAmount = paidAmount - totalNetAmount;
+                console.log('Change Amount:', changeAmount);
+
+                // Enable or disable the checkout button based on the paid amount
+                if (paidAmount < totalNetAmount) {
+                    $('#change-amount').val('');
+                    $('#checkout-btn').prop('disabled', true);
+                } else {
+                    $('#change-amount').val(Math.round(changeAmount));
+                    $('#checkout-btn').prop('disabled', false);
+                }
+            }
+
+        });
     </script>
+
 @endsection
