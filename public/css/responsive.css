@@ -1,15 +1,42 @@
 /* Tablet */
-@media screen and (max-width: 992px) {
- 
+@media only screen and (max-width: 1025px) and (min-width: 401px)  {
+  .rooms-container {
+    grid-gap: 1rem;
+    grid-template-columns: repeat(3,1fr)!important;
+  }
+
+  .room-card {
+    height: 8rem!important;
+  }
+
+  .table-card-container {
+    grid-template-columns: repeat(4,1fr)!important;
+  }
+
+  .table-card {
+    height: 9rem;
+  }
+  
 }
 
 
-/* Large Phone */
-@media screen and (max-width: 600px) {
- 
-}
 
-/* Samll Phone */
-@media screen and (max-width: 320px) {
+/* Phone */
+@media only screen and (max-width: 450px) and (min-width: 200px)  {
+  .rooms-container {
+    grid-gap: 1rem;
+    grid-template-columns: repeat(1,1fr)!important;
+  }
 
-}
+  .room-card {
+    height: 7rem!important;
+  }
+
+  .table-card-container {
+    grid-template-columns: repeat(2,1fr)!important;
+  }
+
+  .table-card {
+    height: 9rem;
+  }
+} 

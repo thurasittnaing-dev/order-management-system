@@ -55,24 +55,22 @@
                 @foreach ($maxPersons as $max_person => $groupedTables)
                     <div class="tab-pane fade @if ($max_person == 2) show active @endif"
                         id="{{ $max_person }}" role="tabpanel" aria-labelledby="{{ $max_person }}-tab">
-                        <div class="mt-3">
-                            <div class="row g-2">
-                                @foreach ($groupedTables as $table)
-                                    <a href="{{ route('makeOrder', ['table' => $table->id, 'order' => $table->current_order]) }}"
-                                        class="col-md-2">
-                                        <div class="table-card">
-                                            <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
-                                            <span class="table-badge">{{ $table->max_person }} Persons</span>
-                                            <span class="table-card-no">{{ $table->table_no }}</span>
-                                            @if ($table->current_order == true)
-                                                <div class="box">
-                                                    <div class="ribbon-danger"><span>In Use</span></div>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </a>
-                                @endforeach
-                            </div>
+                        <div class="mt-3 table-card-container">
+                            @foreach ($groupedTables as $table)
+                                <a href="{{ route('makeOrder', ['table' => $table->id, 'order' => $table->current_order]) }}"
+                                    class="">
+                                    <div class="table-card">
+                                        <img src="{{ asset('images/table.png') }}" class="table-img" alt="">
+                                        <span class="table-badge">{{ $table->max_person }} Persons</span>
+                                        <span class="table-card-no">{{ $table->table_no }}</span>
+                                        @if ($table->current_order == true)
+                                            <div class="box">
+                                                <div class="ribbon-danger"><span>In Use</span></div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 @endforeach
