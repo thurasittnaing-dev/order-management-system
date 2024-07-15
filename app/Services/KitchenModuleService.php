@@ -11,7 +11,7 @@ class KitchenModuleService
     public function getOrdersForToday()
     {
         $today = date('Y-m-d');
-        $recipes = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'pending')->get();
+        $recipes = OrderRecipes::with('recipe', 'order')->whereDate('created_at', $today)->where('status', 'pending')->get();
         $recipesCount = $recipes->count();
         $confirm = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'confirm')->get();
         $confirmCount = $confirm->count();
@@ -70,6 +70,7 @@ class KitchenModuleService
             ->get();
 
         $result = [];
+        $totalQuantity = 0;
 
         foreach ($orders as $order) {
             foreach ($order->orderRecipes as $orderRecipe) {
@@ -78,8 +79,10 @@ class KitchenModuleService
                         'table_no' => $order->orderTable->table_no,
                         'invoice_no' => $order->invoice_no,
                         'recipe_name' => $orderRecipe->recipe->name,
-                        'total_quantity' => $orderRecipe->quantity,
+                        'quantity' => $orderRecipe->quantity,
+                        'date' => $order->updated_at->format('d-m-Y'),
                     ];
+                    $totalQuantity += $orderRecipe->quantity;
                 }
             }
         }
@@ -90,6 +93,9 @@ class KitchenModuleService
             'path' => LengthAwarePaginator::resolveCurrentPath(),
         ]);
 
-        return $paginatedOrders;
+        return [
+            'orders' => $paginatedOrders,
+            'total_quantity' => $totalQuantity
+        ];
     }
 }

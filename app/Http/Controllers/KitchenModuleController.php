@@ -35,11 +35,13 @@ class KitchenModuleController extends Controller
         $endDate = $request->input('end_date');
         $invoiceNo = $request->input('invoice_no');
         $tableNo = $request->input('table_no');
-        $paginatedOrders = $this->kitchenModuleService->getPaginatedOrdersByDateRange($startDate, $endDate, $invoiceNo, $tableNo);
+
+        $result = $this->kitchenModuleService->getPaginatedOrdersByDateRange($startDate, $endDate, $invoiceNo, $tableNo);
 
         return view('kitchen.history', [
-            'orders' => $paginatedOrders,
-            'total_histories' => $paginatedOrders->total(),
+            'orders' => $result['orders'],
+            'total_histories' => $result['orders']->total(),
+            'total_quantity' => $result['total_quantity']
         ]);
     }
 }
