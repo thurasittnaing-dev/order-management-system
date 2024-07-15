@@ -8,6 +8,7 @@ use Database\Seeders\OrderTableSeeder;
 use Database\Seeders\RoomSeeder;
 use Database\Seeders\IngredientSeeder;
 use Database\Seeders\RecipeSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder
             OrderTableSeeder::class,
             IngredientSeeder::class,
             RecipeSeeder::class,
-
+            InvoiceSeeder::class,
+            InUsedInvoiceSeeder::class
         ]);
     }
 }

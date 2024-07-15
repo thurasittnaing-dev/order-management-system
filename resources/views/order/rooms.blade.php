@@ -7,25 +7,30 @@
 @section('content')
     <div class="container-fluid">
         <div class="page-card">
-            <div class="text-center room-title">Order Express :  Rooms <span>({{ $totalRooms }})</span></div>
+            <div class="text-center room-title">Order Express : Rooms <span>({{ $totalRooms }})</span></div>
             <ul class="nav nav-tabs d-flex justify-content-between" id="myTab" role="tablist">
                 <div class="col-md-2">
                     <li class="nav-item d-grid" role="presentation">
-                        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all"
-                            type="button" role="tab" aria-controls="all" aria-selected="true">All ({{ $totalRooms }})</button>
+                        <button class="nav-link" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button"
+                            role="tab" aria-controls="all" aria-selected="true">All
+                            ({{ $totalRooms }})</button>
                     </li>
                 </div>
                 @foreach ($roomTypes as $type)
-                <div class="col-md-2">
-                    <li class="nav-item d-grid" role="presentation">
-                        <button class="nav-link" id="{{ $type->type }}-tab" data-bs-toggle="tab" data-bs-target="#{{ $type->type }}"
-                            type="button" role="tab" aria-controls="{{ $type->type }}" aria-selected="false">{{ ucfirst($type->type) }} Room ({{ $roomCountsByType[$type->type] ?? 0 }})</button>
-                    </li>
-                </div>
+                    <div class="col-md-2">
+                        <li class="nav-item d-grid" role="presentation">
+                            <button class="nav-link @if ($type->type == 'normal') active @endif"
+                                id="{{ $type->type }}-tab" data-bs-toggle="tab" data-bs-target="#{{ $type->type }}"
+                                type="button" role="tab" aria-controls="{{ $type->type }}"
+                                aria-selected="false">{{ ucfirst($type->type) }} Room
+                                ({{ $roomCountsByType[$type->type] ?? 0 }})
+                            </button>
+                        </li>
+                    </div>
                 @endforeach
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
                     <div class="rooms-container py-3">
                         @foreach ($rooms as $room)
                             <a href="{{ route('tables', $room->id) }}">
@@ -46,26 +51,27 @@
                 </div>
 
                 @foreach ($roomsByType as $type => $rooms)
-                <div class="tab-pane fade" id="{{ $type }}" role="tabpanel" aria-labelledby="{{ $type }}-tab">
-                    <div class="rooms-container py-3">
-                        @foreach ($rooms as $room)
-                            <a href="{{ route('tables', $room->id) }}">
-                                <div class="room-card">
-                                    <div class="box">
-                                        <div class="ribbon-success"><span>Available</span></div>
-                                    </div>
-                                    <div class="rom-img">
-                                        <img src="{{ asset('storage/rooms/' . $room->image) }}" alt="">
-                                    </div>
-                                    <div class="room-title-badge">
-                                        {{ $room->name }}
+                    <div class="tab-pane fade @if ($type == 'normal') show active @endif "
+                        id="{{ $type }}" role="tabpanel" aria-labelledby="{{ $type }}-tab">
+                        <div class="rooms-container py-3">
+                            @foreach ($rooms as $room)
+                                <a href="{{ route('tables', $room->id) }}">
+                                    <div class="room-card">
+                                        <div class="box">
+                                            <div class="ribbon-success"><span>Available</span></div>
+                                        </div>
+                                        <div class="rom-img">
+                                            <img src="{{ asset('storage/rooms/' . $room->image) }}" alt="">
+                                        </div>
+                                        <div class="room-title-badge">
+                                            {{ $room->name }}
 
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        @endforeach
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
                 @endforeach
             </div>
         </div>

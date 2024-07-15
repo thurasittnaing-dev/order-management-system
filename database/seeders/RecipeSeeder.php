@@ -181,6 +181,15 @@ class RecipeSeeder extends Seeder
                 'discount' => 100,
                 'status' => 'active',
             ],
+            [
+                'name' => 'Rice',
+                'image' => 'rice.jpg',
+                'description' => 'Chinese Rice',
+                'category_id' => $categories['Chinese Food'],
+                'amount' => 1000,
+                'discount' => 0,
+                'status' => 'active',
+            ],
         ];
 
         // DB::table('recipes')->insert($recipes);
@@ -207,4 +216,3 @@ class RecipeSeeder extends Seeder
         return $storedFileName;
     }
 }
-

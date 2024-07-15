@@ -299,8 +299,14 @@
   object-fit: cover;
 }
 
+.table-card-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(6,1fr);
+}
+
 .table-card {
-  width: 90%;
+  width: 100%;
   height: 12rem;
   border-radius: 0.35rem;
   overflow: hidden;
