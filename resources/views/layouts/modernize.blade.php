@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('library/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     @yield('css')
 </head>
 

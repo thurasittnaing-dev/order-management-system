@@ -84,13 +84,20 @@
                                 <td align="center" colspan="6">There is no invoice yet!</td>
                             </tr>
                         @endforelse
+                        <tfoot class="fw-bold">
+                            <tr>
+                                <td colspan="6"></td>
+                                <td><strong>Total Net Amount</strong></td>
+                                <td>{{ number_format($total_net_amount) }}</td>
+                            </tr>
+                        </tfoot>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div>
+        {{-- <div>
             <strong>Total Net Amount: </strong> {{ $total_net_amount }}
-        </div>
+        </div> --}}
         <div class="card-footer justify-content-center d-flex align-items-center py-3 px-1">
             {{ $orders->links() }}
         </div>

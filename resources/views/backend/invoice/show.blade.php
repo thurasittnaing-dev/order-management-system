@@ -1,99 +1,11 @@
-{{-- @extends('layouts.modernize')
-
-@section('title', 'Invoice Detail')
-
-@section('page', 'Invoice Detail')
-
-@section('content')
-
-<div class="container">
-    <h1>Invoice #{{ $order->invoice_no }}</h1>
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Invoice No</th>
-            <th>Order Table ID</th>
-            <th>Discount</th>
-            <th>Amount</th>
-            <th>Net Amount</th>
-            <th>Paid</th>
-            <th>Change</th>
-        </tr>
-        <tr>
-            <td>{{ $order->id }}</td>
-            <td>{{ $order->invoice_no }}</td>
-            <td>{{ $order->order_table_id }}</td>
-            <td>{{ $order->discount }}</td>
-            <td>{{ $order->amount }}</td>
-            <td>{{ $order->net_amount }}</td>
-            <td>{{ $order->paid }}</td>
-            <td>{{ $order->change }}</td>
-        </tr>
-    </table>
-    <a href="{{ route('invoices.index') }}" class="btn btn-secondary">Back to Invoices</a>
-</div>
-
-@endsection
-
-@section('css')
-
-@endsection
-
-@section('js')
-
-@endsection --}}
-
-{{-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invoice Detail</title>
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('modernize/assets/css/styles.css') }}">
-</head>
-
-<body>
-    <div class="container">
-        <div class="card mt-3">
-            <h3>Invoice #{{ $order->invoice_no }}</h3>
-            <table class="table">
-                <tr>
-                    <th>ID</th>
-                    <th>Invoice No</th>
-                    <th>Order Table ID</th>
-                    <th>Discount</th>
-                    <th>Amount</th>
-                    <th>Net Amount</th>
-                    <th>Paid</th>
-                    <th>Change</th>
-                </tr>
-                <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ $order->invoice_no }}</td>
-                    <td>{{ $order->order_table_id }}</td>
-                    <td>{{ $order->discount }}</td>
-                    <td>{{ $order->amount }}</td>
-                    <td>{{ $order->net_amount }}</td>
-                    <td>{{ $order->paid }}</td>
-                    <td>{{ $order->change }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</body>
-
-</html> --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Detail</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <style>
         .invoice {
             max-width: 21cm; /* A5 width in cm */
@@ -193,42 +105,50 @@
                     <tr>
                         <td>{{ $orderRecipe->recipe->name }}</td>
                         <td>{{ $orderRecipe->quantity }}</td>
-                        <td>{{ $orderRecipe->discount }}</td>
-                        <td>{{ $orderRecipe->amount }}</td>
+                        <td>{{ number_format($orderRecipe->discount) }}</td>
+                        <td>{{ number_format($orderRecipe->amount) }}</td>
                     </tr>
                 @endforeach
             </tbody>
+            <tfoot class="fw-bold">
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total Amount</td>
+                    <td>{{ number_format($order->amount) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Service Charges</td>
+                    <td>{{ number_format($order->service_charges) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total Discount</td>
+                    <td>{{ number_format($order->discount) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Net Amount</td>
+                    <td>{{ number_format($order->net_amount) }}</td>
+                </tr>
+            </tfoot>
         </table>
-
-        <div class="invoice-total">
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Total Amount</td>
-                        <td>{{ $order->amount }}</td>
-                    </tr>
-                    <tr>
-                        <td>Service Charges</td>
-                        <td>{{ $order->service_charges }}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Discount</td>
-                        <td>{{ $order->discount }}</td>
-                    </tr>
-                    <tr>
-                        <td>Net Amount</td>
-                        <td>{{ $order->net_amount }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
 
         <div class="invoice-footer text-center">
             <p>Thank you for dining with us!</p>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <script src="{{  asset('js/app.js') }}"></script>
+    @section('css')
+
+    @endsection
+
+    @section('js')
+
+    @endsection
+
 </body>
 </html>
 

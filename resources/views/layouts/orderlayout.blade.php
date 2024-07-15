@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('library/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('library/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
     <style>
         .nav-pills .nav-link {
             border-radius: 0 !important;
@@ -42,14 +43,16 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('inuseTable') }} " class="nav-link {{ singleMenuActive('inuseTable') }} py-3 border-bottom"
-                        aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                    <a href="{{ route('inuseTable') }} "
+                        class="nav-link {{ singleMenuActive('inuseTable') }} py-3 border-bottom" aria-current="page"
+                        title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
                         Inuse Tables
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('orderHistory') }}  " class="nav-link {{ singleMenuActive('orderHistory') }} py-3 border-bottom"
-                        aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
+                    <a href="{{ route('orderHistory') }}  "
+                        class="nav-link {{ singleMenuActive('orderHistory') }} py-3 border-bottom" aria-current="page"
+                        title="Home" data-bs-toggle="tooltip" data-bs-placement="right">
                         History
                     </a>
                 </li>
