@@ -12,7 +12,7 @@
                 <div class="col-md-3">
                     <li class="nav-item d-grid" role="presentation">
                         <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all"
-                            type="button" role="tab" aria-controls="all" aria-selected="true">All</button>
+                            type="button" role="tab" aria-controls="all" aria-selected="true">All({{ $total_count }}) </button>
                     </li>
                 </div>
 
@@ -22,7 +22,7 @@
                             <button class="nav-link" id="{{ $max_person }}-tab" data-bs-toggle="tab"
                                 data-bs-target="#{{ $max_person }}" type="button" role="tab"
                                 aria-controls="{{ $max_person }}" aria-selected="false">{{ $max_person }} Persons
-                                Table</button>
+                                Table({{ $countByPerson [$max_person] }})</button>
                         </li>
                     </div>
                 @endforeach
