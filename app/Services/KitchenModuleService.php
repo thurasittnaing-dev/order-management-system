@@ -46,8 +46,7 @@ class KitchenModuleService
         }
     }
 
-
-    public function getPaginatedOrdersByDateRange($startDate, $endDate, $perPage = 10)
+    public function getPaginatedOrdersByDateRange($startDate, $endDate, $invoiceNo = null, $tableNo = null, $perPage = 10)
     {
         $orders = Order::whereHas('orderRecipes', function ($query) {
             $query->where('status', 'ready');
@@ -58,7 +57,16 @@ class KitchenModuleService
             ->when($endDate, function ($query, $endDate) {
                 $query->whereDate('created_at', '<=', $endDate);
             })
+            ->when($invoiceNo, function ($query, $invoiceNo) {
+                $query->where('invoice_no', 'like', '%' . $invoiceNo . '%');
+            })
+            ->when($tableNo, function ($query, $tableNo) {
+                $query->whereHas('orderTable', function ($query) use ($tableNo) {
+                    $query->where('table_no', 'like', '%' . $tableNo . '%');
+                });
+            })
             ->with(['orderTable', 'orderRecipes.recipe'])
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $result = [];

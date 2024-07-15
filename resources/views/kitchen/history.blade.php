@@ -7,21 +7,30 @@
 @section('content')
 
     <div class="container-fluid">
-
         <div class="card">
             <div class="card-header">Filter</div>
             <form action="{{ route('history') }}" method="GET" autocomplete="off">
                 <div class="card-body">
                     <div class="form-row d-flex">
-                        <div class="form-group col-md-3 me-2">
+                        <div class="form-group col-md-3 me-3">
                             <label for="start_date">Start Date</label>
                             <input type="date" class="form-control" id="start_date" name="start_date"
-                            value="{{ request('start_date') }}">
+                                value="{{ request('start_date') }}">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-3 me-3">
                             <label for="end_date">End Date</label>
                             <input type="date" class="form-control" id="end_date" name="end_date"
-                            value="{{ request('end_date') }}">
+                                value="{{ request('end_date') }}">
+                        </div>
+                        <div class=" mb-3 col-md-2 me-3">
+                            <label for="invoice_no">Invoice No</label>
+                            <input type="text" class="form-control" id="invoice_no" name="invoice_no"
+                                value="{{ request('invoice_no') }}">
+                        </div>
+                        <div class=" mb-3 col-md-2 ">
+                            <label for="table_no">Table No</label>
+                            <input type="text" class="form-control" id="table_no" name="table_no"
+                                value="{{ request('table_no') }}">
                         </div>
                     </div>
                 </div>
@@ -78,7 +87,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
 
