@@ -1,7 +1,7 @@
 
 
 <div class="payment-card p-3">
-    <form action="{{ route('checkout', ['order' => $order ? $order->id : null]) }}" method="POST" class="mt-4" id="checkout-form">
+    <form id="checkout-form"  method="POST" action="{{ route('checkout', ['order' => $order ? $order->id : null]) }}" class="mt-4" >
         @csrf
         <div class="mb-3">
             <label for="" class="mb-2">Invoice No</label>
@@ -40,7 +40,6 @@
                 <input type="hidden" name="total_discount"  value="{{ $totalDiscount }}" id="total-discount">
                 <input type="hidden" name="service_fee"  value="{{ $serviceFee }}" id="service-fee">
             </div>
-
             <div class="checkout-footer">
                 <div class="d-grid">
                     <button id="checkout-btn" type="submit" class="btn btn-lg btn-primary" disabled><i class="ti ti-cash-register"></i> Checkout</button>

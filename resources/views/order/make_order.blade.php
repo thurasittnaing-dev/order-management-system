@@ -118,7 +118,9 @@
             });
         });
 
+
         //js code for invoice_card
+
         $(document).ready(function() {
             // Calculate change amount when paid amount changes
             $('#paid-amount').on('input', function() {
@@ -126,29 +128,55 @@
             });
 
             // Calculate change amount when checkout button is clicked
-            $('#checkout-btn').on('click', function() {
+            $('#checkout-btn').on('click', function(event) {
+                event.preventDefault();
                 calculateChange();
-                var order_id = {{ $order ? $order->id : 'null' }};
-                window.location.href = '/checkout/' + order_id;
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: " Successfully Checkout ",
-                    showConfirmButton: true,
-                    timer: 2000
-                });
+
+                if (isAnyRecipeReady()) {
+                    // Enable form submission for valid checkout
+                    $('#checkout-form').submit();
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: " Successfully Checkout ",
+                        showConfirmButton: true,
+                        timer: 2000
+                    });
+                } else {
+                    // Show confirmation dialog for checkout
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to proceed with the checkout?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, checkout',
+                        cancelButtonText: 'No, cancel'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Enable form submission on confirmation
+                            $('#checkout-form').submit();
+                            Swal.fire({
+                                position: "center",
+                                icon: "success",
+                                title: " Successfully Checkout ",
+                                showConfirmButton: true,
+                                timer: 2000
+                            });
+                        }
+                    });
+                }
             });
 
+            // Function to calculate change amount
             function calculateChange() {
-                var totalAmount = {{ $totalAmount }};
-                var totalDiscount = {{ $totalDiscount }};
-                var serviceFee = {{$serviceFee}};
                 var totalNetAmount = {{ $totalNetAmount }};
                 var paidAmount = parseFloat($('#paid-amount').val()) || 0;
                 var changeAmount = paidAmount - totalNetAmount;
-                console.log('Change Amount:', changeAmount);
 
-                // Enable or disable the checkout button based on the paid amount
+                // Display change amount (optional)
+                $('#change-amount').val(Math.round(changeAmount));
+
+                // Enable or disable checkout button based on paid amount
                 if (paidAmount < totalNetAmount) {
                     $('#change-amount').val('');
                     $('#checkout-btn').prop('disabled', true);
@@ -158,6 +186,17 @@
                 }
             }
 
+            // Function to check if any recipe is ready
+            function isAnyRecipeReady() {
+                let hasReadyRecipe = false;
+                $('tr[data-status]').each(function() {
+                    if ($(this).data('status') === 'ready') {
+                        hasReadyRecipe = true;
+                        return false; // break the loop
+                    }
+                });
+                return hasReadyRecipe;
+            }
         });
 
     </script>

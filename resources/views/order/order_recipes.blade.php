@@ -23,7 +23,7 @@
                         $subDiscount = $value->recipe->discount * $value->quantity;
                         $subAmount = $value->recipe->amount * $value->quantity;
                     @endphp
-                    <tr>
+                    <tr data-status="{{ $value->status }}">
                         @php
                             $color = '';
                             switch ($value->status) {
