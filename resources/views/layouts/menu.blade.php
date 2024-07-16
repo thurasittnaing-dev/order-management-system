@@ -13,15 +13,6 @@
             </a>
         </li>
         <li class="sidebar-item">
-            <a class="sidebar-link {{ menu_active('recipe') }}" href="{{ route('recipe.index') }}"
-                aria-expanded="false">
-                <span>
-                    <i class="ti ti-salad"></i>
-                </span>
-                <span class="hide-menu">Recipe</span>
-            </a>
-        </li>
-        <li class="sidebar-item">
             <a class="sidebar-link {{ menu_active('invoices') }}" href="{{ route('invoices.index') }}"
                 aria-expanded="false">
                 <span>
@@ -30,7 +21,15 @@
                 <span class="hide-menu">Invoice</span>
             </a>
         </li>
-
+        <li class="sidebar-item">
+            <a class="sidebar-link {{ menu_active('recipe') }}" href="{{ route('recipe.index') }}"
+                aria-expanded="false">
+                <span>
+                    <i class="ti ti-salad"></i>
+                </span>
+                <span class="hide-menu">Recipe</span>
+            </a>
+        </li>
 
         <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>

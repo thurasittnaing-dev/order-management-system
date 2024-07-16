@@ -96,6 +96,7 @@
     <script src="{{ asset('modernize/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('modernize/assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('modernize/assets/js/app.min.js') }}"></script>
+    <script src="{{ asset('modernize/assets/libs/momentjs/moment.min.js') }}"></script>
     <script src="{{ asset('modernize/assets/libs/simplebar/dist/simplebar.js') }}"></script>
     <script src="{{ asset('library/select2/select2.min.js') }}"></script>
     <script src="{{ asset('library/flatpickr/flatpickr.js') }}"></script>

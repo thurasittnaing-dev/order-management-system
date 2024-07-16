@@ -31,7 +31,14 @@ class InvoiceService
     public function index()
     {
         $query = Order::query()
-            ->when(request('invoice_no'), fn($query) => $query->where('invoice_no', 'LIKE', '%' . request('invoice_no') . '%'));
+            ->when(request('invoice_no'), fn($query) => $query->where('invoice_no', 'LIKE', '%' . request('invoice_no') . '%'))
+            ->when(request('datefilter'), function($query) {
+                $dateRange = request('datefilter');
+                $dates = explode("-", $dateRange);
+                $startDateTime = date('Y-m-d 00:00:00', strtotime($dates[0]));
+                $endDateTime = date('Y-m-d 23:59:59', strtotime($dates[1]));
+                $query->whereBetween('updated_at', [$startDateTime, $endDateTime]);
+            });;
 
         $totalNetAmount = $query->sum('net_amount');
 

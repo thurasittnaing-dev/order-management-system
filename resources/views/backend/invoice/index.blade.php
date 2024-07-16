@@ -6,9 +6,12 @@
 
 @section('content')
 
+
+
     <div class="container-fluid">
         @php
             $invoice_no = $_GET['invoice_no'] ?? '';
+            $date = $_GET['datefilter']?? '';
         @endphp
         <div class="card">
             <div class="card-header">Filter</div>
@@ -19,7 +22,8 @@
                             <input type="text" name="invoice_no" class="form-control" placeholder="Invoice No"
                                 value="{{ $invoice_no }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="mb-3 col-md-3">
+                            <input type="text" class="form-control" name="datefilter" value="{{ $date }}" placeholder="Select Date" />
                         </div>
                     </div>
                 </div>
@@ -57,6 +61,7 @@
                             <th scope="col">Paid</th>
                             <th scope="col">Change</th>
                             <th scope="col">Net Amount</th>
+                            <th scope="col">Date</th>
                             <th scope="col">
                                 <center>Action</center>
                             </th>
@@ -74,6 +79,7 @@
                                 <td>{{ $order->paid }}</td>
                                 <td>{{ $order->change }}</td>
                                 <td>{{ $order->net_amount }}</td>
+                                <td>{{ $order->updated_at->format('d-m-Y') }}</td>
                                 <td align="center">
                                     <a href="{{ route('invoices.show', $order->id) }}" class="btn btn-secondary" target="_blank">View</a>
                                 </td>
@@ -110,4 +116,25 @@
 
     @section('js')
 
+
+    <script type="text/javascript">
+        $(function() {
+
+          $('input[name="datefilter"]').daterangepicker({
+              autoUpdateInput: false,
+              locale: {
+                  cancelLabel: 'Clear'
+              }
+          });
+
+          $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+              $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+          });
+
+          $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+              $(this).val('');
+          });
+
+        });
+    </script>
     @endsection
