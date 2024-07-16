@@ -84,6 +84,9 @@ class OrderModuleService
                         'amount' => $recipe->amount *  $recipeData->quantity,
                     ]);
                 }
+                $table->in_used = true;
+                $table->save();
+
             } else {
                 $order_id = $orderData->id;
 
@@ -97,6 +100,11 @@ class OrderModuleService
                         'discount' => $recipe->discount *  $recipeData->quantity,
                         'amount' => $recipe->amount *  $recipeData->quantity,
                     ]);
+                }
+                // Update the in_used column to true if it's not already set
+                if (!$table->in_used) {
+                    $table->in_used = true;
+                    $table->save();
                 }
             }
 
@@ -130,6 +138,13 @@ class OrderModuleService
                 'change' => $request->input('change_amount'),
                 'status' => true,
             ]);
+
+             // Update the in_used column to false after order completion
+                $orderTable = $order->orderTable;
+                if ($orderTable) {
+                    $orderTable->in_used = false;
+                    $orderTable->save();
+                }
 
             DB::commit();
             return [
