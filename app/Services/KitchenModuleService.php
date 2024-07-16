@@ -11,13 +11,13 @@ class KitchenModuleService
     public function getOrdersForToday()
     {
         $today = date('Y-m-d');
-        $recipes = OrderRecipes::with('recipe', 'order')->whereDate('created_at', $today)->where('status', 'pending')->get();
+        $recipes = OrderRecipes::with('recipe', 'order')->whereDate('created_at', $today)->where('status', 'pending')->orderBy('created_at', 'desc')->get();
         $recipesCount = $recipes->count();
-        $confirm = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'confirm')->get();
+        $confirm = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'confirm')->orderBy('created_at', 'desc')->get();
         $confirmCount = $confirm->count();
-        $cancel = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'cancel')->get();
+        $cancel = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'cancel')->orderBy('created_at', 'desc')->get();
         $cancelCount = $cancel->count();
-        $ready = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'ready')->get();
+        $ready = OrderRecipes::with('recipe')->whereDate('created_at', $today)->where('status', 'ready')->orderBy('created_at', 'desc')->get();
         $readyCount = $ready->count();
 
         return compact('recipes', 'confirm', 'cancel', 'ready', 'recipesCount', 'confirmCount', 'cancelCount', 'readyCount');
