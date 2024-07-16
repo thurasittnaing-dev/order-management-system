@@ -11,11 +11,12 @@ class DashboardController extends Controller
 {
     public function showDashboard(Request $request)
     {
+        // dd($request->all());
         $totalRevenue = Order::sum('net_amount');
         $totalInvoices = Order::count();
 
-        $availableTablesCount = OrderTables::where('in_used',0)->count();
-        $inUseTablesCount = OrderTables::where('in_used',1)->count();
+        $availableTablesCount = OrderTables::where('in_used', 0)->count();
+        $inUseTablesCount = OrderTables::where('in_used', 1)->count();
 
         $selectedYear = $request->input('income_year', date('Y'));
         $selectedInvoiceYear = $request->input('invoice_year', date('Y'));
@@ -55,7 +56,7 @@ class DashboardController extends Controller
         //     $monthsOfYearInvoices[$invoice->month] = $invoice->total_invoices;
         // }
 
-        return view('backend.dashboard.main-dashboard', compact('totalRevenue','totalInvoices','availableTablesCount','inUseTablesCount','monthsOfYear','monthsOfYearInvoices','selectedYear', 'selectedInvoiceYear'));
+        return view('backend.dashboard.main-dashboard', compact('totalRevenue', 'totalInvoices', 'availableTablesCount', 'inUseTablesCount', 'monthsOfYear', 'monthsOfYearInvoices', 'selectedYear', 'selectedInvoiceYear'));
     }
 
     private function getMonthlyIncomeData($year)
@@ -65,9 +66,9 @@ class DashboardController extends Controller
             DB::raw('MONTH(created_at) as month'),
             DB::raw('SUM(net_amount) as total_income')
         )->whereYear('created_at', $year)
-        ->groupBy('month')
-        ->orderBy('month')
-        ->get();
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
         // Initialize an array with all months set to 0
         $monthsOfYear = array_fill(0, 12, 0);
@@ -87,9 +88,9 @@ class DashboardController extends Controller
             DB::raw('MONTH(created_at) as month'),
             DB::raw('COUNT(id) as total_invoices')
         )->whereYear('created_at', $year)
-        ->groupBy('month')
-        ->orderBy('month')
-        ->get();
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
         // Initialize an array with all months set to 0
         $monthsOfYearInvoices = array_fill(0, 12, 0);
