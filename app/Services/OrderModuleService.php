@@ -29,11 +29,16 @@ class OrderModuleService
     public function getOrderTables($room)
     {
         $tables = OrderTables::with('current_order')->where('room_id', $room)->get();
+        $max_person = $tables->groupBy('max_person')->sortKeys();
+        $countByMaxPerson = $max_person->map(function ($group) {
+            return $group->count();
+        });
         return [
             'tables' => $tables,
             'totalTables' => $tables->count(),
             'room' => Room::with('orderTables')->find($room),
-            'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
+            'maxPersons' => $max_person,
+            'countByMaxPerson' => $countByMaxPerson,
 
         ];
     }
@@ -79,6 +84,9 @@ class OrderModuleService
                         'amount' => $recipe->amount *  $recipeData->quantity,
                     ]);
                 }
+                $table->in_used = true;
+                $table->save();
+
             } else {
                 $order_id = $orderData->id;
 
@@ -92,6 +100,11 @@ class OrderModuleService
                         'discount' => $recipe->discount *  $recipeData->quantity,
                         'amount' => $recipe->amount *  $recipeData->quantity,
                     ]);
+                }
+                // Update the in_used column to true if it's not already set
+                if (!$table->in_used) {
+                    $table->in_used = true;
+                    $table->save();
                 }
             }
 
@@ -126,6 +139,13 @@ class OrderModuleService
                 'status' => true,
             ]);
 
+             // Update the in_used column to false after order completion
+                $orderTable = $order->orderTable;
+                if ($orderTable) {
+                    $orderTable->in_used = false;
+                    $orderTable->save();
+                }
+
             DB::commit();
             return [
                 'status' => 'update-success',
@@ -145,10 +165,21 @@ class OrderModuleService
     {
         $query = OrderTables::query();
         $tables = $query->get();
+        $inUseCount = $tables->filter(function($table) {
+            return $table->current_order == true;
+        })->count();
+        $maxPersons = $tables->groupBy('max_person')->sortKeys();
+        $countByPerson = $maxPersons->map(function($group) {
+            return $group->filter(function($table) {
+                return $table->current_order == true;
+            })->count();
+        });
+
         return [
             'tables' => $tables,
-            'totalTables' => $query->count(),
-            'maxPersons' => $tables->groupBy('max_person')->sortKeys(),
+            'maxPersons' => $maxPersons,
+            'total_count' => $inUseCount,
+            'countByPerson'=>$countByPerson,
         ];
     }
 
@@ -171,7 +202,7 @@ class OrderModuleService
                 $dates = explode("-", $dateRange);
                 $startDateTime = date('Y-m-d 00:00:00', strtotime($dates[0]));
                 $endDateTime = date('Y-m-d 23:59:59', strtotime($dates[1]));
-                $query->whereBetween('updated_at', [$startDateTime, $endDateTime]);
+                $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
             });
         $totalCount = $query->count();
         $orders = $query->orderBy('created_at', 'desc')->paginate(5)->withQueryString();

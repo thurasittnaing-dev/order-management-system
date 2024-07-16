@@ -6,18 +6,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Alert Messages -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
 
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        @include('__message')
         <div class="page-card">
             <div class="text-center room-title"> Kitchen </div>
             <ul class="nav nav-tabs d-flex justify-content-between" id="myTab" role="tablist">
@@ -68,8 +58,11 @@
                                             <span class="table-badge">{{ $item->recipe->name }} <br> Price
                                                 ({{ $item->recipe->amount }}MMK)
                                             </span>
-                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
-                                                {{ $item->quantity }}
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                <b> {{ $item->quantity }}</b>
+                                            </span>
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 end-0 m-2">
+                                                <b>{{ $item->order->orderTable->table_no }}</b>
                                             </span>
                                         </a>
                                     </div>
@@ -120,8 +113,11 @@
                                             <span class="table-badge">{{ $item->recipe->name }} <br> Price
                                                 ({{ $item->recipe->amount }}MMK)
                                             </span>
-                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
-                                                {{ $item->quantity }}
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                <b> {{ $item->quantity }}</b>
+                                            </span>
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 end-0 m-2">
+                                                <b>{{ $item->order->orderTable->table_no }}</b>
                                             </span>
                                         </a>
                                     </div>
@@ -160,8 +156,11 @@
                                             <span class="table-badge">{{ $item->recipe->name }} <br> Price
                                                 ({{ $item->recipe->amount }}MMK)
                                             </span>
-                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
-                                                {{ $item->quantity }}
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                <b> {{ $item->quantity }}</b>
+                                            </span>
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 end-0 m-2">
+                                                <b>{{ $item->order->orderTable->table_no }}</b>
                                             </span>
                                         </a>
                                     </div>
@@ -187,8 +186,11 @@
                                             <span class="table-badge">{{ $item->recipe->name }} <br> Price
                                                 ({{ $item->recipe->amount }}MMK)
                                             </span>
-                                            <span class="btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
-                                                {{ $item->quantity }}
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 start-0 m-2">
+                                                <b> {{ $item->quantity }}</b>
+                                            </span>
+                                            <span class=" btn btn-sm btn-danger position-absolute top-0 end-0 m-2">
+                                                <b>{{ $item->order->orderTable->table_no }}</b>
                                             </span>
                                         </a>
                                     </div>

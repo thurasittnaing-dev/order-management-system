@@ -72,6 +72,7 @@ class OrderModuleController extends Controller
 
     public function checkout(Request $request, Order $order = null)
     {
+
         $data = $this->orderModuleService->updateOrder($request, $order);
         $table = $order->order_table_id;
         return redirect()->route('makeOrder', ['table' => $table, 'order' => $order]);

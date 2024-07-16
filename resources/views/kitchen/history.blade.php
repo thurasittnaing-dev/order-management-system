@@ -55,32 +55,43 @@
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
+
                     <table class="table table-bordered text-center mb-0">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Invoice No</th>
                                 <th scope="col">Table No</th>
                                 <th scope="col">Recipe Name</th>
-                                <th scope="col">Invoice No</th>
-                                <th scope="col">Total Quantity</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Quantity</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($orders as $index => $order)
                                 <tr>
                                     <td>{{ $index + 1 + ($orders->currentPage() - 1) * $orders->perPage() }}</td>
+                                    <td>{{ $order['invoice_no'] }}</td>
                                     <td>{{ $order['table_no'] }}</td>
                                     <td>{{ $order['recipe_name'] }}</td>
-                                    <td>{{ $order['invoice_no'] }}</td>
-                                    <td>{{ $order['total_quantity'] }}</td>
+                                    <td>{{ $order['date'] }}</td>
+                                    <td>{{ $order['quantity'] }}</td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td align="center" colspan="5">There is no history yet!</td>
+                                    <td align="center" colspan="6">There is no history yet!</td>
                                 </tr>
                             @endforelse
                         </tbody>
+                        <tfoot class="fw-bold">
+                            <tr>
+                                <td colspan="4"></td>
+                                <td><strong>Total Quantity</strong></td>
+                                <td>{{ $total_quantity }}</td>
+                            </tr>
+                        </tfoot>
                     </table>
+
                     <div class="d-flex justify-content-center mt-3">
                         {{ $orders->appends(request()->input())->links() }}
                     </div>
