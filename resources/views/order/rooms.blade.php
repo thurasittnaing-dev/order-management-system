@@ -35,9 +35,24 @@
                         @foreach ($rooms as $room)
                             <a href="{{ route('tables', $room->id) }}">
                                 <div class="room-card">
-                                    <div class="box">
-                                        <div class="ribbon-success"><span>Available</span></div>
-                                    </div>
+                                    @php
+                                        $allTablesInUse = true;
+                                        foreach ($room->orderTables as $table) {
+                                            if (!$table->current_order) {
+                                                $allTablesInUse = false;
+                                                break;
+                                            }
+                                        }
+                                    @endphp
+                                    @if ($allTablesInUse)
+                                        <div class="box">
+                                            <div class="ribbon-danger"><span>In_Use</span></div>
+                                        </div>
+                                    @else
+                                        <div class="box">
+                                            <div class="ribbon-success"><span>Available</span></div>
+                                        </div>
+                                    @endif
                                     <div class="rom-img">
                                         <img src="{{ asset('storage/rooms/' . $room->image) }}" alt="">
                                     </div>
@@ -47,6 +62,7 @@
                                 </div>
                             </a>
                         @endforeach
+
                     </div>
                 </div>
 
@@ -57,19 +73,34 @@
                             @foreach ($rooms as $room)
                                 <a href="{{ route('tables', $room->id) }}">
                                     <div class="room-card">
-                                        <div class="box">
-                                            <div class="ribbon-success"><span>Available</span></div>
-                                        </div>
+                                        @php
+                                            $allTablesInUse = true;
+                                            foreach ($room->orderTables as $table) {
+                                                if (!$table->current_order) {
+                                                    $allTablesInUse = false;
+                                                    break;
+                                                }
+                                            }
+                                        @endphp
+                                        @if ($allTablesInUse)
+                                            <div class="box">
+                                                <div class="ribbon-danger"><span>In_Use</span></div>
+                                            </div>
+                                        @else
+                                            <div class="box">
+                                                <div class="ribbon-success"><span>Available</span></div>
+                                            </div>
+                                        @endif
                                         <div class="rom-img">
                                             <img src="{{ asset('storage/rooms/' . $room->image) }}" alt="">
                                         </div>
                                         <div class="room-title-badge">
                                             {{ $room->name }}
-
                                         </div>
                                     </div>
                                 </a>
                             @endforeach
+
                         </div>
                     </div>
                 @endforeach
