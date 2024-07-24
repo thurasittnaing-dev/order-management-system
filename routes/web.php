@@ -57,7 +57,6 @@ Route::middleware(['auth'])->group(function () {
     //Invoice
     Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
     Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
-
 });
 
 
@@ -87,7 +86,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'order-management'], function 
 
     //Inuse Table
     Route::get('/inuse_table', [OrderModuleController::class, 'inuseTable'])->name('inuseTable');
-
 });
 
 
@@ -100,5 +98,3 @@ Route::group(['middleware' => 'auth', 'prefix' => 'kitchen'], function () {
     //History
     Route::get('/history', [KitchenModuleController::class, 'history'])->name('history');
 });
-
-

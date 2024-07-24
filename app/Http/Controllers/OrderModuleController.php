@@ -15,6 +15,7 @@ class OrderModuleController extends Controller
 
     public function __construct(OrderModuleService $orderModuleService)
     {
+        $this->middleware('waiter');
         $this->orderModuleService = $orderModuleService;
     }
 
@@ -51,11 +52,11 @@ class OrderModuleController extends Controller
         // $totalAmount =  is_null($order) ? 0 : $order->orderRecipes->sum('amount');
         // $totalDiscount =   is_null($order) ? 0 : $order->orderRecipes->sum('discount');
 
-        $totalAmount = is_null($order) ? 0 : $order->orderRecipes->filter(function($orderRecipe) {
+        $totalAmount = is_null($order) ? 0 : $order->orderRecipes->filter(function ($orderRecipe) {
             return $orderRecipe->status !== 'cancel';
         })->sum('amount');
 
-        $totalDiscount = is_null($order) ? 0 : $order->orderRecipes->filter(function($orderRecipe) {
+        $totalDiscount = is_null($order) ? 0 : $order->orderRecipes->filter(function ($orderRecipe) {
             return $orderRecipe->status !== 'cancel';
         })->sum('discount');
 

@@ -18,6 +18,7 @@ class RecipeController extends Controller
 
     public function __construct(RecipeService $recipeService)
     {
+        $this->middleware('admin');
         $this->recipeService = $recipeService;
     }
 
@@ -32,7 +33,7 @@ class RecipeController extends Controller
     {
         $categories = Category::get();
         $ingredients = Ingredient::get();
-        return view('backend/recipe.create',compact('categories','ingredients'));
+        return view('backend/recipe.create', compact('categories', 'ingredients'));
     }
 
     public function store(RecipeStoreRequest $request)
@@ -52,23 +53,23 @@ class RecipeController extends Controller
     {
         $categories = Category::get();
         $ingredients = Ingredient::get();
-        return view('backend/recipe.edit',compact('recipe','categories','ingredients'));
+        return view('backend/recipe.edit', compact('recipe', 'categories', 'ingredients'));
     }
 
-    public function update(RecipeUpdateRequest $request,Recipe $recipe)
+    public function update(RecipeUpdateRequest $request, Recipe $recipe)
     {
-        $data = $this->recipeService->update($request,$recipe);
+        $data = $this->recipeService->update($request, $recipe);
         return redirect()->route('recipe.index')->with($data['status'], $data['message']);
     }
 
     public function addPromotion(Recipe $recipe)
     {
-        return view('backend.recipe.addpromotion',compact('recipe'));
+        return view('backend.recipe.addpromotion', compact('recipe'));
     }
 
-    public function storePromotion(PromotionStoreRequest $request,$id)
+    public function storePromotion(PromotionStoreRequest $request, $id)
     {
-        $data = $this->recipeService->storePromotion($request,$id);
+        $data = $this->recipeService->storePromotion($request, $id);
         return redirect()->route('recipe.index')->with($data['status'], $data['message']);
     }
 }

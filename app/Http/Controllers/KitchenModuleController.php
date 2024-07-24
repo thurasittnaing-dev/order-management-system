@@ -12,6 +12,7 @@ class KitchenModuleController extends Controller
 
     public function __construct(KitchenModuleService $kitchenModuleService)
     {
+        $this->middleware('kitchen');
         $this->kitchenModuleService = $kitchenModuleService;
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserpasswordUpdateRequest;
@@ -20,6 +20,7 @@ class UserController extends Controller
 
     public function __construct(UserService $userService)
     {
+        $this->middleware('admin');
         $this->userService = $userService;
     }
 
@@ -53,7 +54,7 @@ class UserController extends Controller
     // Update the specified user in storage.
     public function update(UserUpdateRequest $request, User $user)
     {
-       $data = $this->userService->update($request,$user);
+        $data = $this->userService->update($request, $user);
         return redirect()->route('user.index')->with($data['status'], $data['message']);;
     }
 
@@ -67,18 +68,19 @@ class UserController extends Controller
     public function storePassword(ChangePasswordRequest $request)
     {
         $data = $this->userService->storePassword($request);
-        return redirect()->route('user.index')->with($data['status'],$data['message']);
+        return redirect()->route('user.index')->with($data['status'], $data['message']);
     }
 
-    public function storeUserpassword( UserpasswordUpdateRequest $request, $id ){
-        $data = $this->userService->storeUserpassword($request,$id);
-        return redirect()->route('user.index')->with($data['status'],$data['message']);
+    public function storeUserpassword(UserpasswordUpdateRequest $request, $id)
+    {
+        $data = $this->userService->storeUserpassword($request, $id);
+        return redirect()->route('user.index')->with($data['status'], $data['message']);
     }
 
     // Remove the specified user from storage.
     public function destroy(User $user)
     {
-        $data = $this->userService->destroy($user) ;
-        return redirect()->route('user.index')->with($data['status'],$data['message']);
+        $data = $this->userService->destroy($user);
+        return redirect()->route('user.index')->with($data['status'], $data['message']);
     }
 }

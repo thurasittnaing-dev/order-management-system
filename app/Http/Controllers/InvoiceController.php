@@ -12,6 +12,7 @@ class InvoiceController extends Controller
 
     public function __construct(InvoiceService $invoiceService)
     {
+        $this->middleware('admin');
         $this->invoiceService = $invoiceService;
     }
 

@@ -15,6 +15,7 @@ class OrderTablesController extends Controller
 
     public function __construct(OrderTableService $orderTableService)
     {
+        $this->middleware('admin');
         $this->orderTableService = $orderTableService;
     }
 
@@ -37,21 +38,21 @@ class OrderTablesController extends Controller
 
     public function destroy(OrderTables $order_table)
     {
-       $data =$this->orderTableService->destroy($order_table);
-        return redirect()->route('order_tables.index')->with($data['status'],$data['message']);
+        $data = $this->orderTableService->destroy($order_table);
+        return redirect()->route('order_tables.index')->with($data['status'], $data['message']);
     }
 
     public function edit(OrderTables $order_table)
     {
-     // dd($order_table);
+        // dd($order_table);
         $rooms = Room::get();
-        return view('backend.order_tables.edit', compact('order_table','rooms'));
+        return view('backend.order_tables.edit', compact('order_table', 'rooms'));
     }
 
-    public function update(OrderTableUpdateRequest $request,OrderTables $order_table)
+    public function update(OrderTableUpdateRequest $request, OrderTables $order_table)
     {
 
-        $data =$this->orderTableService->update($request,$order_table);
-        return redirect()->route('order_tables.index')->with($data['status'],$data['message']);
+        $data = $this->orderTableService->update($request, $order_table);
+        return redirect()->route('order_tables.index')->with($data['status'], $data['message']);
     }
 }

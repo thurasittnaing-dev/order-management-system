@@ -15,6 +15,7 @@ class RoomController extends Controller
 
     public function __construct(RoomService $roomService)
     {
+        $this->middleware('admin');
         $this->roomService = $roomService;
     }
 
